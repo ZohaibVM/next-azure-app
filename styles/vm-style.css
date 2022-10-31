@@ -1,0 +1,1565 @@
+html {
+  scroll-behavior: smooth;
+}
+
+/* Add Application Form START */
+
+button.table-btn:hover {
+  font-weight: 600;
+}
+
+button.table-btn,
+button.table-btn:active,
+button.table-btn:checked {
+  font-size: 1.4rem;
+  background-color: #32dcdc;
+  color: white;
+  font-weight: bold;
+  padding: 0.8rem;
+  border: none;
+  padding-left: 1.3rem;
+  padding-right: 1.3rem;
+}
+
+button:focus {
+  outline: none !important;
+}
+
+.custom-radio-button:checked:after {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  background-color: rgb(251, 8, 116);
+  content: "";
+  display: inline-block;
+  visibility: visible;
+  border: 2px solid white;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.application-form-element-li {
+  cursor: pointer;
+}
+
+.application-form-element-li:hover {
+  background-color: rgb(251, 8, 116);
+}
+
+.af_h_title_box .af-t-primary {
+  font-weight: 600 !important;
+  font-size: 18px !important;
+  /* padding: 0.65rem 1.25rem !important; */
+  /* padding: 1rem 2rem 1rem !important; */
+  padding: 0.8rem 2rem !important;
+}
+
+.expanding-search-title {
+  font-size: 16px !important;
+  font-weight: 500 !important;
+}
+
+.black-bottom-border {
+  /* border-bottom: 1px solid #000 !important; */
+  /* padding-bottom: 0.6rem; */
+  padding: 0.3rem;
+  margin-bottom: 5px;
+}
+
+.mt-zero-point-5 {
+  margin-top: 0.5rem;
+}
+
+.required-toggle-icon-label:before {
+  background-color: #5c017d !important;
+}
+
+.required-toggle-icon-label:after {
+  background-color: #db78f9 !important;
+}
+
+.custom-control-input:checked ~ .required-toggle-icon-label:after {
+  background-color: #32dcdc !important;
+}
+
+.mr-zero-point-5 {
+  margin-right: 0.5rem;
+}
+
+#custom-button-application-form {
+  float: right;
+  margin-right: 0;
+}
+
+#custom-button-application-form > button {
+  height: 40px;
+}
+
+#custom-button-application-form > button:hover {
+  box-shadow: none !important;
+}
+
+#custom-application-form-element-button {
+  /* background-color: #740c9a !important; */
+  font-weight: bolder;
+  /* padding: 1rem 1.3rem; */
+  padding: 0.5rem 1.3rem;
+}
+
+#custom-application-form-element-button:hover {
+  box-shadow: none !important;
+}
+
+.toggle-container {
+  width: 40px;
+  max-width: 40px;
+  /* background-color: #5c017d; */
+  cursor: pointer;
+  user-select: none;
+  border-radius: 20px;
+  height: 22px;
+  position: relative;
+}
+
+.dialog-button {
+  top: 2px;
+  cursor: pointer;
+  background-color: #32dcdc;
+  border-radius: 18px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  position: absolute;
+  left: 20px;
+  transition: all 0.3s ease;
+}
+
+.applicaion-button-preview-button-background-color {
+  /* background-color: #32dcdc !important; */
+}
+
+.applicaion-button-save-button-background-color {
+  /* background-color: #5c017d !important; */
+}
+
+.disabled {
+  background-color: #db78f9;
+  left: 2px;
+}
+
+.custom-card-body-padding {
+  padding: 1rem 2rem 2rem !important;
+}
+
+.custom-input-wrappper-application-form {
+  margin-bottom: 0 !important;
+  width: 100% !important;
+  /* border-bottom: 1px solid #000 !important; */
+}
+
+.custom-input-wrappper-application-form > input {
+  margin-top: 5px;
+  padding: 1rem !important;
+  /* padding: 1rem 0rem !important; */
+  /* color: #720698 !important; */
+  /* border-bottom: none !important; */
+  border-radius: 0 !important;
+  font-weight: 400 !important;
+  line-height: 1.25 !important;
+  font-size: 16px !important;
+}
+
+.custom-input-wrappper-application-form > input::placeholder {
+  font-size: 16px !important;
+  /* color: #720698 !important; */
+  color: inherit;
+}
+
+.custom-options-wrappper-application-form {
+  margin-bottom: 0 !important;
+  width: 100% !important;
+}
+
+.custom-options-wrappper-application-form > input {
+  /* border-bottom: 1px solid #000 !important; */
+  /* padding: 1rem 0rem !important; */
+  /* color: #720698 !important; */
+  padding: 1rem !important;
+  border-radius: 0 !important;
+  font-weight: 400 !important;
+  line-height: 1.25 !important;
+  font-size: 16px !important;
+  margin-bottom: 3px;
+}
+
+.custom-options-wrappper-application-form > input:not(:last-child) {
+  margin-bottom: 15px;
+}
+
+.custom-options-wrappper-application-form > input::placeholder {
+  font-size: 16px !important;
+  /* color: #720698 !important; */
+}
+
+/* Add Application Form END */
+
+/* Templates START */
+
+.react-collapse-title:hover {
+  color: white;
+}
+
+.ck-content {
+  height: 200px !important;
+}
+
+/*.ck-content * {
+color: black !important;
+}*/
+
+.template-emails-input,
+.template-emails-input::placeholder {
+  font-size: 16px !important;
+  color: #720698 !important;
+}
+
+/* Templates END */
+
+/* Loader START */
+
+.react-loader-wrapper {
+  height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Loader END */
+
+/* Application Preview START */
+
+.react-custom-card-header {
+  background-color: #db78f9 !important;
+  padding: 1rem 3rem !important;
+  color: white !important;
+  font-weight: 600;
+  font-size: large;
+}
+
+.react-custom-card-body {
+  background-color: white !important;
+  padding: 1rem 2rem !important;
+}
+
+.react-custom-card-body > .application-form-section-wrapper > .section-heading {
+  font-weight: bold;
+  color: #fb0874 !important;
+  padding-bottom: 0.5rem;
+  text-align: center;
+}
+
+.react-custom-card-body
+  > .application-form-section-wrapper
+  > .elements-wrapper {
+  color: #720698 !important;
+  display: grid;
+  grid-template-columns: 47.5% 47.5%;
+  column-gap: 5%;
+}
+
+.react-custom-card-body
+  > .application-form-section-wrapper
+  > .elements-wrapper
+  > .element-wrapper-inner-div
+  > .element-wrapper-inner-div-inner-h5 {
+  font-weight: bold;
+  font-size: 17px;
+  color: #720698 !important;
+}
+
+.react-custom-card-body
+  > .application-form-section-wrapper
+  > .elements-wrapper
+  > .element-wrapper-inner-div:nth-last-child(2),
+.element-wrapper-inner-div:nth-last-child(1) {
+  padding-bottom: 0 !important;
+}
+
+.react-custom-card-body
+  > .application-form-section-wrapper
+  > .elements-wrapper
+  > .element-wrapper-inner-div:nth-child(odd) {
+  border-right: 2px solid #720698;
+}
+
+.react-custom-card-body
+  > .application-form-section-wrapper
+  > .elements-wrapper
+  > .element-wrapper-inner-div
+  > .element-wrapper-inner-div-inner-div {
+  color: #333333 !important;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.react-custom-card-body > .application-status {
+  color: #fb0874 !important;
+  border-bottom: 1px solid #fb0874;
+  padding-bottom: 1rem;
+  font-weight: 600;
+  margin-top: 1rem;
+}
+
+.react-custom-card-body > .student-info,
+.class-info {
+  border-bottom: 1px solid #720698;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+}
+
+.react-custom-card-body > .student-info > .student-info-inner-div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.react-custom-card-body > .class-info > .class-info-inner-div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.react-custom-card-body
+  > .student-info
+  > .student-info-inner-div
+  > .application-status-info-title {
+  font-weight: 600;
+}
+
+.react-custom-card-body
+  > .class-info
+  > .class-info-inner-div
+  > .application-status-info-title {
+  font-weight: 600;
+}
+
+.react-custom-card-body
+  > .student-info
+  > .student-info-inner-div
+  > .application-status-info-title {
+  color: #720698 !important;
+}
+
+.react-custom-card-body
+  > .class-info
+  > .class-info-inner-div
+  > .application-status-info-title {
+  color: #720698 !important;
+}
+
+.student-data,
+.application-status,
+.class-data {
+  color: #720698 !important;
+}
+
+.react-custom-card-body > .fee-wrapper {
+  padding-bottom: 1rem !important;
+  padding-top: 2rem;
+}
+
+.react-custom-card-body > .fee-wrapper > .fee-wrapper-inner-div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.react-custom-card-body
+  > .fee-wrapper
+  > .fee-wrapper-inner-div
+  > .fee-wrapper-inner-div-inner-h5 {
+  color: #fb0874 !important;
+  font-weight: 600;
+}
+
+.react-custom-card-body > .fee-wrapper > .fee-wrapper-inner-div > .fee-amount {
+  color: #fb0874 !important;
+  font-weight: 600;
+}
+
+.react-application-preview-top-buttons-wrapper {
+  display: grid;
+  grid-template-columns: 65% 32%;
+  grid-column-gap: 3%;
+}
+
+.react-application-preview-top-buttons-wrapper > .buttons-wrapper,
+.dropdown {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.react-application-preview-top-buttons-wrapper > .buttons-wrapper > button {
+  font-size: 1rem;
+  background-color: #32dcdc;
+  color: white;
+  padding: 0.8rem;
+  border: none;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  font-weight: 500;
+}
+
+.react-application-preview-top-buttons-wrapper
+  > .buttons-wrapper
+  > button:first-child {
+  background-color: #740c9a !important;
+}
+
+.react-approve-dropdown-button {
+  font-size: 1rem !important;
+  background-color: #fb0874 !important;
+  color: white !important;
+  padding: 0.8rem !important;
+  border: none !important;
+  /* padding-left: 3rem !important; */
+  padding-right: 3rem !important;
+  font-weight: 500 !important;
+}
+
+.react-approve-dropdown-button::after {
+  left: 2rem !important;
+}
+
+.react-approve-dropdown-button > .react-approve-dropdown-button-text {
+  padding-right: 2rem;
+}
+
+.react-approve-dropdown-button > .react-approve-dropdown-button-icon-seprator {
+  position: absolute;
+  margin-left: 13px;
+  border-right: 5px solid #5c017d;
+  height: 45px;
+  top: 0;
+}
+
+.react-approve-dropdown-menu {
+  background-color: white !important;
+}
+
+.react-approve-dropdown-menu::before {
+  display: none !important;
+}
+
+.react-approve-dropdown-menu > .dropdown-item {
+  color: #740c9a !important;
+  margin-top: 0 !important;
+  font-weight: 600 !important;
+  padding: 0.514rem 0.528rem !important;
+}
+
+.react-approve-dropdown-menu > .dropdown-item:last-child {
+  /* margin-bottom: 1rem !important; */
+}
+
+.react-approve-dropdown-menu > .dropdown-item:hover {
+  background-color: white !important;
+}
+
+.react-approve-dropdown-menu > .dropdown-item::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 2px;
+  background: #5b017d;
+  transition: width 0.3s;
+  margin-top: 5px;
+}
+
+.react-approve-dropdown-menu > .dropdown-item:hover::after {
+  width: 100%;
+}
+
+.react-application-preview-body-wrapper {
+  display: grid;
+  grid-template-columns: 65% 32%;
+  grid-column-gap: 3%;
+}
+
+.react-application-preview-class-details-wrapper > .card > .card-body {
+  border-radius: 0.5rem;
+}
+
+/* Application Preview END */
+
+/* Create Invoice START */
+
+.create-invoice-top-buttons-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.create-invoice-top-buttons-wrapper > div > .back-button {
+  font-size: 1rem;
+  background-color: #740c9a;
+  color: white;
+  padding: 0.8rem;
+  border: none;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  font-weight: 500;
+}
+
+.create-invoice-top-buttons-wrapper > div > .preview-button,
+.create-invoice-bottom-buttons-wrapper > div > .preview-button {
+  font-size: 1rem;
+  background-color: #32dcdc;
+  color: white;
+  padding: 0.8rem;
+  border: none;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  font-weight: 500;
+}
+
+.create-invoice-top-buttons-wrapper > div > .save-and-continue-button,
+.create-invoice-bottom-buttons-wrapper > div > .save-and-continue-button {
+  font-size: 1rem;
+  background-color: #fb0874;
+  color: white;
+  padding: 0.8rem;
+  border: none;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  font-weight: 500;
+}
+
+.create-invoice-accordian-and-edit-section {
+  display: grid;
+  grid-template-columns: 93% 6%;
+  column-gap: 0.45rem;
+}
+
+.create-invoice-accordian-and-edit-section > span > .edit-button-and-icon {
+  font-size: 1rem;
+  background-color: #740c9a;
+  color: white;
+  padding: 1.15rem;
+  border: none;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  font-weight: 500;
+}
+
+.student-and-invoice-sections-wrapper {
+  display: grid;
+  grid-template-columns: 73% 25%;
+  column-gap: 2%;
+}
+
+.student-and-invoice-sections-wrapper
+  > .student-and-invoice-add-student-section,
+.student-and-invoice-invoice-information-section {
+  height: 19rem;
+  color: white !important;
+  background-color: #740c9a;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.student-and-invoice-sections-wrapper
+  > .student-and-invoice-show-student-section {
+  height: 19rem;
+  color: white !important;
+  background-color: #740c9a;
+  border-radius: 5px;
+}
+
+.create-invoice-notes-and-terms-wrapper {
+  height: 12rem;
+  color: white !important;
+  background-color: #740c9a;
+  border-radius: 5px;
+  padding-right: 2rem;
+  padding-left: 2rem;
+  padding-top: 1.5rem;
+}
+
+.create-invoice-notes-and-terms-wrapper > .text-area-wrapper {
+  height: 100px;
+}
+
+.create-invoice-notes-and-terms-wrapper > .text-area-wrapper > textarea {
+  resize: none;
+}
+
+.create-invoice-notes-and-terms-wrapper > .notes-terms-heading {
+  color: white !important;
+  padding-bottom: 0.5rem;
+}
+
+.create-invoice-add-student-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px dashed #da77f2;
+  width: 75%;
+  height: 75%;
+}
+
+.create-invoice-add-student-wrapper > .add-student {
+  color: #da77f2 !important;
+  font-weight: bold;
+}
+
+.react-show-student-button-wrapper > div > .edit-button-with-icon {
+  font-size: 1rem;
+  background-color: #740c9a;
+  color: white;
+  padding: 0.8rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  font-weight: 500;
+  border: 1px solid #da77f2;
+}
+
+.react-show-student-button-wrapper > div > .change-student-button {
+  font-size: 1rem;
+  background-color: #da77f2;
+  color: white;
+  padding: 0.8rem;
+  border: none;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  font-weight: 500;
+  height: 45px;
+}
+
+.react-pick-a-date + .picker {
+  width: 116% !important;
+}
+
+/* Create Invoice END */
+
+.add-enrollment-button-wrapper > .add-enrollment-button {
+  font-size: 1rem;
+  background-color: #740c9a;
+  color: #da77f2;
+  padding: 0.8rem;
+  border: 1px dashed #da77f2;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  font-weight: 500;
+}
+
+.react-white-dropdown-button {
+  background-color: #fff !important;
+  color: #fb0874 !important;
+}
+
+.react-white-dropdown-button > .react-white-dropdown-button-text {
+  color: #740c9a !important;
+}
+
+.react-white-dropdown-button::after {
+  color: #fb0874 !important;
+}
+
+#background-white-react {
+  background-color: white !important;
+}
+
+.react-payment-modal-button-wrapper > .cancel-button-wrapper > .cancel-button {
+  font-size: 1rem;
+  background-color: #da77f2;
+  color: white;
+  padding: 0.8rem;
+  border: none;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  font-weight: 500;
+}
+
+.react-payment-modal-button-wrapper > .submit-button-wrapper > .submit-button {
+  font-size: 1rem;
+  background-color: #fb0874;
+  color: white;
+  padding: 0.8rem;
+  border: none;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  font-weight: 500;
+}
+
+#react-dark-purple-background-color {
+  background-color: #5b017d !important;
+}
+
+.react-padding-left-3-rem {
+  padding-left: 3rem !important;
+}
+
+.send-invoice-modal-subject-input::placeholder {
+  color: #da77f2 !important;
+}
+
+/* Invoice Preview Page START */
+
+.invoice-preview-page-wrapper {
+  border-radius: 5px;
+}
+
+.invoice-preview-page-wrapper > .invoice-preview-header {
+  display: flex;
+  justify-content: space-between;
+  color: #5b017d;
+  padding-bottom: 2rem;
+  border-bottom: 2px solid #fb0874;
+}
+
+.invoice-preview-page-wrapper
+  > .invoice-preview-header
+  > .invoice-preview-logo-wrapper
+  > .invoice-preview-logo-h1 {
+  color: #5b017d;
+  font-weight: bold;
+}
+
+.invoice-preview-page-wrapper
+  > .invoice-preview-header
+  > .invoice-wrapper
+  > .invoice-h1 {
+  color: #5b017d;
+  font-weight: bold;
+}
+
+.invoice-preview-table > .invoice-preview-table-header {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  column-gap: 3%;
+  background-color: #5b017d;
+  height: 50px;
+  align-items: center;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.invoice-preview-table > .invoice-preview-table-header > .h-5 {
+  margin-bottom: 0;
+}
+
+.invoice-preview-table > .invoice-preview-table-body {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  column-gap: 3%;
+  align-items: center;
+  border-bottom: 2px solid #5b017d;
+  padding-bottom: 2rem;
+}
+
+.invoice-preview-table > .invoice-preview-table-body > .h-5 {
+  color: #5b017d;
+}
+
+.invoice-preview-table > .invoice-preview-table-sub-total-discount {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  border-bottom: 2px solid #5b017d;
+  padding-bottom: 2rem;
+}
+
+.invoice-preview-table > .invoice-preview-table-total {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  margin-bottom: 10rem;
+}
+
+/* Invoice Preview Page END */
+
+/* react select START */
+
+.css-ql68v7-control {
+  min-height: 48px !important;
+}
+
+.css-9dxjaq-control {
+  min-height: 48px !important;
+}
+
+.css-1wa3eu0-placeholder {
+  color: #5b017d !important;
+}
+
+.css-1uccc91-singleValue {
+  color: #5b017d !important;
+}
+
+.css-tlfecz-indicatorContainer {
+  color: #fb0874 !important;
+}
+
+.css-182gzek-menu {
+  color: #5b017d !important;
+}
+
+.css-1okebmr-indicatorSeparator {
+  display: none;
+}
+
+/* react select END */
+
+.react-confirmation-modal-cancel-button {
+  font-size: 1rem;
+  background-color: white;
+  color: #5b017d;
+  padding: 0.8rem;
+  border: 2px solid #5b017d;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  font-weight: 500;
+  /* height: 43px; */
+}
+
+.react-confirmation-modal-continue-button {
+  font-size: 1rem;
+  background-color: #5b017d;
+  color: white;
+  padding: 0.8rem;
+  border: none;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  font-weight: 500;
+  /* height: 43px; */
+}
+
+.application-form-delete-section-button {
+  background-color: rgb(220, 0, 78) !important;
+}
+
+.actions-container {
+  display: none;
+  position: absolute;
+  width: 180px;
+  height: max-content;
+  background: white;
+  padding: 1rem;
+  border-radius: 5px;
+  right: 10px;
+  z-index: 1;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.actions-container-show {
+  display: block;
+  position: fixed !important;
+  right: 4.5vw !important;
+}
+
+.actions-container-anchor-tag {
+  color: #5b017d !important;
+  display: block;
+  text-align: left;
+  margin-bottom: 5px;
+}
+
+.actions-container-form-button::after,
+.actions-container-anchor-tag::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 2px;
+  background: #5b017d;
+  transition: width 0.3s;
+  margin-top: 5px;
+}
+
+.actions-container-form-button:hover::after,
+.actions-container-anchor-tag:hover::after {
+  width: 100%;
+}
+
+.actions-container-anchor-tag:hover {
+  color: #5b017d !important;
+}
+
+.actions-container-form-button {
+  background: white;
+  border: none;
+  width: 100%;
+  padding: 0;
+  text-align: left;
+  color: #5b017d;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.actions-container-form-button:active {
+  outline: none;
+}
+
+.actions-container-form-button:focus {
+  outline: none;
+}
+
+#vm-icon-gear {
+  cursor: pointer;
+}
+
+/*  Date Picker START */
+
+.ui-datepicker-calendar thead tr th {
+  padding: 0.25rem 0;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+
+.ui-datepicker-calendar thead tr th span {
+  color: #5b017d;
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+
+.ui-datepicker-calendar tbody tr td a {
+  border: none !important;
+  background: white !important;
+  border-radius: 0.25rem;
+  color: black !important;
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.ui-datepicker-calendar tbody tr td a:hover:not(.ui-state-active) {
+  background: #ccb9d3 !important;
+}
+
+.ui-datepicker-calendar tbody tr td .ui-state-active {
+  background: #5b017d !important;
+  color: white !important;
+}
+
+.ui-datepicker-title > .ui-datepicker-month,
+.ui-datepicker-title > .ui-datepicker-year {
+  color: #5b017d;
+}
+
+a.ui-datepicker-prev {
+  left: 0 !important;
+  background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMyIgaGVpZ2h0PSIxMyIgdmlld0JveD0iMCAwIDEzIDEzIj48cGF0aCBmaWxsPSIjNDI0NzcwIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik03LjI4OCA2LjI5NkwzLjIwMiAyLjIxYS43MS43MSAwIDAgMSAuMDA3LS45OTljLjI4LS4yOC43MjUtLjI4Ljk5OS0uMDA3TDguODAzIDUuOGEuNjk1LjY5NSAwIDAgMSAuMjAyLjQ5Ni42OTUuNjk1IDAgMCAxLS4yMDIuNDk3bC00LjU5NSA0LjU5NWEuNzA0LjcwNCAwIDAgMS0xLS4wMDcuNzEuNzEgMCAwIDEtLjAwNi0uOTk5bDQuMDg2LTQuMDg2eiIvPjwvc3ZnPg==") !important;
+  background-repeat: no-repeat !important;
+  background-size: 10px !important;
+  background-position: 50% !important;
+  transform: rotate(180deg) !important;
+}
+
+a.ui-datepicker-next {
+  right: 0 !important;
+  background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMyIgaGVpZ2h0PSIxMyIgdmlld0JveD0iMCAwIDEzIDEzIj48cGF0aCBmaWxsPSIjNDI0NzcwIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik03LjI4OCA2LjI5NkwzLjIwMiAyLjIxYS43MS43MSAwIDAgMSAuMDA3LS45OTljLjI4LS4yOC43MjUtLjI4Ljk5OS0uMDA3TDguODAzIDUuOGEuNjk1LjY5NSAwIDAgMSAuMjAyLjQ5Ni42OTUuNjk1IDAgMCAxLS4yMDIuNDk3bC00LjU5NSA0LjU5NWEuNzA0LjcwNCAwIDAgMS0xLS4wMDcuNzEuNzEgMCAwIDEtLjAwNi0uOTk5bDQuMDg2LTQuMDg2eiIvPjwvc3ZnPg==") !important;
+  background-repeat: no-repeat !important;
+  background-size: 10px !important;
+  background-position: 50% !important;
+}
+
+a.ui-datepicker-prev > span,
+a.ui-datepicker-next > span {
+  display: none !important;
+}
+
+.ui-widget-header {
+  border: none !important;
+  background: white !important;
+}
+
+#ui-datepicker-div {
+  background-color: #fff !important;
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.1) !important;
+  margin-top: 0.25rem !important;
+  border-radius: 0.5rem !important;
+  padding: 0.5rem !important;
+  border: none !important;
+}
+
+.ui-state-hover {
+  border: none !important;
+}
+
+.vm-ui-datepicker-calendar-th {
+  padding: 0.4rem 0 !important;
+  margin: 3px;
+  text-align: center !important;
+  font-size: 1.2rem !important;
+  font-weight: 600 !important;
+  color: #5c0b7d;
+  background: #f0eaf3;
+  border-radius: 5px;
+  width: 68px;
+  cursor: pointer;
+}
+
+/*  Date Picker END */
+
+.react-date-picker-calender-icon {
+  position: absolute;
+  right: 8px !important;
+  top: 15px !important;
+  color: #fb0874;
+  font-size: 15px !important;
+}
+
+.payment-modal-date-picker {
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 0 !important;
+  width: 310px;
+}
+
+/* React Date Picker START */
+
+.react-datepicker {
+  width: 238px;
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem !important;
+  border: none !important;
+}
+
+.react-datepicker__header {
+  width: 238px;
+  text-align: center;
+  background-color: white !important;
+  border-bottom: none !important;
+  border-radius: 0.5rem !important;
+  padding-top: 12px !important;
+}
+
+.react-datepicker__current-month {
+  color: #5b017d !important;
+  font-weight: bolder !important;
+}
+
+.react-datepicker__day-name {
+  color: #5b017d !important;
+}
+
+.react-datepicker__navigation {
+  top: 14px !important;
+}
+
+.react-datepicker__day--keyboard-selected {
+  background-color: #5b017d !important;
+}
+
+.react-datepicker__day--selected {
+  background-color: #5b017d !important;
+}
+
+.react-datepicker__day {
+  width: 1.85rem !important;
+  font-size: 12px !important;
+}
+
+.react-datepicker__day:hover:not(.react-datepicker__day--selected) {
+  background-color: #ccb9d3 !important;
+}
+
+.react-datepicker__day:hover:not(.react-datepicker__day--keyboard-selected) {
+  background-color: #ccb9d3 !important;
+}
+
+.react-datepicker__triangle {
+  display: none;
+}
+
+.react-datepicker__day-names {
+  margin-top: 0.2rem;
+}
+
+.react-datepicker__navigation--previous {
+  background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMyIgaGVpZ2h0PSIxMyIgdmlld0JveD0iMCAwIDEzIDEzIj48cGF0aCBmaWxsPSIjNDI0NzcwIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik03LjI4OCA2LjI5NkwzLjIwMiAyLjIxYS43MS43MSAwIDAgMSAuMDA3LS45OTljLjI4LS4yOC43MjUtLjI4Ljk5OS0uMDA3TDguODAzIDUuOGEuNjk1LjY5NSAwIDAgMSAuMjAyLjQ5Ni42OTUuNjk1IDAgMCAxLS4yMDIuNDk3bC00LjU5NSA0LjU5NWEuNzA0LjcwNCAwIDAgMS0xLS4wMDcuNzEuNzEgMCAwIDEtLjAwNi0uOTk5bDQuMDg2LTQuMDg2eiIvPjwvc3ZnPg==") !important;
+  background-repeat: no-repeat !important;
+  background-size: 10px !important;
+  background-position: 50% !important;
+  transform: rotate(180deg) !important;
+  border-right-color: transparent !important;
+}
+
+.react-datepicker__navigation--next {
+  background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMyIgaGVpZ2h0PSIxMyIgdmlld0JveD0iMCAwIDEzIDEzIj48cGF0aCBmaWxsPSIjNDI0NzcwIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik03LjI4OCA2LjI5NkwzLjIwMiAyLjIxYS43MS43MSAwIDAgMSAuMDA3LS45OTljLjI4LS4yOC43MjUtLjI4Ljk5OS0uMDA3TDguODAzIDUuOGEuNjk1LjY5NSAwIDAgMSAuMjAyLjQ5Ni42OTUuNjk1IDAgMCAxLS4yMDIuNDk3bC00LjU5NSA0LjU5NWEuNzA0LjcwNCAwIDAgMS0xLS4wMDcuNzEuNzEgMCAwIDEtLjAwNi0uOTk5bDQuMDg2LTQuMDg2eiIvPjwvc3ZnPg==") !important;
+  background-repeat: no-repeat !important;
+  background-size: 10px !important;
+  background-position: 50% !important;
+  border-left-color: transparent !important;
+}
+
+.react-datepicker__navigation--previous:focus {
+  outline: none;
+}
+
+.react-datepicker__navigation--next:focus {
+  outline: none;
+}
+
+/* React Date Picker END */
+
+.react-invoice-page-date-width {
+  min-width: 212px;
+}
+
+.react-required-icon {
+  background: #fb0874;
+  width: 15px;
+  height: 15px;
+  padding: 4px;
+  border-radius: 3px;
+  font-size: 15px;
+  display: inline-block;
+  margin-left: 5px;
+  line-height: 12px;
+}
+
+button {
+  border-radius: 5px !important;
+}
+
+.react-dropdown-icon-span {
+  background: #fb0874 !important;
+  width: 40px;
+}
+
+.react-dropdown-icon-span::after {
+  border: none !important;
+  font-family: "feather";
+  content: "\e842" !important;
+  position: relative;
+  top: 11px;
+  right: 0;
+  left: 0.9rem;
+  padding: 0;
+  margin: 0;
+  vertical-align: 0;
+}
+
+.approve-button-before-dropdown {
+  font-size: 1rem;
+  background-color: #fb0874;
+  color: white;
+  padding: 0.8rem;
+  border: none !important;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  font-weight: 500;
+  border-radius: 0 !important;
+  margin-right: 5px;
+}
+
+.actions-container-reverse {
+  top: auto;
+  bottom: 100%;
+}
+
+.react-date-picker-custom-heading-text {
+  color: #5b017d !important;
+  font-weight: bolder !important;
+  font-size: 0.944rem !important;
+}
+
+.react-date-picker-month-name {
+  padding: 0.4rem 0 !important;
+  margin: 3px;
+  text-align: center !important;
+  font-size: 1.2rem !important;
+  font-weight: 600 !important;
+  color: #5c0b7d;
+  background: #f0eaf3;
+  border-radius: 5px;
+  width: 68px;
+  cursor: pointer;
+}
+
+.react-date-picker-month-name-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.react-date-picker-year-name {
+  padding: 0.4rem 0 !important;
+  margin: 3px;
+  text-align: center !important;
+  font-size: 1.2rem !important;
+  font-weight: 600 !important;
+  color: #5c0b7d;
+  background: #f0eaf3;
+  border-radius: 5px;
+  width: 68px;
+  cursor: pointer;
+}
+
+/* Schedule Meta Data Page START */
+
+/* #710698 */
+/* class="nav-item nav-link active" */
+
+a#schedule-meta-data-tabs-tab:not(.active) {
+  background: none;
+  border: 3px solid #720698;
+}
+
+#schedule-meta-data-tabs-tab {
+  color: white;
+  background: #fb0874;
+  border-radius: 5px !important;
+  font-size: 1.2rem;
+  font-weight: 500;
+  width: 9rem;
+  text-align: center;
+  border: 3px solid #fb0874;
+}
+
+.react-schedule-meta-data-table-tbody > tr > td {
+  border: none !important;
+}
+
+#react-pink-backround-color {
+  background-color: #fb0874 !important;
+}
+
+.react-modal-with-pink-header {
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.react-modal-with-pink-header > div {
+  color: white !important;
+  margin-left: 0.9rem;
+  font-size: 1.25rem;
+}
+
+.calender-meta-data-actions-dropdown > button.dropdown-toggle {
+  background: inherit !important;
+}
+
+.calender-meta-data-actions-dropdown
+  > button.dropdown-toggle
+  > i.icon-settings {
+  color: #fb0874 !important;
+}
+
+.calender-meta-data-actions-dropdown > button.dropdown-toggle::after {
+  display: none;
+}
+
+.calender-meta-data-actions-dropdown > button.dropdown-toggle {
+  box-shadow: none !important;
+}
+
+/* Schedule Meta Data Page END */
+
+/* Build Schedule Page START */
+
+.react-build-schedule-calender-container {
+  display: grid;
+  grid-template-columns: 71% 27%;
+  column-gap: 1%;
+  height: 100%;
+  width: 100%;
+}
+
+.react-build-schedule-calender-container-full-width {
+  grid-template-columns: 100%;
+  height: auto;
+}
+
+.react-schedule-days-periods-wrapper {
+  display: flex;
+}
+
+.react-schedule-days-periods-wrapper > .schedule-day {
+  background-color: #720698;
+}
+
+.react-schedule-days-periods-wrapper > .schedule-day:not(:last-child) {
+  margin-right: 0.3rem;
+}
+
+.react-schedule-days-periods-wrapper > .schedule-day > .schedule-day-header {
+  display: grid;
+  place-items: center;
+  height: 3rem;
+  font-weight: 500;
+  color: white;
+}
+
+.react-schedule-days-periods-wrapper
+  > .schedule-day
+  > .schedule-day-header-shrinked {
+  width: 5rem;
+  font-size: 11px;
+}
+
+.react-schedule-days-periods-wrapper > .schedule-day > .schedule-day-periods {
+  background-color: #5c0b7d;
+  display: flex;
+}
+
+.react-schedule-days-periods-wrapper
+  > .schedule-day
+  > .schedule-day-periods
+  > .schedule-day-periods-period:nth-child(even):not(:last-child) {
+  margin-left: 0.15rem;
+}
+
+.react-schedule-days-periods-wrapper
+  > .schedule-day
+  > .schedule-day-periods
+  > .schedule-day-periods-period:nth-child(odd):not(:last-child):not(:first-child) {
+  margin-left: 0.15rem;
+}
+
+.react-schedule-days-periods-wrapper
+  > .schedule-day
+  > .schedule-day-periods
+  > .schedule-day-periods-period {
+  background: white;
+  color: #333333 !important;
+  height: 3rem;
+  width: 5rem;
+  font-size: 10px;
+  text-align: center;
+  font-weight: bold;
+  display: grid;
+  place-items: center;
+  padding: 2px;
+}
+
+.react-schedule-days-periods-wrapper
+  > .schedule-day
+  > .schedule-day-periods
+  > .schedule-day-periods-period:not(:first-child):last-child {
+  margin-left: 0.15rem;
+}
+
+.react-auto-schedule-button {
+  border-radius: 0 !important;
+  font-size: 1.4rem;
+  background-color: #720698 !important;
+  color: white;
+  font-weight: bold;
+  padding: 0.8rem;
+  border: none;
+  padding-left: 1.3rem;
+  padding-right: 1.3rem;
+  width: 100%;
+  height: 84px;
+}
+
+.react-create-schedule-top-nav {
+  background: #8125a1;
+  height: 4rem;
+  width: 100%;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+}
+
+.react-create-schedule-left-nav {
+  background: white;
+  margin-right: 0.5rem;
+  transition: min-width 0.3s ease;
+}
+
+.react-create-schedule-left-nav-with-increased-width {
+  min-width: 14.5rem;
+}
+.react-create-schedule-left-nav > .view-names-wrapper {
+  margin-top: 1.32rem;
+}
+
+.react-create-schedule-left-nav > .view-names-wrapper > .name-wrapper {
+  background: #f4e9f7;
+  color: white;
+  margin-bottom: 0.25rem;
+  cursor: pointer;
+  text-align: center;
+  height: 3rem;
+  display: grid;
+  place-items: center;
+  font-weight: 600;
+}
+
+.react-create-schedule-left-nav > .view-names-wrapper > .name-wrapper:hover {
+  opacity: 0.8;
+  transform: scale(0.99);
+}
+
+.min-width-and-width-4rem {
+  width: 4rem;
+  min-width: 4rem;
+}
+
+#border-radius-0 {
+  border-radius: 0 !important;
+}
+
+.react-get-information-modal-edit-delete-tab {
+  font-size: 1rem;
+  color: white;
+  padding: 0.8rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  font-weight: 500;
+  height: 43px;
+  border: none;
+  border-radius: 0 !important;
+  background: #b294bd;
+}
+
+.react-bg-color-medium-purple {
+  background: #720698;
+}
+/* Build Schedule Page END */
+
+/* Scroll Bar Library START */
+.react-scrollbars--bg-color > div:nth-child(2) > div:first-child {
+  background-color: #f2f2f2 !important;
+}
+
+.react-scrollbars--bg-color > div:nth-child(3) > div:first-child {
+  background-color: #f2f2f2 !important;
+}
+
+.schedule-subjects-list-scroll {
+  height: 101% !important;
+}
+
+.react-scrollbars-remove-scroll-y > div:nth-child(3) {
+  display: none !important;
+}
+/* Scroll Bar Library END */
+
+/* Schedule Single View START */
+.schedule-single-item-wrapper {
+  margin-top: 0.6rem;
+}
+
+.schedule-single-item {
+  display: flex;
+  justify-content: space-between;
+  background: linear-gradient(to right, #f4eaf7 32%, #ead7f0 32%);
+  padding: 30px 10px 30px;
+  margin-bottom: 0.3rem;
+  font-size: 11px;
+  font-weight: 600;
+  height: 75px;
+}
+
+.schedule-single-item > .schedule-single-item-span {
+  color: #5c0b7d !important;
+}
+
+.schedule-single-item > .schedule-single-item-span:first-child {
+  width: 31%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* Schedule Single View END */
+
+/* ScheduleSingleItemRightSide START */
+.schedule-single-item-right-side-wrapper
+  > .schedule-single-item-right-side-days-wrapper {
+  display: flex;
+}
+
+.schedule-single-item-right-side-wrapper
+  > .schedule-single-item-right-side-days-wrapper
+  > .schedule-single-item-right-side-day {
+  height: 60px;
+  background: #720698;
+  color: white;
+  display: grid;
+  place-items: center;
+  width: 9rem;
+  min-width: 9rem;
+  margin-right: 0.3rem;
+}
+
+.schedule-single-item-right-side-wrapper
+  > .schedule-single-item-right-side-days-wrapper
+  > .schedule-single-item-right-side-day
+  > div {
+  text-align: center;
+}
+
+/* ScheduleSingleItemRightSide END */
+
+.fixed-position-child-schedule-periods {
+  position: fixed !important;
+  right: 6vw !important;
+}
+
+.react-create-invoice-accordian::after {
+  transform: rotate(-180deg);
+  position: absolute;
+  top: 48%;
+  right: 20px;
+  margin-top: -8px;
+  font-family: "feather";
+  content: "\e845";
+  -webkit-transition: all 300ms linear 0s;
+  -o-transition: all 300ms linear 0s;
+  -moz-transition: all 300ms linear 0s;
+  transition: all 300ms linear 0s;
+  font-size: 0.9rem;
+}
+
+.react-create-invoice-accordian.show-accordian-react::after {
+  position: absolute;
+  top: 48%;
+  right: 20px;
+  margin-top: -8px;
+  font-family: "feather";
+  content: "\e845";
+  -webkit-transition: all 300ms linear 0s;
+  -o-transition: all 300ms linear 0s;
+  -moz-transition: all 300ms linear 0s;
+  transition: all 300ms linear 0s;
+  font-size: 0.9rem;
+  transform: rotate(0deg);
+}
+
+.vm_form-label-group-m {
+  margin-bottom: 5px;
+  padding: 5px 10px;
+}

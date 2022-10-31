@@ -1,0 +1,262 @@
+.drawer-btn {
+  padding: 15px 20px 15px 30px;
+  border: 0;
+  outline: 0;
+  color: #fff;
+  background-color: #000;
+  position: fixed;
+  z-index: 100;
+  box-shadow: 10px 10px 21px -12px rgba(0, 0, 0, 0.75);
+}
+
+.drawer-btn-left {
+  left: 0;
+  top: 100px;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  border-top-right-radius: 50px !important;
+  border-bottom-right-radius: 50px !important;
+}
+
+.drawer-btn-left i {
+  font-size: 20px;
+}
+
+.drawer-btn-right {
+  right: 0;
+  top: 100px;
+  border-top-left-radius: 50px !important;
+  border-bottom-left-radius: 50px !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.drawer-btn-right i {
+  font-size: 25px;
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 350px;
+  z-index: 101;
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  transition: all 0.3s ease;
+}
+
+.drawer-left {
+  left: -100%;
+}
+
+.drawer-right {
+  right: -100%;
+}
+
+.drawer-left.open {
+  left: 0;
+}
+
+.drawer-right.open {
+  right: 0;
+}
+
+.drawer-close {
+  border: 0;
+  outline: 0;
+  background-color: transparent;
+  margin-left: auto;
+  padding: 5px 0;
+}
+
+.drawer-close i {
+  font-size: 20px;
+}
+
+.drawer-content p {
+  font-weight: bold;
+}
+
+.drawer-layout {
+  display: flex;
+  /* flex-wrap: wrap; */
+  margin-bottom: 15px;
+}
+
+.drawer-layout button {
+  border: 2px solid transparent;
+  background-color: #fff;
+  border-radius: 0.5rem !important;
+  outline: 0;
+  padding: 0;
+  margin-right: 5px;
+  width: 35px;
+  height: 37px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.drawer-layout span {
+  width: 100%;
+  height: 100%;
+  border: 3px solid;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  border-color: #fff;
+  color: #fff;
+}
+
+.drawer-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.drawer-input label {
+  display: block;
+  font-weight: bold;
+  border-radius: 0.5rem;
+}
+
+.drawer-input input,
+.drawer-input select {
+  width: 100%;
+  height: 35px;
+  border-radius: 0.5rem;
+}
+
+.drawer-input input[type="file"] {
+  display: none;
+}
+
+.drawer-input input[type="color"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  /* width: 100%; */
+  /* margin-left: -3px; */
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.drawer-input input[type="color"]::-webkit-color-swatch {
+  border-radius: 5px;
+  border: none;
+}
+
+.drawer-input input[type="color"]::-moz-color-swatch {
+  border-radius: 5px;
+  border: none;
+}
+
+.drawer-input input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.drawer-input input[type="number"],
+.drawer-input select {
+  outline: 0;
+  border: 0;
+  font-weight: bold;
+  padding: 5px;
+}
+
+.drawer-input input[type="number"],
+.drawer-input select,
+.custom-file-upload,
+.color-input {
+  height: 40px;
+}
+
+label.custom-file-upload {
+  margin: 0;
+  background-color: #fff;
+  color: #000;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-file-upload i {
+  margin-right: 3px;
+}
+
+.pos-relative {
+  position: relative;
+}
+
+.form-input {
+  position: absolute;
+  height: 100%;
+  inset: 0;
+}
+
+.form-input-border-all {
+  border: 1px solid;
+  border-radius: 6px;
+}
+
+.form-input-border-bottom {
+  border-bottom: 1px solid;
+}
+.form-input.form-input-border-all.w-half,
+.form-input.form-input-border-bottom.w-half {
+  width: 50%;
+  left: unset;
+  right: 0;
+}
+
+.pos-relative.expanding-search-title i {
+  font-style: normal;
+}
+.pos-relative.expanding-search-title i,
+.pos-relative.expanding-search-title span {
+  position: relative;
+  z-index: 5;
+}
+
+input.form-control {
+  border-radius: 0.5rem !important;
+}
+
+input.form-control::placeholder {
+  color: #333 !important;
+}
+
+.color-input {
+  display: flex;
+  background-color: #fff;
+  border-radius: 0.5rem;
+  border: 2px solid #fff;
+}
+
+.color-input input {
+  border: 0;
+  outline: 0;
+}
+
+.color-input input[type="text"] {
+  flex-grow: 1;
+  padding: 5px 10px;
+  font-weight: bold;
+  height: 100%;
+  text-transform: uppercase;
+}
+
+.color-input input[type="color"] {
+  height: 100%;
+  flex-shrink: 0;
+  flex-basis: 40px;
+  border: 1px solid #e1e1e1;
+}
+
+.modal-body {
+  padding: 2rem;
+}
