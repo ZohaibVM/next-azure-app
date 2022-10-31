@@ -1401,7 +1401,7 @@ const ReviewPage = ({
                 </div>
                 <div className="vm_checkbox_container">
                   {[1, 2, 3, 4, 5].map((v) => (
-                    <div className="vm_rb">
+                    <div className="vm_rb" key={v}>
                       <input
                         type="radio"
                         name="rating"
@@ -1459,8 +1459,8 @@ const ReviewPage = ({
 
   return (
     <div className="application_form_area rev_scr_form">
-      {sections.map((s) => (
-        <div className="af_h_title_box mb-4">
+      {sections.map((s, i) => (
+        <div className="af_h_title_box mb-4" key={i}>
           <div
             style={{
               color: whiteColor,
