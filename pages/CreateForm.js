@@ -214,11 +214,11 @@ const AddApplicationForm = () => {
   persistentSections = sections;
 
   useEffect(() => {
-    const isMailMendatory = persistentSections[0].isEmailMandatory;
+    const isMailMendatory = persistentSections[0].isEmailMandatory; // extracted to new variable
     if (isMailMendatory) {
       setIsEmailMandatory(true);
     }
-  }, [isMailMendatory]);
+  }, []);
 
   useEffect(() => {
     if (elementUniqueIdentifier) {
@@ -684,7 +684,7 @@ const AddApplicationForm = () => {
         });
     }
     setIsLoaded(true);
-  }, [getElement, handleSingleInputChange]);
+  }, [getElement, handleSingleInputChange]); // empty dependencey
 
   const handleElementsDragChange = (oldIndex, newIndex, section) => {
     const newSections = [...sections];
