@@ -6,15 +6,17 @@ import Dropdown from "../Dropdown/Dropdown";
 
 export default function AllForms() {
   const [message, setMessage] = useState("");
+  const [counter, setCounter] = useState(null);
   const { push } = useRouter();
   // const forms = useSelector((state) => state.allForms.forms);
   useEffect(() => {
     const apiCall = () => {
-      const res = fetch("http://localhost:7071/api/dummy-func")
+      const res = fetch("/api/dummy-func")
         .then((res) => res.json())
         .then((res) => {
           console.log(res);
           setMessage(res?.message);
+          setCounter(res?.count);
         })
         .catch((err) => {
           console.log(err);
@@ -25,9 +27,18 @@ export default function AllForms() {
     apiCall();
   }, []);
 
+  console.log(counter);
+
   return (
     <section className="all-forms">
       <div>{message}</div>
+      <button
+        onClick={() => {
+          setCounter((count) => (count += 1));
+        }}
+      >
+        Add {counter}
+      </button>
       <div className="all-forms-wrapper">
         <div className="all-forms-single" onClick={() => push("/CreateForm")}>
           <i className="fa fa-2x fa-fw fa-file-o"></i>
