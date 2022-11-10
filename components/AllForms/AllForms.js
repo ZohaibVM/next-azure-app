@@ -7,6 +7,7 @@ import Dropdown from "../Dropdown/Dropdown";
 export default function AllForms() {
   const [message, setMessage] = useState("");
   const [counter, setCounter] = useState(null);
+  const [employees, setEmployees] = useState([]);
   const { push } = useRouter();
   // const forms = useSelector((state) => state.allForms.forms);
   useEffect(() => {
@@ -17,6 +18,7 @@ export default function AllForms() {
           console.log(res);
           setMessage(res?.message);
           setCounter(res?.count);
+          setEmployees(res?.employees);
         })
         .catch((err) => {
           console.log(err);
@@ -32,6 +34,19 @@ export default function AllForms() {
   return (
     <section className="all-forms">
       <div>{message}</div>
+      <div>
+        {!!employees.length &&
+          employees?.map((emp) => (
+            <div key={emp.EmployeeId}>
+              <p>
+                Name: {emp.FirstName}
+                {emp.LastName}
+              </p>
+              <p>Company: {emp.Company}</p>
+              <p>Team: {emp.Team}</p>
+            </div>
+          ))}
+      </div>
       <button
         onClick={() => {
           setCounter((count) => (count += 1));
