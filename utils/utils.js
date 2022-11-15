@@ -336,3 +336,432 @@ export const mapFormState = (form) => {
 
   return formValuesObject;
 };
+
+export const multiFields = ["address", "full name", "phone number", "time"];
+export const singleFields = [
+  "email address",
+  "date",
+  "integer",
+  "decimal",
+  "long text",
+  "short text",
+  "multiple choice",
+  "single choice",
+  "file upload",
+  "dropdown",
+  "scale rating",
+  "signature",
+];
+
+export const getMultiple = (name) => {
+  switch (name) {
+    case "address":
+      return [
+        {
+          order: 1,
+          fieldTitle: "Street Address",
+          isVisible: true,
+          isRequired: true,
+          fieldType: "text",
+          placeholder: "",
+          defaultValue: "",
+          value: "",
+        },
+        {
+          order: 2,
+          fieldTitle: "Street Address Line 2",
+          isVisible: true,
+          isRequired: true,
+          fieldType: "text",
+          placeholder: "",
+          defaultValue: "",
+          value: "",
+        },
+        {
+          order: 3,
+          fieldTitle: "City",
+          isVisible: true,
+          isRequired: true,
+          fieldType: "text",
+          placeholder: "",
+          defaultValue: "",
+          value: "",
+        },
+        {
+          order: 4,
+          fieldTitle: "State/Province",
+          isVisible: true,
+          isRequired: true,
+          fieldType: "text",
+          placeholder: "",
+          defaultValue: "",
+          value: "",
+        },
+        {
+          order: 5,
+          fieldTitle: "Postal/Zipcode",
+          isVisible: true,
+          isRequired: true,
+          fieldType: "text",
+          placeholder: "",
+          defaultValue: "",
+          value: "",
+        },
+        {
+          order: 5,
+          fieldTitle: "Country",
+          isVisible: true,
+          isRequired: true,
+          fieldType: "dropdown",
+          isMultiSelect: false,
+          placeholder: "",
+          defaultValue: "",
+          value: "",
+          options: [
+            {
+              title: "Option 1",
+              value: "opt1",
+              isVisible: true,
+              isDefault: true,
+            },
+            {
+              title: "Option 2",
+              value: "opt2",
+              isVisible: true,
+              isDefault: false,
+            },
+            {
+              title: "Option 3",
+              value: "opt3",
+              isVisible: true,
+              isDefault: false,
+            },
+          ],
+        },
+      ];
+    case "full name":
+      return [
+        {
+          order: 1,
+          fieldTitle: "Prefix",
+          isVisible: true,
+          isRequired: false,
+          fieldType: "dropdown",
+          isMultiSelect: false,
+          placeholder: "Dummy Text",
+          defaultValue: "",
+          value: "",
+          options: [
+            {
+              title: "Mr.",
+              value: "mr",
+              isVisible: true,
+              isDefault: true,
+            },
+            {
+              title: "Mrs.",
+              value: "mrs",
+              isVisible: false,
+              isDefault: false,
+            },
+            {
+              title: "Ms.",
+              value: "ms",
+              isVisible: true,
+              isDefault: false,
+            },
+          ],
+        },
+        {
+          order: 2,
+          fieldTitle: "First Name",
+          isVisible: true,
+          isRequired: true,
+          fieldType: "text",
+          placeholder: "Dummy Text",
+          defaultValue: "",
+          value: "",
+        },
+        {
+          order: 3,
+          fieldTitle: "Middle Name",
+          isVisible: true,
+          isRequired: false,
+          fieldType: "text",
+          placeholder: "Dummy Text",
+          defaultValue: "",
+          value: "",
+        },
+        {
+          order: 4,
+          fieldTitle: "Last Name",
+          isVisible: true,
+          isRequired: true,
+          fieldType: "text",
+          placeholder: "Dummy Text",
+          defaultValue: "",
+          value: "",
+        },
+      ];
+    case "phone number":
+      return [
+        {
+          order: 1,
+          fieldTitle: "Area Code",
+          isVisible: true,
+          isRequired: true,
+          fieldType: "text",
+          placeholder: "",
+          defaultValue: "",
+          value: "",
+        },
+        {
+          order: 2,
+          fieldTitle: "Phone Number",
+          isVisible: true,
+          isRequired: true,
+          fieldType: "text",
+          placeholder: "",
+          defaultValue: "",
+          value: "",
+        },
+      ];
+    case "time":
+      return [
+        {
+          order: 1,
+          fieldTitle: "Hours",
+          isVisible: true,
+          isRequired: true,
+          fieldType: "text",
+          placeholder: "",
+          defaultValue: "",
+          value: "",
+        },
+        {
+          order: 2,
+          fieldTitle: "Minutes",
+          isVisible: true,
+          isRequired: true,
+          fieldType: "text",
+          placeholder: "",
+          defaultValue: "",
+          value: "",
+        },
+        {
+          order: 3,
+          fieldTitle: "Period",
+          isVisible: true,
+          isRequired: true,
+          fieldType: "text",
+          placeholder: "",
+          defaultValue: "",
+          value: "",
+        },
+      ];
+    default:
+      return "invalid name";
+  }
+};
+
+export const getSingle = (name) => {
+  switch (name) {
+    case "email address":
+      return [
+        {
+          order: 1,
+          fieldTitle: "Email Address",
+          isVisible: true,
+          isRequired: true,
+          fieldType: "email",
+          placeholder: "",
+          defaultValue: "",
+          value: "",
+        },
+      ];
+    case "date":
+      return [
+        {
+          order: 1,
+          fieldTitle: "Date",
+          isVisible: true,
+          isRequired: true,
+          fieldType: "date",
+          placeholder: "",
+          defaultValue: "",
+          value: "",
+        },
+      ];
+    case "integer":
+      return [
+        {
+          order: 1,
+          fieldTitle: "Integer",
+          isVisible: true,
+          isRequired: true,
+          fieldType: "number",
+          placeholder: "",
+          defaultValue: "",
+          value: "",
+        },
+      ];
+    case "decimal":
+      return [
+        {
+          order: 1,
+          fieldTitle: "Decimel",
+          isVisible: true,
+          isRequired: true,
+          fieldType: "number",
+          placeholder: "",
+          defaultValue: "",
+          value: "",
+        },
+      ];
+    case "long text":
+      return [
+        {
+          order: 1,
+          fieldTitle: "Long Text",
+          isVisible: true,
+          isRequired: true,
+          fieldType: "textarea",
+          placeholder: "",
+          defaultValue: "",
+          value: "",
+        },
+      ];
+    case "short text":
+      return [
+        {
+          order: 1,
+          fieldTitle: "Short Text",
+          isVisible: true,
+          isRequired: true,
+          fieldType: "text",
+          placeholder: "",
+          defaultValue: "",
+          value: "",
+        },
+      ];
+    case "multiple choice":
+      return [
+        {
+          order: 1,
+          fieldTitle: "Multichoice",
+          isVisible: true,
+          isRequired: true,
+          fieldType: "dropdown",
+          isMultiSelect: true,
+          placeholder: "",
+          defaultValue: "",
+          value: "",
+          options: [
+            {
+              title: "Ms.",
+              value: "ms",
+              isVisible: true,
+              isDefault: false,
+            },
+          ],
+        },
+      ];
+    case "single choice":
+      return [
+        {
+          order: 1,
+          fieldTitle: "Singlechoice",
+          isVisible: true,
+          isRequired: true,
+          fieldType: "dropdown",
+          isMultiSelect: false,
+          placeholder: "",
+          defaultValue: "",
+          value: "",
+          options: [
+            {
+              title: "Ms.",
+              value: "ms",
+              isVisible: true,
+              isDefault: false,
+            },
+          ],
+        },
+      ];
+    case "file upload":
+      return [
+        {
+          order: 1,
+          fieldTitle: "File Upload",
+          isVisible: true,
+          isRequired: true,
+          fieldType: "file",
+          placeholder: "",
+          defaultValue: "",
+          value: "",
+        },
+      ];
+    case "dropdown":
+      return [
+        {
+          order: 1,
+          fieldTitle: "Dropdown",
+          isVisible: true,
+          isRequired: false,
+          fieldType: "dropdown",
+          isMultiSelect: false,
+          placeholder: "",
+          defaultValue: "",
+          value: "",
+          options: [
+            {
+              title: "Mr.",
+              value: "mr",
+              isVisible: true,
+              isDefault: true,
+            },
+            {
+              title: "Mrs.",
+              value: "mrs",
+              isVisible: false,
+              isDefault: false,
+            },
+            {
+              title: "Ms.",
+              value: "ms",
+              isVisible: true,
+              isDefault: false,
+            },
+          ],
+        },
+      ];
+    case "scale rating":
+      return [
+        {
+          order: 1,
+          fieldTitle: "Scale Rating",
+          isVisible: true,
+          isRequired: false,
+          fieldType: "rating",
+          placeholder: "",
+          defaultValue: "",
+          value: "",
+        },
+      ];
+    case "signature":
+      return [
+        {
+          order: 1,
+          fieldTitle: "Signature",
+          isVisible: true,
+          isRequired: false,
+          fieldType: "signature",
+          placeholder: "",
+          defaultValue: "",
+          value: "",
+        },
+      ];
+    default:
+      return "invalid name";
+  }
+};

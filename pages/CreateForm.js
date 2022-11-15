@@ -19,7 +19,7 @@ import Address from "../shared/Address";
 import EmailAddress from "../shared/EmailAddress";
 import IntegerElement from "../shared/IntegerElement";
 import DecimalElement from "../shared/DecimalElement";
-import Date from "../shared/Date";
+import DateComponent from "../shared/Date";
 import Time from "../shared/Time";
 import ShortText from "../shared/ShortText";
 import LongText from "../shared/LongText";
@@ -32,6 +32,12 @@ import FileUpload from "../shared/FileUpload";
 import ConfirmationModal from "../shared/ConfirmationModal";
 import Drawer from "../shared/Drawer";
 import useTheme from "../hooks/useTheme";
+import {
+  getMultiple,
+  getSingle,
+  multiFields,
+  singleFields,
+} from "../utils/utils";
 
 const generateRandomString = () =>
   `${Faker.name.findName()}-${Math.random()}-${Faker.internet.email()}`;
@@ -393,7 +399,7 @@ const AddApplicationForm = () => {
         );
       case "Date":
         return (
-          <Date
+          <DateComponent
             handleClickedElement={handleClickedElement}
             uniqueIdentifier={key}
             editMode={editMode}
@@ -749,6 +755,49 @@ const AddApplicationForm = () => {
     boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
   };
 
+  const handleFormData = async (formData) => {
+    const newSectionData = formData.sectionsData.map((section) => {
+      return {
+        sectionId: uuidv4(),
+        sectionTitle: section.name,
+        sectionDescription: section.value ? section.value : "",
+        isFirstSection: true,
+        elements: section.elements.map((element) => {
+          return {
+            id: uuidv4(),
+            elementType: element.elementType,
+            elementTitle: element.name,
+            elementDescription: element.value ? element.value : "",
+            isMultiFieldElement: multiFields.includes(element.elementType)
+              ? true
+              : false,
+            isRequired: true,
+            isPrimary: true,
+            isVisible: true,
+            isTemplateElement: true,
+            fields: multiFields.includes(element.elementType)
+              ? getMultiple(element.elementType)
+              : singleFields.includes(element.elementType)
+              ? getSingle(element.elementType)
+              : null,
+          };
+        }),
+      };
+    });
+
+    const newForm = {
+      formId: formData.formId,
+      formTitle: formData.title,
+      formDescription: "",
+      creationDate: Date.now(),
+      lastUpdateDate: null,
+      sections: [...newSectionData],
+    };
+
+    const res = await axios.post(`/api/createForm`, { form: newForm });
+    console.log({ res });
+  };
+
   return (pathname.toLowerCase().includes("edit") && !sections.length) ||
     !isLoaded ? (
     <div className="react-loader-wrapper">
@@ -940,7 +989,7 @@ const AddApplicationForm = () => {
                       height: "40px",
                       backgroundColor: primaryColor,
                     }}
-                    onClick={() => {
+                    onClick={async () => {
                       const apiData = [];
                       persistentSections.map((s) => {
                         const elements = [];
@@ -986,6 +1035,15 @@ const AddApplicationForm = () => {
                         sections,
                         activeStep,
                         uniqueIdentifier,
+                      });
+
+                      await handleFormData({
+                        sectionsData: apiData,
+                        title: titleRef.current.innerText,
+                        formId:
+                          existingFormIndex !== -1
+                            ? existingForm.formId
+                            : newFormId,
                       });
                       push("/");
                       // axios
