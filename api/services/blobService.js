@@ -90,8 +90,8 @@ module.exports = {
 };
 
 function getBlobServiceClient() {
-  const accountName = process.env.AZURE_STORAGE_ACCOUNT_NAME;
-  console.log(accountName);
+  // const accountName = process.env.AZURE_STORAGE_ACCOUNT_NAME;
+  const accountName = "formbuilderblobstorage";
   if (!accountName) throw Error("Azure Storage accountName not found");
 
   const blobServiceClient = new BlobServiceClient(
