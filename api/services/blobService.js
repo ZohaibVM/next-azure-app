@@ -11,6 +11,7 @@ async function createNewBlob(formData) {
     return res;
   } catch (err) {
     console.error(`Error: ${err.message}`);
+    return `Error: ${err.message}`;
   }
 }
 
@@ -21,6 +22,7 @@ async function getBlobs() {
     return names;
   } catch (err) {
     console.error(`Error: ${err.message}`);
+    return `Error: ${err.message}`;
   }
 }
 
@@ -70,6 +72,7 @@ async function downloadBlobData() {
     // return data;
   } catch (err) {
     console.error(`Error: ${err.message}`);
+    return `Error: ${err.message}`;
   }
 }
 
@@ -79,6 +82,7 @@ async function deleteBlob(blobName) {
     return message;
   } catch (err) {
     console.error(`Error: ${err.message}`);
+    return `Error: ${err.message}`;
   }
 }
 
