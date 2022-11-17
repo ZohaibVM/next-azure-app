@@ -72,10 +72,20 @@ async function downloadBlobData() {
   }
 }
 
+async function deleteBlob(blobName) {
+  try {
+    const message = await deleteBlobData(blobName);
+    return message;
+  } catch (err) {
+    console.error(`Error: ${err.message}`);
+  }
+}
+
 module.exports = {
   createNewBlob,
   getBlobs,
   downloadBlobData,
+  deleteBlob,
 };
 
 function getBlobServiceClient() {
@@ -111,7 +121,7 @@ async function createAndUploadBlobData(formData, blobServiceClient) {
     getContainerName()
   );
   // Create a unique name for the blob
-  const blobName = "forms" + uuidv1() + ".txt";
+  const blobName = formData.formId + ".txt";
 
   // Get a block blob client
   const blockBlobClient = containerClient.getBlockBlobClient(blobName);
@@ -127,7 +137,7 @@ async function createAndUploadBlobData(formData, blobServiceClient) {
     JSON.stringify(formData).length
   );
 
-  return `Blob was uploaded successfully. requestId: ${uploadBlobResponse.requestId}`;
+  return `Blob was uploaded successfully. blobName:${blobName} requestId: ${uploadBlobResponse.requestId}`;
 }
 
 // List blobs in container
@@ -165,6 +175,26 @@ async function deleteContainer() {
   );
 }
 
+// Delete Blob
+async function deleteBlobData(blobName) {
+  const blobServiceClient = getBlobServiceClient();
+  const containerClient = blobServiceClient.getContainerClient(
+    getContainerName()
+  );
+  // include: Delete the base blob and all of its snapshots.
+  // only: Delete only the blob's snapshots and not the blob itself.
+  const options = {
+    deleteSnapshots: "include", // or 'only'
+  };
+
+  // Create blob client from container client
+  const blockBlobClient = await containerClient.getBlockBlobClient(blobName);
+
+  await blockBlobClient.delete(options);
+
+  return `deleted blob ${blobName}`;
+}
+
 // List all containers
 async function listContainers(blobServiceClient) {
   let i = 1;
@@ -175,6 +205,21 @@ async function listContainers(blobServiceClient) {
     containerNames.push(container.name);
   }
   return containerNames;
+}
+
+async function deleteBlobIfItExists(containerClient, blobName) {
+  // include: Delete the base blob and all of its snapshots.
+  // only: Delete only the blob's snapshots and not the blob itself.
+  const options = {
+    deleteSnapshots: "include", // or 'only'
+  };
+
+  // Create blob client from container client
+  const blockBlobClient = await containerClient.getBlockBlobClient(blobName);
+
+  await blockBlobClient.deleteIfExists(options);
+
+  console.log(`deleted blob ${blobName}`);
 }
 
 // Convert stream to text

@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { addForm } from "../store/formSlice";
-import { CreateFormContext } from "../context/CreateFormContext";
+import { CreateFormContext, useForm } from "../context/CreateFormContext";
 import LeftDrawer from "../components/LeftDrawer";
 import AddApplicationFormSteps from "../components/FormSteps";
 import LeftSection from "../components/LeftSection";
@@ -59,11 +59,14 @@ const AddApplicationForm = () => {
   const newFormId = uuidv4();
   const {
     push,
-    query: { formId },
+    query: { id: formId },
     pathname,
   } = useRouter();
-  //   const { formId } = useParams();
-  const { forms, onAddForm } = useContext(CreateFormContext);
+
+  // console.log({ formId });
+
+  // const { forms, onAddForm } = useContext(CreateFormContext);
+  const { forms, onAddForm, formsJSON } = useForm();
 
   const [selectedSection, setSelectedSection] = useState([
     { step: "Student Information", index: 0 },
@@ -72,28 +75,35 @@ const AddApplicationForm = () => {
   let uniqueIdentifier;
 
   if (formId) {
-    const form = forms.find((form) => form.formId === formId);
+    const form = formsJSON.find((form) => form.formId === formId);
     uniqueIdentifier = form.uniqueIdentifier;
   } else {
     uniqueIdentifier = generateRandomString();
   }
 
-  const existingFormIndex = useSelector((state) =>
-    state.allForms.forms.findIndex((form) => form.formId === formId)
-  );
+  // const existingFormIndex = useSelector((state) =>
+  //   state.allForms.forms.findIndex((form) => form.formId === formId)
+  // );
+  // const existingForm = useSelector((state) =>
+  //   state.allForms.forms.find((form) => form.formId === formId)
+  // );
 
-  const existingForm = useSelector((state) =>
-    state.allForms.forms.find((form) => form.formId === formId)
+  // ! clear
+  const existingFormIndex = formsJSON.findIndex(
+    (form) => form.formId === formId
   );
-
-  const [isLoaded, setIsLoaded] = useState(false);
+  // console.log({ existingFormIndex });
+  // ! clear
+  const existingForm = formsJSON.find((form) => form.formId === formId);
+  // console.log({ existingForm });
+  const [isLoaded, setIsLoaded] = useState(true);
   const [elementUniqueIdentifier, setElementUniqueIdentifier] =
     useState(undefined);
   const [isEmailMandatory, setIsEmailMandatory] = useState(false);
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
-  const dispatch = useDispatch();
-  //   const navigate = useNavigate();
+  // const dispatch = useDispatch();
 
+  // ! clear
   const handleEditableElementChange = (e) => {
     const key = e.target.getAttribute("uniqueIdentifier");
     const persistentSectionsCopy = [...persistentSections];
@@ -120,7 +130,7 @@ const AddApplicationForm = () => {
         break;
     }
   };
-
+  // ! clear
   const handleSingleInputChange = (e, uniquekey, isSection = false) => {
     const newSections = [...persistentSections];
     const activeSection = newSections.find(
@@ -147,7 +157,7 @@ const AddApplicationForm = () => {
       persistentSections = isSection ? newSections : sections;
     }
   };
-
+  // ! clear
   const handleRemoveSection = () => {
     if (!activeStep.isFirstSection) {
       setActiveStep(
@@ -219,13 +229,14 @@ const AddApplicationForm = () => {
   persistentActiveStep = activeStep;
   persistentSections = sections;
 
+  // ! clear
   useEffect(() => {
     const isMailMendatory = persistentSections[0].isEmailMandatory; // extracted to new variable
     if (isMailMendatory) {
       setIsEmailMandatory(true);
     }
   }, []);
-
+  // ! clear
   useEffect(() => {
     if (elementUniqueIdentifier) {
       const newElement = document.getElementById(elementUniqueIdentifier);
@@ -235,7 +246,7 @@ const AddApplicationForm = () => {
       }
     }
   });
-
+  // ! clear
   const handleClickedElement = (e, name, uniquekey) => {
     const key = generateRandomString();
     const newSections = [...persistentSections];
@@ -292,7 +303,7 @@ const AddApplicationForm = () => {
     }
     setSections(newSections);
   };
-
+  // ! clear
   const handleIsPrimaryChange = (isPrimary, key) => {
     const persistentSectionsCopy = [...persistentSections];
     persistentSectionsCopy &&
@@ -306,7 +317,7 @@ const AddApplicationForm = () => {
       });
     setSections(persistentSectionsCopy);
   };
-
+  // ! clear
   const getElement = (
     name,
     key,
@@ -497,7 +508,7 @@ const AddApplicationForm = () => {
         return;
     }
   };
-
+  // ! clear
   const handleSetSections = () => {
     let newSections = [...persistentSections];
     newSections = [
@@ -522,7 +533,7 @@ const AddApplicationForm = () => {
     setActiveStep(newSections[newSections.length - 1]);
     setSections(newSections);
   };
-
+  // ! clear
   const handleElementsClick = (e) => {
     const name = e.currentTarget.id;
     const newSections = [...sections];
@@ -546,7 +557,7 @@ const AddApplicationForm = () => {
     setElementUniqueIdentifier(uniqueIdentifier);
     setSections(newSections);
   };
-
+  // ! clear
   const handleMultipleInputsChange = (value, uniquekey, option) => {
     const newSections = [...persistentSections];
     const currentSection = newSections.find(
@@ -567,138 +578,142 @@ const AddApplicationForm = () => {
     persistentSections = newSections;
   };
 
-  useEffect(() => {
-    if (window.location.pathname.toLowerCase().includes("edit")) {
-      axios
-        .get(
-          `${window.location.origin}/ApplicationForm/get?formId=${Number(
-            window.location.pathname.split("/").pop()
-          )}`
-        )
-        .then((response) => {
-          if (response.status === 200) {
-            response.data.applicationForm &&
-              response.data.applicationForm.forEach((section) => {
-                const sectionKey = generateRandomString();
-                section.reactElement = (
-                  <SectionName
-                    uniqueIdentifier={sectionKey}
-                    handleChange={handleSingleInputChange}
-                    editMode={{
-                      status: true,
-                      value: section.value,
-                      name: section.name,
-                    }}
-                    handleEditableElementChange={handleEditableElementChange}
-                  />
-                );
-                section.uniqueIdentifier = sectionKey;
-                section.elements &&
-                  section.elements.forEach((element) => {
-                    const elementKey = generateRandomString();
-                    element.reactElement = getElement(
-                      titleCase(element.elementType),
-                      elementKey,
-                      false,
-                      {
-                        status: true,
-                        value: element.value,
-                        isRequired: element.isRequired,
-                        isVisible: element.isVisible,
-                        options: element.options,
-                        name: element.name,
-                        isPrimary: element.isPrimary,
-                        isTemplateElement: element.isTemplateElement,
-                      }
-                    );
-                    element.uniqueIdentifier = elementKey;
-                  });
-              });
-            if (response.data.applicationForm) {
-              setActiveStep(response.data.applicationForm[0]);
-              setSections(response.data.applicationForm);
-            }
-          }
-        })
-        .catch((error) => {
-          // errorAlert(error);
-          console.log("errorAlert", error);
-        });
-    }
-    if (
-      window.location.pathname.toLowerCase().includes("create") &&
-      window.location.search.length
-    ) {
-      axios
-        .get(
-          `${
-            window.location.origin
-          }/ApplicationForm/getTemplate?formId=${Number(
-            window.location.search.split("=").pop()
-          )}`
-        )
-        .then((response) => {
-          if (response.status === 200) {
-            response.data.applicationForm &&
-              response.data.applicationForm.forEach((section) => {
-                const sectionKey = generateRandomString();
-                section.reactElement = (
-                  <SectionName
-                    uniqueIdentifier={sectionKey}
-                    handleChange={handleSingleInputChange}
-                    editMode={{
-                      status: true,
-                      value: section.value,
-                      name: section.name,
-                    }}
-                    handleEditableElementChange={handleEditableElementChange}
-                  />
-                );
-                section.uniqueIdentifier = sectionKey;
-                section.elements &&
-                  section.elements.forEach((element) => {
-                    const elementKey = generateRandomString();
-                    element.reactElement = getElement(
-                      titleCase(element.elementType),
-                      elementKey,
-                      false,
-                      {
-                        status: true,
-                        value: element.value,
-                        isRequired: element.isRequired,
-                        isVisible: element.isVisible,
-                        options: element.options,
-                        name: element.name,
-                        isPrimary: element.isPrimary,
-                        isTemplateElement: element.isTemplateElement,
-                      }
-                    );
-                    element.uniqueIdentifier = elementKey;
-                  });
-              });
-            if (response.data.applicationForm) {
-              if (response.data.applicationForm[0]) {
-                setActiveStep(response.data.applicationForm[0]);
-              }
-              setSections(response.data.applicationForm);
-            }
-          }
-        })
-        .catch((error) => {
-          // errorAlert(error);
-          console.log("errorAlert", error);
-        });
-    }
-    setIsLoaded(true);
-  }, [getElement, handleSingleInputChange]); // empty dependencey
+  // TODO: This effect not needed anymore
+  // useEffect(() => {
+  //   if (window.location.pathname.toLowerCase().includes("edit")) {
+  //     console.log("edit called");
+  //     axios
+  //       .get(
+  //         `${window.location.origin}/ApplicationForm/get?formId=${Number(
+  //           window.location.pathname.split("/").pop()
+  //         )}`
+  //       )
+  //       .then((response) => {
+  //         if (response.status === 200) {
+  //           response.data.applicationForm &&
+  //             response.data.applicationForm.forEach((section) => {
+  //               const sectionKey = generateRandomString();
+  //               section.reactElement = (
+  //                 <SectionName
+  //                   uniqueIdentifier={sectionKey}
+  //                   handleChange={handleSingleInputChange}
+  //                   editMode={{
+  //                     status: true,
+  //                     value: section.value,
+  //                     name: section.name,
+  //                   }}
+  //                   handleEditableElementChange={handleEditableElementChange}
+  //                 />
+  //               );
+  //               section.uniqueIdentifier = sectionKey;
+  //               section.elements &&
+  //                 section.elements.forEach((element) => {
+  //                   const elementKey = generateRandomString();
+  //                   element.reactElement = getElement(
+  //                     titleCase(element.elementType),
+  //                     elementKey,
+  //                     false,
+  //                     {
+  //                       status: true,
+  //                       value: element.value,
+  //                       isRequired: element.isRequired,
+  //                       isVisible: element.isVisible,
+  //                       options: element.options,
+  //                       name: element.name,
+  //                       isPrimary: element.isPrimary,
+  //                       isTemplateElement: element.isTemplateElement,
+  //                     }
+  //                   );
+  //                   element.uniqueIdentifier = elementKey;
+  //                 });
+  //             });
+  //           if (response.data.applicationForm) {
+  //             setActiveStep(response.data.applicationForm[0]);
+  //             setSections(response.data.applicationForm);
+  //           }
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         // errorAlert(error);
+  //         console.log("errorAlert", error);
+  //       });
+  //   }
+  //   if (
+  //     window.location.pathname.toLowerCase().includes("create") &&
+  //     window.location.search.length
+  //   ) {
+  //     console.log("create called");
+  //     axios
+  //       .get(
+  //         `${
+  //           window.location.origin
+  //         }/ApplicationForm/getTemplate?formId=${Number(
+  //           window.location.search.split("=").pop()
+  //         )}`
+  //       )
+  //       .then((response) => {
+  //         if (response.status === 200) {
+  //           response.data.applicationForm &&
+  //             response.data.applicationForm.forEach((section) => {
+  //               const sectionKey = generateRandomString();
+  //               section.reactElement = (
+  //                 <SectionName
+  //                   uniqueIdentifier={sectionKey}
+  //                   handleChange={handleSingleInputChange}
+  //                   editMode={{
+  //                     status: true,
+  //                     value: section.value,
+  //                     name: section.name,
+  //                   }}
+  //                   handleEditableElementChange={handleEditableElementChange}
+  //                 />
+  //               );
+  //               section.uniqueIdentifier = sectionKey;
+  //               section.elements &&
+  //                 section.elements.forEach((element) => {
+  //                   const elementKey = generateRandomString();
+  //                   element.reactElement = getElement(
+  //                     titleCase(element.elementType),
+  //                     elementKey,
+  //                     false,
+  //                     {
+  //                       status: true,
+  //                       value: element.value,
+  //                       isRequired: element.isRequired,
+  //                       isVisible: element.isVisible,
+  //                       options: element.options,
+  //                       name: element.name,
+  //                       isPrimary: element.isPrimary,
+  //                       isTemplateElement: element.isTemplateElement,
+  //                     }
+  //                   );
+  //                   element.uniqueIdentifier = elementKey;
+  //                 });
+  //             });
+  //           if (response.data.applicationForm) {
+  //             if (response.data.applicationForm[0]) {
+  //               setActiveStep(response.data.applicationForm[0]);
+  //             }
+  //             setSections(response.data.applicationForm);
+  //           }
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         // errorAlert(error);
+  //         console.log("errorAlert", error);
+  //       });
+  //   }
+  //   setIsLoaded(true);
+  // }, [getElement, handleSingleInputChange]); // empty dependencey
 
+  // ! clear
   const handleElementsDragChange = (oldIndex, newIndex, section) => {
     const newSections = [...sections];
     persistentSections = arrayMove(section.elements, oldIndex, newIndex);
     section.elements = arrayMove(section.elements, oldIndex, newIndex);
     setSections(newSections);
   };
-
+  // ! clear
   const handleEditSectionClick = (e) => {
     const persistentSectionsCopy = [...persistentSections];
     const currentSection = persistentSectionsCopy.find(
@@ -706,11 +721,11 @@ const AddApplicationForm = () => {
     );
     setActiveStep(currentSection);
   };
-
+  // ! clear
   const handleApplicationFormStepChange = (clickedStep) => {
     setActiveStep(clickedStep);
   };
-
+  // ! clear
   const handleConfirmationModalResponse = (isContinue = false) => {
     if (isContinue) {
       handleRemoveSection();
@@ -754,7 +769,7 @@ const AddApplicationForm = () => {
     borderRadius: "0.5rem",
     boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
   };
-
+  // ! clear
   const handleFormData = async (formData) => {
     const newSectionData = formData.sectionsData.map((section) => {
       return {
@@ -791,6 +806,7 @@ const AddApplicationForm = () => {
       formDescription: "",
       creationDate: Date.now(),
       lastUpdateDate: null,
+      uniqueIdentifier: formData.uniqueIdentifier,
       sections: [...newSectionData],
     };
 
@@ -1015,16 +1031,16 @@ const AddApplicationForm = () => {
                       });
 
                       // manage redux state
-                      dispatch(
-                        addForm({
-                          sectionsData: apiData,
-                          title: titleRef.current.innerText,
-                          formId:
-                            existingFormIndex !== -1
-                              ? existingForm.formId
-                              : newFormId,
-                        })
-                      );
+                      // dispatch(
+                      //   addForm({
+                      //     sectionsData: apiData,
+                      //     title: titleRef.current.innerText,
+                      //     formId:
+                      //       existingFormIndex !== -1
+                      //         ? existingForm.formId
+                      //         : newFormId,
+                      //   })
+                      // );
 
                       // manage context state
                       onAddForm({
@@ -1039,6 +1055,7 @@ const AddApplicationForm = () => {
 
                       await handleFormData({
                         sectionsData: apiData,
+                        uniqueIdentifier,
                         title: titleRef.current.innerText,
                         formId:
                           existingFormIndex !== -1

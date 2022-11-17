@@ -4,11 +4,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { deleteForm } from "../../store/formSlice";
 import Dropdown from "../Dropdown/Dropdown";
 import axios from "axios";
+import { useForm } from "../../context/CreateFormContext";
 
 export default function AllForms() {
   const [forms, setForms] = useState([]);
   const [loading, setLoading] = useState(false);
   const { push } = useRouter();
+  const { addFormsJSON } = useForm();
   // const forms = useSelector((state) => state.allForms.forms);
 
   useEffect(() => {
@@ -19,6 +21,7 @@ export default function AllForms() {
         console.log(data);
         setLoading(false);
         setForms(data?.forms);
+        addFormsJSON(data?.forms);
       } catch (error) {
         setLoading(false);
         console.log(error);
@@ -35,8 +38,8 @@ export default function AllForms() {
           <span>New</span>
         </div>
         {loading && <span>loading...</span>}
-        {!!forms.length &&
-          forms.map((form) => (
+        {!!forms?.length &&
+          forms?.map((form) => (
             <div className="all-forms-single" key={form.formId}>
               <i className="fa fa-2x fa-fw fa-newspaper-o"></i>
               <Dropdown path={form.formId} />

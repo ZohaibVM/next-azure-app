@@ -127,8 +127,8 @@ const LeftDrawer = ({ isOpen, onClose }) => {
         </div>
         <div className="drawer-input">
           <label>Page Image</label>
-          <label for="pageImage" class="custom-file-upload">
-            <i class="fa fa-cloud-upload"></i> Upload here
+          <label for="pageImage" className="custom-file-upload">
+            <i className="fa fa-cloud-upload"></i> Upload here
           </label>
           <input
             id="pageImage"
@@ -146,8 +146,8 @@ const LeftDrawer = ({ isOpen, onClose }) => {
         </div>
         <div className="drawer-input">
           <label>Form Image</label>
-          <label for="formImage" class="custom-file-upload">
-            <i class="fa fa-cloud-upload"></i> Upload Here
+          <label for="formImage" className="custom-file-upload">
+            <i className="fa fa-cloud-upload"></i> Upload Here
           </label>
           <input
             id="formImage"
