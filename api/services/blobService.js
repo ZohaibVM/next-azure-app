@@ -26,6 +26,12 @@ async function getBlobs() {
   }
 }
 
+// "Error: ChainedTokenCredential authentication failed.
+// CredentialUnavailableError: EnvironmentCredential is unavailable. No underlying credential could be used. To troubleshoot, visit https://aka.ms/azsdk/js/identity/environmentcredential/troubleshoot.
+// CredentialUnavailableError: ManagedIdentityCredential: Authentication failed. Message ManagedIdentityCredential - No MSI credential available
+// CredentialUnavailableError: Azure CLI could not be found. Please visit https://aka.ms/azure-cli for installation instructions and then, once installed, authenticate to your Azure account using 'az login'.
+// CredentialUnavailableError: Error: Unable to execute PowerShell. Ensure that it is installed in your system. To troubleshoot, visit https://aka.ms/azsdk/js/identity/powershellcredential/troubleshoot."
+
 async function downloadBlobData() {
   try {
     const blobServiceClient = getBlobServiceClient();
@@ -72,7 +78,7 @@ async function downloadBlobData() {
     // return data;
   } catch (err) {
     console.error(`Error: ${err.message}`);
-    return `Error: ${err.message}`;
+    return `downloadBlobData: ${err.message}`;
   }
 }
 
