@@ -4,12 +4,15 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import axios from "axios";
 // import { deleteForm } from "../../store/formSlice";
+import { useForm } from "./../../context/CreateFormContext";
 
 const Dropdown = ({ path }) => {
   const [show, setShow] = useState(false);
-  const dispatch = useDispatch();
+  const [deleteFormLoading, setDeleteFormLoading] = useState(false);
+  // const dispatch = useDispatch();
 
   const handleDropdown = () => setShow((prevState) => !prevState);
+  const { removeFormsJSON, formsJSON } = useForm();
 
   return (
     <>
@@ -40,11 +43,22 @@ const Dropdown = ({ path }) => {
                 className="all-forms-dropdown-link"
                 onClick={async (e) => {
                   e.preventDefault();
-                  const message = await axios.delete(`/api/deleteForm/${path}`);
-                  console.log({ message });
+                  setDeleteFormLoading(true);
+                  try {
+                    const message = await axios.delete(
+                      `/api/deleteForm/${path}`
+                    );
+                    setDeleteFormLoading(false);
+                    removeFormsJSON(path);
+                    console.log({ message });
+                  } catch (error) {
+                    setDeleteFormLoading(false);
+                    console.log(error);
+                  }
                 }}
               >
                 Delete
+                {deleteFormLoading && <span>...</span>}
               </a>
             </Link>
           </li>

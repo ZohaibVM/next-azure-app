@@ -9,6 +9,9 @@ export const CreateContextProvider = ({ children }) => {
   const addFormsJSON = (forms) => {
     setFormsJSON([...forms]);
   };
+  const removeFormsJSON = (formId) => {
+    setFormsJSON(formsJSON.filter((form) => form.formId !== formId));
+  };
 
   const onAddForm = (form) => {
     const newFormId = forms.findIndex((frm) => frm.formId === form.formId);
@@ -30,6 +33,7 @@ export const CreateContextProvider = ({ children }) => {
         onAddForm,
         formsJSON,
         addFormsJSON,
+        removeFormsJSON,
       }}
     >
       {children}
