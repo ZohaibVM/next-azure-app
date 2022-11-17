@@ -1,4 +1,7 @@
-const { BlobServiceClient } = require("@azure/storage-blob");
+const {
+  BlobServiceClient,
+  StorageSharedKeyCredential,
+} = require("@azure/storage-blob");
 const { DefaultAzureCredential } = require("@azure/identity");
 const { v1: uuidv1 } = require("uuid");
 require("dotenv").config();
@@ -101,13 +104,26 @@ module.exports = {
 
 function getBlobServiceClient() {
   // const accountName = process.env.AZURE_STORAGE_ACCOUNT_NAME;
-  const accountName = "formbuilderblobstorage";
-  if (!accountName) throw Error("Azure Storage accountName not found");
+  // const accountName = "formbuilderblobstorage";
 
-  const blobServiceClient = new BlobServiceClient(
-    `https://${accountName}.blob.core.windows.net`,
-    new DefaultAzureCredential()
+  // const blobServiceClient = new BlobServiceClient(
+  //   `https://${accountName}.blob.core.windows.net`,
+  //   new DefaultAzureCredential()
+  // );
+
+  const account = "formbuilderblobstorage";
+  const accountKey =
+    "+aMRUaVPWas9AelMigG1Z2iUWuE8gL3aLmt5LW7l6eHG9bX6S9BltlY0n7EA9UiytZ7/0bKkj/+x+AStOOV9CQ==";
+
+  const sharedKeyCredential = new StorageSharedKeyCredential(
+    account,
+    accountKey
   );
+  const blobServiceClient = new BlobServiceClient(
+    `https://${account}.blob.core.windows.net`,
+    sharedKeyCredential
+  );
+
   return blobServiceClient;
 }
 
