@@ -1,10 +1,12 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
-import FormInput from "./../../shared/FormInput";
-import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-import useTheme from "./../../hooks/useTheme";
-import "../../css/dashboard.css";
+import FormInput from "../../shared/FormInput";
+// import { useSelector } from "react-redux";
+// import { useNavigate, useParams } from "react-router-dom";
+import { useRouter } from "next/router";
+import useTheme from "../../hooks/useTheme";
+// import "../../styles/dashboard.css";
+
 import {
   initialValues,
   checkboxInitialValues,
@@ -13,19 +15,28 @@ import {
   mapFormState,
   singleForm,
 } from "../../utils/utils";
+import { useForm } from "../../context/CreateFormContext";
 
 const Form = () => {
-  const { formId } = useParams();
+  const {
+    push,
+    query: { formId },
+  } = useRouter();
+  const { formsJSON } = useForm();
+  // const { formId } = useParams();
   // const singleForm = useSelector((state) =>
   //   state.allForms.forms.find((form) => form.formId === formId)
   // );
-  const [values, setValues] = useState({});
+
+  const singleForm = formsJSON.find((form) => form.formId === formId);
+
+  const [values, setValues] = useState(mapFormState(singleForm));
   const [checkedList, setCheckedList] = useState(checkboxInitialValues);
   const [radioList, setRadioList] = useState(radioInitialValues);
   const [dropdownList, setDropdownList] = useState(dropdownValues);
   const [success, setSuccess] = useState(false);
   const validated = useRef(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // useEffect(() => {
   //   dispatch(mapFormState({ form: singleForm }));
@@ -1145,7 +1156,7 @@ const Form = () => {
       {success && (
         <div>
           <h1>Thanks your form is submitted</h1>
-          <button className="form-submit-btn" onClick={() => navigate(-1)}>
+          <button className="form-submit-btn" onClick={() => push("/")}>
             <i className="fa fa-long-arrow-left"></i> Go Back
           </button>
         </div>

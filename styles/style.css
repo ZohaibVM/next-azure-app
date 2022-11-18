@@ -149,8 +149,10 @@ a.for_pass {
 }
 
 .btn_color_signup:disabled {
-  background-color: #9b068d !important;
-  color: #b951af !important;
+  /* background-color: #9b068d !important; */
+  /* color: #b951af !important; */
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
 .btn_color_signup.select_pro_btn_disable:disabled {

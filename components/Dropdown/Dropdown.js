@@ -5,14 +5,30 @@ import { useState } from "react";
 import axios from "axios";
 // import { deleteForm } from "../../store/formSlice";
 import { useForm } from "./../../context/CreateFormContext";
+import { formsService } from "../../services/formsService";
 
 const Dropdown = ({ path }) => {
   const [show, setShow] = useState(false);
+  const { removeFormsJSON } = useForm();
   const [deleteFormLoading, setDeleteFormLoading] = useState(false);
-  // const dispatch = useDispatch();
 
   const handleDropdown = () => setShow((prevState) => !prevState);
-  const { removeFormsJSON, formsJSON } = useForm();
+
+  const handleDelete = async (e, path) => {
+    e.preventDefault();
+    setDeleteFormLoading(true);
+    try {
+      const res = await axios.delete(`${formsService.deleteForm}/${path}`);
+      if (res.status === 200) {
+        setDeleteFormLoading(false);
+        removeFormsJSON(path);
+      }
+      console.log({ res });
+    } catch (error) {
+      setDeleteFormLoading(false);
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -41,24 +57,10 @@ const Dropdown = ({ path }) => {
             <Link href="">
               <a
                 className="all-forms-dropdown-link"
-                onClick={async (e) => {
-                  e.preventDefault();
-                  setDeleteFormLoading(true);
-                  try {
-                    const message = await axios.delete(
-                      `/api/deleteForm/${path}`
-                    );
-                    setDeleteFormLoading(false);
-                    removeFormsJSON(path);
-                    console.log({ message });
-                  } catch (error) {
-                    setDeleteFormLoading(false);
-                    console.log(error);
-                  }
-                }}
+                onClick={(e) => handleDelete(e, path)}
               >
-                Delete
-                {deleteFormLoading && <span>...</span>}
+                Delete{" "}
+                {deleteFormLoading && <i className="fa fa-spinner fa-spin"></i>}
               </a>
             </Link>
           </li>

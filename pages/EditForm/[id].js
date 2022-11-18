@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import ApplicationForm from "../CreateForm";
 
 const EditForm = () => {

@@ -6,11 +6,11 @@ module.exports = async function (context, req) {
 
   if (body && form) {
     try {
-      const list = await blobService.createNewBlob(form);
+      const message = await blobService.createNewBlob(form);
       context.res = {
         status: 200,
         body: {
-          data: list,
+          message,
         },
       };
     } catch (error) {

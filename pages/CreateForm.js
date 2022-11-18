@@ -3,10 +3,8 @@ import Faker from "faker";
 import arrayMove from "array-move";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
-import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
-import { addForm } from "../store/formSlice";
-import { CreateFormContext, useForm } from "../context/CreateFormContext";
+import { useForm } from "../context/CreateFormContext";
 import LeftDrawer from "../components/LeftDrawer";
 import AddApplicationFormSteps from "../components/FormSteps";
 import LeftSection from "../components/LeftSection";
@@ -32,6 +30,7 @@ import FileUpload from "../shared/FileUpload";
 import ConfirmationModal from "../shared/ConfirmationModal";
 import Drawer from "../shared/Drawer";
 import useTheme from "../hooks/useTheme";
+import { formsService } from "./../services/formsService";
 import {
   getMultiple,
   getSingle,
@@ -63,10 +62,7 @@ const AddApplicationForm = () => {
     pathname,
   } = useRouter();
 
-  // console.log({ formId });
-
-  // const { forms, onAddForm } = useContext(CreateFormContext);
-  const { forms, onAddForm, formsJSON } = useForm();
+  const { forms, onAddForm, formsJSON, addFormsJSON } = useForm();
 
   const [selectedSection, setSelectedSection] = useState([
     { step: "Student Information", index: 0 },
@@ -735,6 +731,7 @@ const AddApplicationForm = () => {
 
   const [isLeftDrawerActive, setIsLeftDrawerActive] = useState(false);
   const [isRightDrawerActive, setIsRightDrawerActive] = useState(false);
+  const [createFormLoading, setCreateFormLoading] = useState(false);
 
   const handleLeftClosing = () => {
     setIsLeftDrawerActive(!isLeftDrawerActive);
@@ -771,6 +768,8 @@ const AddApplicationForm = () => {
   };
   // ! clear
   const handleFormData = async (formData) => {
+    setCreateFormLoading(true);
+
     const newSectionData = formData.sectionsData.map((section) => {
       return {
         sectionId: uuidv4(),
@@ -800,7 +799,7 @@ const AddApplicationForm = () => {
       };
     });
 
-    const newForm = {
+    const form = {
       formId: formData.formId,
       formTitle: formData.title,
       formDescription: "",
@@ -810,8 +809,18 @@ const AddApplicationForm = () => {
       sections: [...newSectionData],
     };
 
-    const res = await axios.post(`/api/createForm`, { form: newForm });
-    console.log({ res });
+    try {
+      const res = await axios.post(formsService.createForm, { form });
+
+      if (res.status === 200) {
+        setCreateFormLoading(false);
+        addFormsJSON(form);
+        push("/");
+      }
+    } catch (error) {
+      setCreateFormLoading(false);
+      console.log({ error });
+    }
   };
 
   return (pathname.toLowerCase().includes("edit") && !sections.length) ||
@@ -996,6 +1005,7 @@ const AddApplicationForm = () => {
                 </div>
                 <div className="ACT_next_btn">
                   <button
+                    disabled={createFormLoading}
                     className="btn_color_signup btn-block round waves-effect waves-light applicaion-button-save-button-background-color"
                     style={{
                       margin: 0,
@@ -1030,18 +1040,6 @@ const AddApplicationForm = () => {
                         });
                       });
 
-                      // manage redux state
-                      // dispatch(
-                      //   addForm({
-                      //     sectionsData: apiData,
-                      //     title: titleRef.current.innerText,
-                      //     formId:
-                      //       existingFormIndex !== -1
-                      //         ? existingForm.formId
-                      //         : newFormId,
-                      //   })
-                      // );
-
                       // manage context state
                       onAddForm({
                         formId:
@@ -1053,7 +1051,7 @@ const AddApplicationForm = () => {
                         uniqueIdentifier,
                       });
 
-                      await handleFormData({
+                      handleFormData({
                         sectionsData: apiData,
                         uniqueIdentifier,
                         title: titleRef.current.innerText,
@@ -1062,7 +1060,7 @@ const AddApplicationForm = () => {
                             ? existingForm.formId
                             : newFormId,
                       });
-                      push("/");
+
                       // axios
                       //   .post(
                       //     `${window.location.origin}/ApplicationForm/Create`,
@@ -1082,7 +1080,10 @@ const AddApplicationForm = () => {
                       //   });
                     }}
                   >
-                    Save
+                    Save{" "}
+                    {createFormLoading && (
+                      <i className="fa fa-spinner fa-spin"></i>
+                    )}
                   </button>
                 </div>
                 {!persistentActiveStep.isFirstSection && (
