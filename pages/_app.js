@@ -9,8 +9,8 @@ import "../styles/vm-style.css";
 import "../styles/style-billing.css";
 import "../styles/features.css";
 import "../styles/app-styles.css";
-import "../styles/dashboard.css";
 import "../fonts/feather/iconfont.css";
+import "../styles/dashboard.css";
 
 function MyApp({ Component, pageProps }) {
   return (

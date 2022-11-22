@@ -235,10 +235,10 @@ export const singleForm = {
 };
 
 export const mapFormState = (form) => {
-  const sections = form.sections.map((sec) => sec);
-  const elements = sections.map((sec) => sec.elements.map((el) => el)).flat();
+  const sections = form?.sections.map((sec) => sec);
+  const elements = sections?.map((sec) => sec.elements.map((el) => el)).flat();
 
-  const fields = elements.map((elem) => {
+  const fields = elements?.map((elem) => {
     if (elem.elementType === "address") {
       return {
         addressline1: { value: "", required: true, error: false },

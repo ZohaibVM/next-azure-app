@@ -5,7 +5,6 @@ import FormInput from "../../shared/FormInput";
 // import { useNavigate, useParams } from "react-router-dom";
 import { useRouter } from "next/router";
 import useTheme from "../../hooks/useTheme";
-// import "../../styles/dashboard.css";
 
 import {
   initialValues,
@@ -13,7 +12,6 @@ import {
   radioInitialValues,
   dropdownValues,
   mapFormState,
-  singleForm,
 } from "../../utils/utils";
 import { useForm } from "../../context/CreateFormContext";
 
@@ -29,6 +27,7 @@ const Form = () => {
   // );
 
   const singleForm = formsJSON.find((form) => form.formId === formId);
+  console.log({ singleForm });
 
   const [values, setValues] = useState(mapFormState(singleForm));
   const [checkedList, setCheckedList] = useState(checkboxInitialValues);
@@ -357,7 +356,7 @@ const Form = () => {
                 />
                 {values.addressline1.error && (
                   <p className="form-error-message">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    <i className="fa fa-info-circle" aria-hidden="true"></i>
                     This Field Is Required.
                   </p>
                 )}
@@ -378,7 +377,7 @@ const Form = () => {
                 </div>
                 {values.addressline2.error && (
                   <p className="form-error-message">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    <i className="fa fa-info-circle" aria-hidden="true"></i>
                     This Field Is Required.
                   </p>
                 )}
@@ -399,7 +398,7 @@ const Form = () => {
                 </div>
                 {values.city.error && (
                   <p className="form-error-message">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    <i className="fa fa-info-circle" aria-hidden="true"></i>
                     This Field Is Required.
                   </p>
                 )}
@@ -420,7 +419,7 @@ const Form = () => {
                 </div>
                 {values.state.error && (
                   <p className="form-error-message">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    <i className="fa fa-info-circle" aria-hidden="true"></i>
                     This Field Is Required.
                   </p>
                 )}
@@ -441,7 +440,7 @@ const Form = () => {
                 </div>
                 {values.country.error && (
                   <p className="form-error-message">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    <i className="fa fa-info-circle" aria-hidden="true"></i>
                     This Field Is Required.
                   </p>
                 )}
@@ -462,7 +461,7 @@ const Form = () => {
                 </div>
                 {values.zipcode.error && (
                   <p className="form-error-message">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    <i className="fa fa-info-circle" aria-hidden="true"></i>
                     This Field Is Required.
                   </p>
                 )}
@@ -496,7 +495,7 @@ const Form = () => {
                 </div>
                 {values.prefix.error && (
                   <p className="form-error-message">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    <i className="fa fa-info-circle" aria-hidden="true"></i>
                     This Field Is Required.
                   </p>
                 )}
@@ -517,7 +516,7 @@ const Form = () => {
                 </div>
                 {values.firstname.error && (
                   <p className="form-error-message">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    <i className="fa fa-info-circle" aria-hidden="true"></i>
                     This Field Is Required.
                   </p>
                 )}
@@ -553,7 +552,7 @@ const Form = () => {
                 </div>
                 {values.lastname.error && (
                   <p className="form-error-message">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    <i className="fa fa-info-circle" aria-hidden="true"></i>
                     This Field Is Required.
                   </p>
                 )}
@@ -587,7 +586,7 @@ const Form = () => {
                 </div>
                 {values.areacode.error && (
                   <p className="form-error-message">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    <i className="fa fa-info-circle" aria-hidden="true"></i>
                     This Field Is Required.
                   </p>
                 )}
@@ -608,7 +607,7 @@ const Form = () => {
                 </div>
                 {values.phonenumber.error && (
                   <p className="form-error-message">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    <i className="fa fa-info-circle" aria-hidden="true"></i>
                     This Field Is Required.
                   </p>
                 )}
@@ -642,7 +641,7 @@ const Form = () => {
                 </div>
                 {values.email.error && (
                   <p className="form-error-message">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    <i className="fa fa-info-circle" aria-hidden="true"></i>
                     This Field Is Required.
                   </p>
                 )}
@@ -676,7 +675,7 @@ const Form = () => {
                 </div>
                 {values.hours.error && (
                   <p className="form-error-message">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    <i className="fa fa-info-circle" aria-hidden="true"></i>
                     This Field Is Required.
                   </p>
                 )}
@@ -697,7 +696,7 @@ const Form = () => {
                 </div>
                 {values.minutes.error && (
                   <p className="form-error-message">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    <i className="fa fa-info-circle" aria-hidden="true"></i>
                     This Field Is Required.
                   </p>
                 )}
@@ -718,7 +717,7 @@ const Form = () => {
                 </div>
                 {values.period.error && (
                   <p className="form-error-message">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    <i className="fa fa-info-circle" aria-hidden="true"></i>
                     This Field Is Required.
                   </p>
                 )}
@@ -752,7 +751,7 @@ const Form = () => {
                 </div>
                 {values.date.error && (
                   <p className="form-error-message">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    <i className="fa fa-info-circle" aria-hidden="true"></i>
                     This Field Is Required.
                   </p>
                 )}
@@ -786,7 +785,7 @@ const Form = () => {
                 </div>
                 {values.integar.error && (
                   <p className="form-error-message">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    <i className="fa fa-info-circle" aria-hidden="true"></i>
                     This Field Is Required.
                   </p>
                 )}
@@ -820,7 +819,7 @@ const Form = () => {
                 </div>
                 {values.decimel.error && (
                   <p className="form-error-message">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    <i className="fa fa-info-circle" aria-hidden="true"></i>
                     This Field Is Required.
                   </p>
                 )}
@@ -862,7 +861,7 @@ const Form = () => {
                 </div>
                 {values.longtext.error && (
                   <p className="form-error-message">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    <i className="fa fa-info-circle" aria-hidden="true"></i>
                     This Field Is Required.
                   </p>
                 )}
@@ -896,7 +895,7 @@ const Form = () => {
                 </div>
                 {values.shorttext.error && (
                   <p className="form-error-message">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    <i className="fa fa-info-circle" aria-hidden="true"></i>
                     This Field Is Required.
                   </p>
                 )}
@@ -935,7 +934,7 @@ const Form = () => {
                 </div>
                 {values.multichoice.error && (
                   <p className="form-error-message">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    <i className="fa fa-info-circle" aria-hidden="true"></i>
                     This Field Is Required.
                   </p>
                 )}
@@ -975,7 +974,7 @@ const Form = () => {
                 </div>
                 {values.singlechoice.error && (
                   <p className="form-error-message">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    <i className="fa fa-info-circle" aria-hidden="true"></i>
                     This Field Is Required.
                   </p>
                 )}
@@ -999,7 +998,7 @@ const Form = () => {
 
                   <div className="form-upload-wrapper">
                     <label htmlFor="form-upload" className="form-upload-label">
-                      <i class="fa fa-cloud-upload"></i> Upload here
+                      <i className="fa fa-cloud-upload"></i> Upload here
                     </label>
                     <input
                       className={renderInputClasses("fileupload")}
@@ -1053,7 +1052,7 @@ const Form = () => {
                 </div>
                 {values.dropdown.error && (
                   <p className="form-error-message">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    <i className="fa fa-info-circle" aria-hidden="true"></i>
                     This Field Is Required.
                   </p>
                 )}
@@ -1076,7 +1075,7 @@ const Form = () => {
                   {/* <label className="form-label">Name</label> */}
                 </div>
                 {/* <p className="form-error-message">
-        <i class="fa fa-info-circle" aria-hidden="true"></i>
+        <i className="fa fa-info-circle" aria-hidden="true"></i>
         This Field Is Required.
       </p> */}
               </div>
@@ -1098,7 +1097,7 @@ const Form = () => {
                   {/* <label className="form-label">Name</label> */}
                 </div>
                 {/* <p className="form-error-message">
-        <i class="fa fa-info-circle" aria-hidden="true"></i>
+        <i className="fa fa-info-circle" aria-hidden="true"></i>
         This Field Is Required.
       </p> */}
               </div>
