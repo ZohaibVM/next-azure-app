@@ -326,7 +326,7 @@ export const mapFormState = (form) => {
     }
   });
 
-  const formValuesObject = fields.reduce(
+  const formValuesObject = fields?.reduce(
     (previousValue, currentValue) => ({
       ...previousValue,
       ...currentValue,
