@@ -137,7 +137,7 @@ const Form = () => {
   };
 
   const getJSON = () => {
-    const formSections = singleForm.sections.map((section) => {
+    const formSections = singleForm?.sections.map((section) => {
       return {
         sectionId: section.sectionId,
         sectionTitle: section.sectionTitle,
@@ -1129,8 +1129,8 @@ const Form = () => {
             backgroundImage: formBgImg ? `url(${formBgImg})` : "",
           }}
         >
-          {!!singleForm.sections.length &&
-            singleForm.sections.map((section, index) => (
+          {!!singleForm?.sections.length &&
+            singleForm?.sections.map((section, index) => (
               <React.Fragment key={index}>
                 <div className="form-header">
                   <h2 className="form-title" style={{ color: fontColor }}>
