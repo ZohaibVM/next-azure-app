@@ -3,6 +3,7 @@ import store, { wrapper } from "../store/store";
 import ContextProvider from "../context/GlobalContext";
 import Dashboard from "../components/Dashboard/Dashboard";
 import "fontawesome-4.7/css/font-awesome.min.css";
+import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "../styles/style.css";
 import "../styles/vm-style.css";

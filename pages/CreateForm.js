@@ -32,6 +32,8 @@ import Drawer from "../shared/Drawer";
 import useTheme from "../hooks/useTheme";
 import { formsService } from "./../services/formsService";
 import {
+  successToast,
+  errorToast,
   getMultiple,
   getSingle,
   multiFields,
@@ -242,6 +244,8 @@ const AddApplicationForm = () => {
       }
     }
   });
+
+  console.log(sections);
   // ! clear
   const handleClickedElement = (e, name, uniquekey) => {
     const key = generateRandomString();
@@ -253,6 +257,12 @@ const AddApplicationForm = () => {
     let modifiedElement = currentSection.elements.find(
       ({ uniqueIdentifier }) => uniqueIdentifier === uniquekey
     );
+
+    console.log("handleClickedElement --->>>>>");
+    console.log({ e, name, uniquekey });
+    console.log("e.currentTarget.id", e.currentTarget.id);
+    console.log({ modifiedElement });
+
     switch (e.currentTarget.id) {
       case "duplicate-icon":
         if (modifiedElement) {
@@ -815,10 +825,15 @@ const AddApplicationForm = () => {
       if (res.status === 200) {
         setCreateFormLoading(false);
         addFormsJSON(form);
+
+        formId
+          ? successToast("Form Edited SuccessFully")
+          : successToast("Form Created SuccessFully");
         push("/");
       }
     } catch (error) {
       setCreateFormLoading(false);
+      errorToast(error.message);
       console.log({ error });
     }
   };

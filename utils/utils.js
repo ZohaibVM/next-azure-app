@@ -1,3 +1,5 @@
+import { toast } from "react-toastify";
+
 export const initialValues = {
   addressline1: { value: "", required: true, error: false },
   addressline2: { value: "", required: false, error: false },
@@ -765,3 +767,9 @@ export const getSingle = (name) => {
       return "invalid name";
   }
 };
+
+export const errorToast = (message) => toast(message, { type: "error" });
+
+export const warningToast = (message) => toast(message, { type: "warning" });
+
+export const successToast = (message) => toast(message, { type: "success" });

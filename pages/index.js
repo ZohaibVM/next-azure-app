@@ -1,5 +1,6 @@
 import Head from "next/head";
 import AllForms from "./../components/AllForms/AllForms";
+import { ToastContainer } from "react-toastify";
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       </Head>
       <main>
         <AllForms />
+        <ToastContainer />
       </main>
     </div>
   );
