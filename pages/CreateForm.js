@@ -76,7 +76,8 @@ const AddApplicationForm = () => {
     const form = formsJSON.find((form) => form.formId === formId);
     uniqueIdentifier = form.uniqueIdentifier;
   } else {
-    uniqueIdentifier = generateRandomString();
+    // uniqueIdentifier = generateRandomString();
+    uniqueIdentifier = uuidv4(); // TODO: rid of generateRandomString
   }
 
   // const existingFormIndex = useSelector((state) =>
@@ -157,6 +158,7 @@ const AddApplicationForm = () => {
   };
   // ! clear
   const handleRemoveSection = () => {
+    console.log("handleRemoveSection called");
     if (!activeStep.isFirstSection) {
       setActiveStep(
         persistentSections[
@@ -234,6 +236,7 @@ const AddApplicationForm = () => {
       setIsEmailMandatory(true);
     }
   }, []);
+
   // ! clear
   useEffect(() => {
     if (elementUniqueIdentifier) {
@@ -309,6 +312,7 @@ const AddApplicationForm = () => {
     }
     setSections(newSections);
   };
+
   // ! clear
   const handleIsPrimaryChange = (isPrimary, key) => {
     const persistentSectionsCopy = [...persistentSections];
@@ -323,6 +327,7 @@ const AddApplicationForm = () => {
       });
     setSections(persistentSectionsCopy);
   };
+
   // ! clear
   const getElement = (
     name,
@@ -514,6 +519,7 @@ const AddApplicationForm = () => {
         return;
     }
   };
+
   // ! clear
   const handleSetSections = () => {
     let newSections = [...persistentSections];
@@ -531,7 +537,7 @@ const AddApplicationForm = () => {
         ),
         elements: [],
         value: null,
-        uniqueIdentifier,
+        uniqueIdentifier: uuidv4(), // TODO: changed here for remove section functionality
         elementType: "Section Name",
       },
     ];
@@ -539,6 +545,7 @@ const AddApplicationForm = () => {
     setActiveStep(newSections[newSections.length - 1]);
     setSections(newSections);
   };
+
   // ! clear
   const handleElementsClick = (e) => {
     const name = e.currentTarget.id;
@@ -563,6 +570,7 @@ const AddApplicationForm = () => {
     setElementUniqueIdentifier(uniqueIdentifier);
     setSections(newSections);
   };
+
   // ! clear
   const handleMultipleInputsChange = (value, uniquekey, option) => {
     const newSections = [...persistentSections];
@@ -719,6 +727,7 @@ const AddApplicationForm = () => {
     section.elements = arrayMove(section.elements, oldIndex, newIndex);
     setSections(newSections);
   };
+
   // ! clear
   const handleEditSectionClick = (e) => {
     const persistentSectionsCopy = [...persistentSections];
@@ -727,10 +736,12 @@ const AddApplicationForm = () => {
     );
     setActiveStep(currentSection);
   };
+
   // ! clear
   const handleApplicationFormStepChange = (clickedStep) => {
     setActiveStep(clickedStep);
   };
+
   // ! clear
   const handleConfirmationModalResponse = (isContinue = false) => {
     if (isContinue) {
@@ -776,6 +787,7 @@ const AddApplicationForm = () => {
     borderRadius: "0.5rem",
     boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
   };
+
   // ! clear
   const handleFormData = async (formData) => {
     setCreateFormLoading(true);
