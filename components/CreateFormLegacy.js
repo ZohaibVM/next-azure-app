@@ -5,10 +5,10 @@ import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/router";
 import { useForm } from "../context/CreateFormContext";
-import LeftDrawer from "../components/LeftDrawer";
-import AddApplicationFormSteps from "../components/FormSteps";
-import LeftSection from "../components/LeftSection";
-import RightSection from "../components/RightSection";
+import LeftDrawer from "./LeftDrawer";
+import AddApplicationFormSteps from "./FormSteps";
+import LeftSection from "./LeftSection";
+import RightSection from "./RightSection";
 import SectionName from "../shared/SectionName";
 import Heading from "../shared/Heading";
 import Name from "../shared/Name";
@@ -30,7 +30,7 @@ import FileUpload from "../shared/FileUpload";
 import ConfirmationModal from "../shared/ConfirmationModal";
 import Drawer from "../shared/Drawer";
 import useTheme from "../hooks/useTheme";
-import { formsService } from "./../services/formsService";
+import { formsService } from "../services/formsService";
 import {
   successToast,
   errorToast,
@@ -248,7 +248,6 @@ const AddApplicationForm = () => {
     }
   });
 
-  console.log(sections);
   // ! clear
   const handleClickedElement = (e, name, uniquekey) => {
     const key = generateRandomString();
@@ -882,12 +881,12 @@ const AddApplicationForm = () => {
           onClose={handleRightClosing}
         >
           <RightSection
-            sections={sections}
-            setSelectedSection={setSelectedSection}
-            handleSetSections={handleSetSections}
             handleElementsClick={handleElementsClick}
-            selectedSection={selectedSection}
             activeStep={persistentActiveStep}
+            // sections={sections}
+            // setSelectedSection={setSelectedSection}
+            // handleSetSections={handleSetSections}
+            // selectedSection={selectedSection}
           />
         </Drawer>
       )}
@@ -1134,6 +1133,7 @@ const AddApplicationForm = () => {
               </div>
             </div>
           )}
+          {/* center area */}
           <LeftSection
             persistentSections={persistentSections}
             sections={sections}

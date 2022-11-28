@@ -34,7 +34,6 @@ const LeftSection = ({
     <div
       className="r_c_i_left"
       style={{
-        // width: "calc(100% - 164px)",
         width: "100%",
         padding: "0 20px",
       }}
@@ -60,6 +59,8 @@ const LeftSection = ({
               </React.Fragment>
             )
         )}
+
+        {/* footer */}
         <div className="d-flex justify-content-end mt-1">
           <div
             className="btn-left-container ACT_next_btn mr-0"

@@ -5,7 +5,6 @@ const {
 const { DefaultAzureCredential } = require("@azure/identity");
 const { v1: uuidv1 } = require("uuid");
 require("dotenv").config();
-// redeploy
 
 async function createNewBlob(formData) {
   try {
@@ -28,12 +27,6 @@ async function getBlobs() {
     return `Error: ${err.message}`;
   }
 }
-
-// "Error: ChainedTokenCredential authentication failed.
-// CredentialUnavailableError: EnvironmentCredential is unavailable. No underlying credential could be used. To troubleshoot, visit https://aka.ms/azsdk/js/identity/environmentcredential/troubleshoot.
-// CredentialUnavailableError: ManagedIdentityCredential: Authentication failed. Message ManagedIdentityCredential - No MSI credential available
-// CredentialUnavailableError: Azure CLI could not be found. Please visit https://aka.ms/azure-cli for installation instructions and then, once installed, authenticate to your Azure account using 'az login'.
-// CredentialUnavailableError: Error: Unable to execute PowerShell. Ensure that it is installed in your system. To troubleshoot, visit https://aka.ms/azsdk/js/identity/powershellcredential/troubleshoot."
 
 async function downloadBlobData() {
   try {

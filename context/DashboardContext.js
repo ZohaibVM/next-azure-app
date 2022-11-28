@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 
-const invisibleRoutes = ["CreateForm", "EditForm"];
+const invisibleRoutes = ["CreateForm", "EditForm", "PublishedForm", "NewForm"];
 
 const DashboardContext = React.createContext({
   isSidebarCollapsed: true,

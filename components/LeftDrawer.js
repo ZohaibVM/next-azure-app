@@ -64,9 +64,9 @@ const LeftDrawer = ({ isOpen, onClose }) => {
               name="pageColor"
               type="color"
               value={pageBgColor}
-              onInput={({ target: { value } }) =>
-                setSelectedTheme({ ...selectedTheme, pageBgColor: value })
-              }
+              onChange={(
+                { target: { value } } // TODO onInput to onChange
+              ) => setSelectedTheme({ ...selectedTheme, pageBgColor: value })}
             />
           </div>
         </div>
@@ -85,8 +85,9 @@ const LeftDrawer = ({ isOpen, onClose }) => {
               name="formColor"
               type="color"
               value={formBgColor}
-              onInput={({ target: { value } }) =>
-                setSelectedTheme({ ...selectedTheme, formBgColor: value })
+              onChange={
+                ({ target: { value } }) =>
+                  setSelectedTheme({ ...selectedTheme, formBgColor: value }) // TODO onInput to onChange
               }
             />
           </div>
@@ -106,8 +107,9 @@ const LeftDrawer = ({ isOpen, onClose }) => {
               name="formColor"
               type="color"
               value={inputBgColor}
-              onInput={({ target: { value } }) =>
-                setSelectedTheme({ ...selectedTheme, inputBgColor: value })
+              onChange={
+                ({ target: { value } }) =>
+                  setSelectedTheme({ ...selectedTheme, inputBgColor: value }) // TODO onInput to onChange
               }
             />
           </div>
@@ -127,7 +129,7 @@ const LeftDrawer = ({ isOpen, onClose }) => {
         </div>
         <div className="drawer-input">
           <label>Page Image</label>
-          <label for="pageImage" className="custom-file-upload">
+          <label htmlFor="pageImage" className="custom-file-upload">
             <i className="fa fa-cloud-upload"></i> Upload here
           </label>
           <input
@@ -146,7 +148,7 @@ const LeftDrawer = ({ isOpen, onClose }) => {
         </div>
         <div className="drawer-input">
           <label>Form Image</label>
-          <label for="formImage" className="custom-file-upload">
+          <label htmlFor="formImage" className="custom-file-upload">
             <i className="fa fa-cloud-upload"></i> Upload Here
           </label>
           <input
@@ -178,8 +180,9 @@ const LeftDrawer = ({ isOpen, onClose }) => {
               name="formColor"
               type="color"
               value={fontColor}
-              onInput={({ target: { value } }) =>
-                setSelectedTheme({ ...selectedTheme, fontColor: value })
+              onChange={
+                ({ target: { value } }) =>
+                  setSelectedTheme({ ...selectedTheme, fontColor: value }) // TODO onInput to onChange
               }
             />
           </div>

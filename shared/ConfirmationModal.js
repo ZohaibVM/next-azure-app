@@ -5,7 +5,7 @@ import useTheme from "../hooks/useTheme";
 const ConfirmationModal = ({
   message,
   show,
-  handleClose,
+  onModalClick,
   isDanger,
   messages,
 }) => {
@@ -53,7 +53,7 @@ const ConfirmationModal = ({
   };
 
   return (
-    <Modal show={show} onHide={handleClose} centered size="md">
+    <Modal show={show} onHide={onModalClick} centered size="md">
       <Modal.Body
         className="bg-white"
         style={{ borderRadius: "0.5rem", padding: "2rem" }}
@@ -95,7 +95,7 @@ const ConfirmationModal = ({
               color: primaryColor,
               borderColor: primaryColor,
             }}
-            onClick={() => handleClose(false)}
+            onClick={() => onModalClick(false)}
           >
             Cancel
           </button>
@@ -106,7 +106,7 @@ const ConfirmationModal = ({
               color: whiteColor,
               backgroundColor: primaryColor,
             }}
-            onClick={() => handleClose(true)}
+            onClick={() => onModalClick(true)}
           >
             Continue
           </button>

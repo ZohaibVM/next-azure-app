@@ -5,6 +5,7 @@ import useTheme from "../hooks/useTheme";
 
 const RightSection = ({ handleElementsClick, activeStep }) => {
   const checkBorderTop = (name) => !!(name === "Heading");
+
   const {
     selectedTheme: { primaryColor, sidebarBgColor, iconColor, textColor },
   } = useTheme();

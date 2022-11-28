@@ -422,6 +422,10 @@ body.dark-layout .create_form_right .custom-dropdown__trigger span {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 .afh_top {
@@ -526,6 +530,11 @@ body.dark-layout .create_form_right .custom-dropdown__trigger span {
   float: left;
   /* background: #fff; */
   padding: 2em 1em;
+
+  min-height: 50vh;
+  margin: auto;
+  border-radius: 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .af_h_title_box {
@@ -1720,12 +1729,18 @@ body.dark-layout .co_top.co_list span {
 
 .r_c_i_r_formelement ul li {
   list-style: none;
-  /* width: 44%; */
   float: left;
-  /* margin: 3%; */
-  /* background-color: #710698; */
   padding: 15px;
   height: 60px;
+  /* width: 44%; */
+  /* margin: 3%; */
+  /* background-color: #710698; */
+
+  margin-top: 0;
+  margin-bottom: 1px;
+  height: 45px;
+  padding: 5px;
+  padding-left: 15px;
 }
 
 .r_c_i_r_formelement ul li a {
@@ -1741,9 +1756,8 @@ body.dark-layout .co_top.co_list span {
 }
 
 .rci_formelement_txt {
-  /* color: #fff; */
-  font-size: 15px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 400;
   line-height: 17px;
   vertical-align: middle;
   height: 29px;

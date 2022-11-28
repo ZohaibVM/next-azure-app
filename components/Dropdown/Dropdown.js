@@ -1,11 +1,9 @@
 import Link from "next/link";
-import { useState } from "react";
 import axios from "axios";
+import { useState } from "react";
 import { useForm } from "./../../context/CreateFormContext";
 import { formsService } from "../../services/formsService";
 import { errorToast, successToast } from "./../../utils/utils";
-// import { useDispatch } from "react-redux";
-// import { deleteForm } from "../../store/formSlice";
 
 const Dropdown = ({ path }) => {
   const [show, setShow] = useState(false);
@@ -24,7 +22,6 @@ const Dropdown = ({ path }) => {
         removeFormsJSON(path);
         successToast("Form Deleted Successfully");
       }
-      console.log({ res });
     } catch (error) {
       setDeleteFormLoading(false);
       errorToast(error.message);

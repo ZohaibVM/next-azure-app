@@ -120,6 +120,9 @@ const MultipleChoiceQuestion = ({
 
   const [value, setValue] = useState(element ? element.value : "");
   const [options, setOptions] = useState(element ? element.options : [0, 1]);
+
+  console.log(options);
+
   const handleInputChange = (e) => {
     if (element) {
       element.value = e.target.value;
