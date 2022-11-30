@@ -39,7 +39,6 @@ const Form = () => {
   const [success, setSuccess] = useState(false);
   const validated = useRef(false);
 
-  console.log({ values });
   // useEffect(() => {
   //   dispatch(mapFormState({ form: singleForm }));
   // }, []);
@@ -327,7 +326,13 @@ const Form = () => {
     return values[name]?.error ? "form-textbox error" : "form-textbox";
   };
 
-  const renderJSX = ({ id, elementType, elementTitle, elementDescription }) => {
+  const renderJSX = ({
+    id,
+    elementType,
+    elementTitle,
+    elementDescription,
+    ...rest
+  }) => {
     switch (elementType) {
       case "heading":
         return (
@@ -920,7 +925,20 @@ const Form = () => {
                   {/* <label className="form-label">Name</label> */}
                   <div className="form-choice-wrapper">
                     {/* <label className="form-choice-label">Multichoice</label> */}
-                    {checkedList.map((option, index) => (
+                    {rest?.fields?.[0]?.options?.map((option, index) => (
+                      <div key={index} className="form-choice-row">
+                        <input
+                          type="checkbox"
+                          className={renderInputClasses("multichoice")}
+                          name="multichoice"
+                          value={option.value}
+                          // checked={option.checked}
+                          onChange={(e) => handleChange(e, index)}
+                        />
+                        <label htmlFor="">{option.title}</label>
+                      </div>
+                    ))}
+                    {/* {checkedList.map((option, index) => (
                       <div key={option.label} className="form-choice-row">
                         <input
                           type="checkbox"
@@ -931,7 +949,7 @@ const Form = () => {
                         />
                         <label htmlFor="">{option.label}</label>
                       </div>
-                    ))}
+                    ))} */}
                   </div>
                 </div>
                 {values?.multichoice?.error && (
@@ -958,7 +976,21 @@ const Form = () => {
                 <div className="form-input-wrapper">
                   {/* <label className="form-label">Name</label> */}
                   <div className="form-choice-wrapper">
-                    {radioList.map((radio, index) => (
+                    {rest?.fields?.[0]?.options?.map((radio, index) => (
+                      <div className="form-choice-row" key={index}>
+                        <input
+                          className={renderInputClasses("singlechoice")}
+                          type="radio"
+                          name="singlechoice"
+                          // checked={radio.checked}
+                          value={radio.value}
+                          onChange={(e) => handleChange(e, index)}
+                          style={{ visibility: "visible", position: "static" }}
+                        />
+                        <label>{radio.title}</label>
+                      </div>
+                    ))}
+                    {/* {radioList.map((radio, index) => (
                       <div className="form-choice-row" key={radio.label}>
                         <input
                           className={renderInputClasses("singlechoice")}
@@ -971,7 +1003,7 @@ const Form = () => {
                         />
                         <label>{radio.label}</label>
                       </div>
-                    ))}
+                    ))} */}
                   </div>
                 </div>
                 {values?.singlechoice?.error && (
@@ -997,7 +1029,6 @@ const Form = () => {
               <div className="col-md-6">
                 <div className="form-input-wrapper">
                   {/* <label className="form-label">Name</label> */}
-
                   <div className="form-upload-wrapper">
                     <label htmlFor="form-upload" className="form-upload-label">
                       <i className="fa fa-cloud-upload"></i> Upload here
@@ -1029,14 +1060,15 @@ const Form = () => {
                 <div className="form-input-wrapper">
                   {/* <label className="form-label">Name</label> */}
                   <FormInput
-                    value={values?.dropdown?.value}
+                    // value={rest?.fields?.[0]?.options}
+                    options={rest?.fields?.[0]?.options}
                     type="dropdown"
                     name="dropdown"
                     onChange={handleChange}
                     formStyle={inputStyle}
                     className={renderInputClasses("dropdown")}
                     labelAlign={labelAlignment}
-                    placeholder="Short Text *"
+                    placeholder="Dropdown *"
                   />
                   {/* <select
                     name="dropdown"

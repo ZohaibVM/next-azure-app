@@ -1793,10 +1793,21 @@ body.dark-layout
   color: #720698;
   font-size: 16px;
 }
-
 .r_cI_titlebox_txt {
   float: left;
 }
+.r_cI_titlebox_txt,
+.react-application-form-section-element-heading {
+  background: transparent;
+  border: 0;
+  outline: 0;
+  font-weight: bold;
+}
+
+/* .r_cI_titlebox_txt:focus,
+.react-application-form-section-element-heading:focus {
+  border: 1px solid #fff;
+} */
 
 .r_cI_titlebox_right_icon {
   float: right;

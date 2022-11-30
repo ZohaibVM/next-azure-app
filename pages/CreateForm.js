@@ -5,10 +5,10 @@ import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/router";
 import { useForm } from "../context/CreateFormContext";
-import LeftDrawer from "./LeftDrawer";
-import AddApplicationFormSteps from "./FormSteps";
-import LeftSection from "./LeftSection";
-import RightSection from "./RightSection";
+import LeftDrawer from "../components/LeftDrawer";
+import AddApplicationFormSteps from "../components/FormSteps";
+import LeftSection from "../components/LeftSection";
+import RightSection from "../components/RightSection";
 import SectionName from "../shared/SectionName";
 import Heading from "../shared/Heading";
 import Name from "../shared/Name";
@@ -720,6 +720,7 @@ const AddApplicationForm = () => {
   // }, [getElement, handleSingleInputChange]); // empty dependencey
 
   // ! clear
+
   const handleElementsDragChange = (oldIndex, newIndex, section) => {
     const newSections = [...sections];
     persistentSections = arrayMove(section.elements, oldIndex, newIndex);

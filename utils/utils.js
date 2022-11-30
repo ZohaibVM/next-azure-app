@@ -328,8 +328,14 @@ export const mapFormState = (form) => {
         };
       }
       if (elem.elementType === "dropdown") {
+        console.log({ elem });
         return {
-          dropdown: { value: "", required: true, error: false },
+          dropdown: {
+            value: "",
+            options: [...elem?.fields?.[0]?.options],
+            required: true,
+            error: false,
+          },
         };
       }
     });

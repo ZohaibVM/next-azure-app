@@ -1,20 +1,22 @@
 import useTheme from "../../hooks/useTheme";
+import DragHandle from "../common/DragHandle";
 import FormInput from "./../../shared/FormInput";
+import FormIcons from "./FormIcons";
 
-const FormAddress = ({ data, onElementDelete }) => {
+const FormAddress = ({
+  data,
+  onElementDelete,
+  onElementTitleChange,
+  onElementDescriptionChange,
+  onElementClone,
+  onElementPrimary,
+  onElementRequired,
+  onElementVisible,
+}) => {
   const {
     selectedTheme: {
-      formBgImg,
-      toggleIconColor,
-      pageBgColor,
-      pageBgImg,
-      textColor,
       whiteColor,
-      formBgColor,
       primaryColor,
-      secondaryColor,
-      tertiaryColor,
-      formWidth,
       fontColor,
       inputStyle,
       labelAlignment,
@@ -22,10 +24,7 @@ const FormAddress = ({ data, onElementDelete }) => {
   } = useTheme();
 
   return (
-    <div
-      className="af_h_box"
-      //   id={uniqueIdentifier}
-    >
+    <div className="af_h_box">
       <div className="af_h_title_box">
         <div
           className="af-t-primary"
@@ -35,19 +34,27 @@ const FormAddress = ({ data, onElementDelete }) => {
           }}
         >
           <div className="r_cI_titlebox_txt d-flex align-items-center">
-            {/* <DragHandle /> */}
-            <div
+            <DragHandle />
+            <input
+              title="This text is editable"
+              className="react-application-form-section-element-heading"
+              style={{ color: whiteColor }}
+              id={`form-title-${data?.id}`}
+              value={data?.elementTitle}
+              onChange={(e) => onElementTitleChange(e, data)}
+            />
+            {/* <div
               contentEditable
-              // onInput={handleContentEditableChange}
               id="element"
+              // onInput={handleContentEditableChange}
               // uniqueIdentifier={uniqueIdentifier}
               dataToggle="tooltip"
               title="This text is editable"
             >
               {data?.elementTitle}
-            </div>
+            </div> */}
           </div>
-          <div className="r_cI_titlebox_right_icon d-flex">
+          {/* <div className="r_cI_titlebox_right_icon d-flex">
             <div
               className="toggle-container mr-1 element-icon"
               // onClick={handleIconsClick}
@@ -102,7 +109,15 @@ const FormAddress = ({ data, onElementDelete }) => {
             >
               <i className="fa fa-trash-o"></i>
             </span>
-          </div>
+          </div> */}
+          <FormIcons
+            data={data}
+            onElementDelete={onElementDelete}
+            onElementClone={onElementClone}
+            onElementPrimary={onElementPrimary}
+            onElementRequired={onElementRequired}
+            onElementVisible={onElementVisible}
+          />
           {/* {!element.isTemplateElement && (
        <CardIcons
          handleClickedElement={handleIconsClick}
@@ -127,14 +142,12 @@ const FormAddress = ({ data, onElementDelete }) => {
           </div>
           <div
             className="toggle-container ml-1 element-icon"
-            // onClick={handleIsPrimaryClick}
+            onClick={() => onElementPrimary(data)}
             style={{ backgroundColor: primaryColor }}
           >
             <div
-              //   className={`dialog-button ${
-              //     !isPrimary ? "disabled" : ""
-              //   }`}
-              className="dialog-button disabled"
+              className={`dialog-button ${!data?.isPrimary ? "disabled" : ""}`}
+              // className="dialog-button disabled"
               style={{
                 width: "17px",
                 height: "17px",
@@ -149,10 +162,11 @@ const FormAddress = ({ data, onElementDelete }) => {
             <input
               type="text"
               className="form-control"
-              placeholder="Please Enter Description Here..."
-              // value={value}
-              // onChange={handleInputChange}
               style={{ color: fontColor }}
+              id={`form-desc-${data?.id}`}
+              placeholder="Please Enter Description here..."
+              value={data?.elementDescription}
+              onChange={(e) => onElementDescriptionChange(e, data)}
             />
           </div>
           <div className="col-6">

@@ -367,22 +367,16 @@ const ELEMENTS_DATA = {
         value: "",
         options: [
           {
-            title: "Mr.",
-            value: "mr",
+            title: "",
+            value: "",
             isVisible: true,
             isDefault: true,
           },
           {
-            title: "Mrs.",
-            value: "mrs",
-            isVisible: false,
-            isDefault: false,
-          },
-          {
-            title: "Ms.",
-            value: "ms",
+            title: "",
+            value: "",
             isVisible: true,
-            isDefault: false,
+            isDefault: true,
           },
         ],
       },
@@ -610,8 +604,14 @@ const ELEMENTS_DATA = {
         value: "",
         options: [
           {
-            title: "Ms.",
-            value: "ms",
+            title: "",
+            value: "",
+            isVisible: true,
+            isDefault: false,
+          },
+          {
+            title: "",
+            value: "",
             isVisible: true,
             isDefault: false,
           },
@@ -642,8 +642,14 @@ const ELEMENTS_DATA = {
         value: "",
         options: [
           {
-            title: "Ms.",
-            value: "ms",
+            title: "",
+            value: "",
+            isVisible: true,
+            isDefault: false,
+          },
+          {
+            title: "",
+            value: "",
             isVisible: true,
             isDefault: false,
           },

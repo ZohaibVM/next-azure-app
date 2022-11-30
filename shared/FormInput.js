@@ -113,21 +113,21 @@ const FormInput = ({
         {label}
         <select
           name="dropdown"
-          value={value}
+          // value={value}
           // disabled={disabled}
           onChange={onChange}
           className={renderInputClasses()}
           style={renderInputStyles()}
         >
           <option value="">Select dropdown *</option>
-          <option value="Option 1">Option 1</option>
+          {/* <option value="Option 1">Option 1</option>
           <option value="Option 2">Option 2</option>
-          <option value="Option 3">Option 3</option>
-          {/* {dropdownList.map((dropdown) => (
-        <option value={dropdown.value} key={dropdown.value}>
-          {dropdown.label}
-        </option>
-      ))} */}
+          <option value="Option 3">Option 3</option> */}
+          {options?.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.title}
+            </option>
+          ))}
         </select>
       </div>
     );

@@ -1,14 +1,18 @@
 import useTheme from "../../hooks/useTheme";
+import DragHandle from "../common/DragHandle";
 
-const FormHeading = ({ data, onElementDelete }) => {
+const FormHeading = ({
+  data,
+  onElementDelete,
+  onElementTitleChange,
+  onElementDescriptionChange,
+}) => {
   const {
     selectedTheme: { whiteColor, primaryColor, fontColor },
   } = useTheme();
+
   return (
-    <div
-      className="af_h_box"
-      //   id={uniqueIdentifier}
-    >
+    <div className="af_h_box">
       <div className="af_h_title_box">
         <div
           className="af-t-primary"
@@ -18,18 +22,26 @@ const FormHeading = ({ data, onElementDelete }) => {
           }}
         >
           <div className="r_cI_titlebox_txt d-flex">
-            {/* <DragHandle /> */}
-            <div
+            <DragHandle />
+            <input
+              title="This text is editable"
+              className="react-application-form-section-element-heading"
+              style={{ color: whiteColor }}
+              id={`form-title-${data?.id}`}
+              value={data?.elementTitle}
+              onChange={(e) => onElementTitleChange(e, data)}
+            />
+            {/* <div
               id="element"
               contentEditable
-              // onInput={handleContentEditableChange}
+              onInput={onElementTitleChange}
               // uniqueIdentifier={uniqueIdentifier}
               className="react-application-form-section-element-heading"
               dataToggle="tooltip"
               title="This text is editable"
             >
               {data?.elementTitle}
-            </div>
+            </div> */}
           </div>
           <div className="float-right">
             <span
@@ -46,11 +58,12 @@ const FormHeading = ({ data, onElementDelete }) => {
         <div className="custom-input-wrappper-application-form">
           <input
             type="text"
-            // value={value}
-            // onChange={handleInputChange}
             className="form-control"
-            placeholder="Please Enter Description here..."
+            id={`form-desc-${data?.id}`}
             style={{ color: fontColor }}
+            placeholder="Please Enter Description here..."
+            value={data?.elementDescription}
+            onChange={(e) => onElementDescriptionChange(e, data)}
           />
         </div>
       </div>

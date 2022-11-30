@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { createElement, errorToast, successToast } from "./../utils/utils";
 import { useRouter } from "next/router";
+import { useForm } from "./../context/CreateFormContext";
 import { v4 as uuidv4 } from "uuid";
 import { formsService } from "./../services/formsService";
 import axios from "axios";
@@ -14,7 +15,7 @@ import ContainerHeader from "./../components/common/ContainerHeader";
 import ContainerContent from "./../components/common/ContainerContent";
 import PreviewForm from "./../components/common/PreviewForm";
 import Spinner from "../components/Spinner/Spinner";
-import { useForm } from "./../context/CreateFormContext";
+import arrayMove from "array-move";
 
 const NewForm = () => {
   const [isLeftDrawerActive, setIsLeftDrawerActive] = useState(false);
@@ -35,6 +36,8 @@ const NewForm = () => {
   const [form, setForm] = useState(null);
   const [activeSectionIndex, setActiveSectionIndex] = useState(0);
   const sectionsEndRef = useRef(null);
+  const formTitleRef = useRef(null);
+  const nodeRef = useRef(null);
 
   const {
     push,
@@ -43,6 +46,17 @@ const NewForm = () => {
   } = useRouter();
 
   const { addFormsJSON } = useForm();
+
+  useEffect(() => {
+    if (nodeRef.current) {
+      const element = document.getElementById(nodeRef.current.id);
+      element?.focus();
+
+      setTimeout(() => {
+        nodeRef.current = null;
+      }, 100);
+    }
+  }, [sections]);
 
   useEffect(() => {
     const initValues = async () => {
@@ -105,8 +119,7 @@ const NewForm = () => {
 
   const handleRightClosing = () => setIsRightDrawerActive(!isRightDrawerActive);
 
-  const handleElementsClick = ({ currentTarget }) => {
-    const name = currentTarget.id;
+  const handleAddElement = (name) => {
     const sectionsClone = [...sections]; // clone sections
     sectionsClone[activeSectionIndex] = { ...sections[activeSectionIndex] }; // clone active section
 
@@ -187,15 +200,12 @@ const NewForm = () => {
 
     const newForm = {
       formId: form?.formId ? form.formId : uuidv4(),
-      formTitle: form?.formTitle ? form.formTitle : "New Form Title",
+      formTitle: formTitleRef.current.value,
       formDescription: form?.formDescription ? form?.formDescription : "",
       creationDate: form?.creationDate ? form.creationDate : Date.now(),
       lastUpdateDate: form?.lastUpdateDate ? form?.lastUpdateDate : null,
       sections: [...sections],
     };
-
-    // console.log({ form });
-    // console.log({ newForm });
 
     try {
       const res = await axios.post(formsService.createForm, { form: newForm });
@@ -216,6 +226,279 @@ const NewForm = () => {
     }
   };
 
+  // ref used
+  const handleTitleChange = (event, element) => {
+    // event.preventDefault();
+    // event.stopPropagation();
+
+    if (event.target.id === "section") {
+      const sectionsClone = [...sections];
+      sectionsClone[activeSectionIndex] = {
+        ...sectionsClone[activeSectionIndex],
+      };
+      sectionsClone[activeSectionIndex].sectionTitle = event.target.value;
+      setSections(sectionsClone);
+      return;
+    }
+
+    nodeRef.current = event.target;
+    const sectionsClone = [...sections];
+    sectionsClone[activeSectionIndex] = {
+      ...sectionsClone[activeSectionIndex],
+    };
+
+    sectionsClone[activeSectionIndex].elements = [
+      ...sectionsClone[activeSectionIndex].elements,
+    ];
+
+    const foundElementIndex = sectionsClone[
+      activeSectionIndex
+    ].elements.findIndex((e) => e.id === element.id);
+
+    if (foundElementIndex >= 0) {
+      sectionsClone[activeSectionIndex].elements[foundElementIndex] = {
+        ...sectionsClone[activeSectionIndex].elements[foundElementIndex],
+      };
+
+      sectionsClone[activeSectionIndex].elements[foundElementIndex] = {
+        ...sectionsClone[activeSectionIndex].elements[foundElementIndex],
+        elementTitle: event.target.value,
+      };
+      setSections(sectionsClone);
+    }
+  };
+
+  // ref used
+  const handleDescriptionChange = (event, element) => {
+    if (event.target.id === "section") {
+      const sectionsClone = [...sections];
+      sectionsClone[activeSectionIndex] = {
+        ...sectionsClone[activeSectionIndex],
+      };
+      sectionsClone[activeSectionIndex].sectionDescription = event.target.value;
+      setSections(sectionsClone);
+      return;
+    }
+
+    nodeRef.current = event.target;
+    const sectionsClone = [...sections];
+    sectionsClone[activeSectionIndex] = {
+      ...sectionsClone[activeSectionIndex],
+    };
+
+    sectionsClone[activeSectionIndex].elements = [
+      ...sectionsClone[activeSectionIndex].elements,
+    ];
+
+    const foundElementIndex = sectionsClone[
+      activeSectionIndex
+    ].elements.findIndex((e) => e.id === element.id);
+
+    if (foundElementIndex >= 0) {
+      sectionsClone[activeSectionIndex].elements[foundElementIndex] = {
+        ...sectionsClone[activeSectionIndex].elements[foundElementIndex],
+      };
+
+      sectionsClone[activeSectionIndex].elements[foundElementIndex] = {
+        ...sectionsClone[activeSectionIndex].elements[foundElementIndex],
+        elementDescription: event.target.value,
+      };
+      setSections(sectionsClone);
+    }
+  };
+
+  const handleAddOption = (event, element) => {
+    const sectionsClone = [...sections]; // sections clone
+
+    sectionsClone[activeSectionIndex] = {
+      ...sectionsClone[activeSectionIndex],
+    }; // clone active section
+
+    sectionsClone[activeSectionIndex].elements = [
+      ...sectionsClone[activeSectionIndex].elements,
+    ]; // clone active section elements
+
+    const foundElementIndex = sectionsClone[
+      activeSectionIndex
+    ].elements.findIndex((e) => e.id === element.id); // find changed element
+
+    if (foundElementIndex >= 0) {
+      sectionsClone[activeSectionIndex].elements[foundElementIndex] = {
+        ...sectionsClone[activeSectionIndex].elements[foundElementIndex],
+      }; // clone changed element
+
+      sectionsClone[activeSectionIndex].elements[foundElementIndex].fields = [
+        ...sectionsClone[activeSectionIndex].elements[foundElementIndex].fields,
+      ]; // clone changed element fields
+
+      sectionsClone[activeSectionIndex].elements[foundElementIndex].fields[0] =
+        {
+          ...sectionsClone[activeSectionIndex].elements[foundElementIndex]
+            .fields[0],
+        }; // clone changed element first field
+
+      sectionsClone[activeSectionIndex].elements[
+        foundElementIndex
+      ].fields[0].options = [
+        ...sectionsClone[activeSectionIndex].elements[foundElementIndex]
+          .fields[0].options,
+      ]; // clone changed element first field => options
+
+      sectionsClone[activeSectionIndex].elements[
+        foundElementIndex
+      ].fields[0].options = [
+        ...sectionsClone[activeSectionIndex].elements[foundElementIndex]
+          .fields[0].options,
+        {
+          title: "",
+          value: "",
+          isVisible: true,
+          isDefault: true,
+        },
+      ]; // add new empty option in => options
+
+      setSections(sectionsClone);
+    } else {
+      console.log("element not found in sections");
+    }
+  };
+
+  // ref used
+  const handleElementOptionChange = (event, element, optionIndex) => {
+    nodeRef.current = event.target;
+    const sectionsClone = [...sections]; // sections clone
+
+    sectionsClone[activeSectionIndex] = {
+      ...sectionsClone[activeSectionIndex],
+    }; // clone active section
+
+    sectionsClone[activeSectionIndex].elements = [
+      ...sectionsClone[activeSectionIndex].elements,
+    ]; // clone active section elements
+
+    const foundElementIndex = sectionsClone[
+      activeSectionIndex
+    ].elements.findIndex((e) => e.id === element.id); // find changed element
+
+    if (foundElementIndex >= 0) {
+      sectionsClone[activeSectionIndex].elements[foundElementIndex] = {
+        ...sectionsClone[activeSectionIndex].elements[foundElementIndex],
+      }; // clone changed element
+
+      sectionsClone[activeSectionIndex].elements[foundElementIndex].fields = [
+        ...sectionsClone[activeSectionIndex].elements[foundElementIndex].fields,
+      ]; // clone changed element fields
+
+      sectionsClone[activeSectionIndex].elements[foundElementIndex].fields[0] =
+        {
+          ...sectionsClone[activeSectionIndex].elements[foundElementIndex]
+            .fields[0],
+        }; // clone changed element first field
+
+      sectionsClone[activeSectionIndex].elements[
+        foundElementIndex
+      ].fields[0].options = [
+        ...sectionsClone[activeSectionIndex].elements[foundElementIndex]
+          .fields[0].options,
+      ]; // clone changed element first field => options
+
+      sectionsClone[activeSectionIndex].elements[
+        foundElementIndex
+      ].fields[0].options[optionIndex] = {
+        ...sectionsClone[activeSectionIndex].elements[foundElementIndex]
+          .fields[0].options[optionIndex],
+      }; // clone changed element first field => changed option index
+
+      sectionsClone[activeSectionIndex].elements[
+        foundElementIndex
+      ].fields[0].options[optionIndex] = {
+        ...sectionsClone[activeSectionIndex].elements[foundElementIndex]
+          .fields[0].options[optionIndex],
+        title: event.target.value,
+        value: event.target.value,
+      }; // update (title & value) of changed option
+
+      setSections(sectionsClone);
+    } else {
+      console.log("element not found in sections");
+    }
+  };
+
+  const handleElementClone = ({ elementType }) => {
+    handleAddElement(elementType);
+  };
+
+  const invertElementProperty = (property, element) => {
+    const sectionsClone = [...sections]; // sections clone
+
+    sectionsClone[activeSectionIndex] = {
+      ...sectionsClone[activeSectionIndex],
+    }; // clone active section
+
+    sectionsClone[activeSectionIndex].elements = [
+      ...sectionsClone[activeSectionIndex].elements,
+    ]; // clone active section elements
+
+    const foundElementIndex = sectionsClone[
+      activeSectionIndex
+    ].elements.findIndex((e) => e.id === element.id); // find changed element
+
+    if (foundElementIndex >= 0) {
+      sectionsClone[activeSectionIndex].elements[foundElementIndex] = {
+        ...sectionsClone[activeSectionIndex].elements[foundElementIndex],
+      }; // clone changed element
+
+      sectionsClone[activeSectionIndex].elements[foundElementIndex] = {
+        ...sectionsClone[activeSectionIndex].elements[foundElementIndex],
+        [property]:
+          !sectionsClone[activeSectionIndex].elements[foundElementIndex][
+            property
+          ],
+      }; // invert property of and element
+
+      return sectionsClone;
+      // setSections(sectionsClone);
+    } else {
+      console.log("No Element matched");
+    }
+  };
+
+  const handleElementVisibility = (element) => {
+    const newSections = invertElementProperty("isVisible", element);
+    setSections(newSections);
+  };
+
+  const handleElementRequired = (element) => {
+    const newSections = invertElementProperty("isRequired", element);
+    setSections(newSections);
+  };
+
+  const handleElememtPrimary = (element) => {
+    const newSections = invertElementProperty("isPrimary", element);
+    setSections(newSections);
+  };
+
+  const handleDragAndDropElement = ({ oldIndex, newIndex }) => {
+    console.log("handleDragAndDropElement");
+    const sectionsClone = [...sections]; // clone sections
+
+    sectionsClone[activeSectionIndex] = {
+      ...sectionsClone[activeSectionIndex],
+    }; // clone active section
+
+    sectionsClone[activeSectionIndex].elements = [
+      ...sectionsClone[activeSectionIndex].elements,
+    ]; // clone active section elements
+
+    sectionsClone[activeSectionIndex].elements = arrayMove(
+      sectionsClone[activeSectionIndex].elements,
+      oldIndex,
+      newIndex
+    ); // change position of element in elements array
+
+    setSections(sectionsClone);
+  };
+
   if (isFetching) return <Spinner message="Getting Form Data Please Wait..." />;
 
   if (!isFetching)
@@ -232,6 +515,7 @@ const NewForm = () => {
           <TopHeader
             form={form}
             sections={sections}
+            formTitleRef={formTitleRef}
             onActiveSection={handleActiveSection}
           />
           <div
@@ -269,7 +553,16 @@ const NewForm = () => {
                 <ContainerContent
                   sections={sections}
                   sectionIndex={activeSectionIndex}
+                  onAddOption={handleAddOption}
+                  onElementClone={handleElementClone}
                   onElementDelete={handleElementDelete}
+                  onElementPrimary={handleElememtPrimary}
+                  onElementTitleChange={handleTitleChange}
+                  onElementRequired={handleElementRequired}
+                  onElementVisible={handleElementVisibility}
+                  onDragDropElement={handleDragAndDropElement}
+                  onElementOptionChange={handleElementOptionChange}
+                  onElementDescriptionChange={handleDescriptionChange}
                 />
               </>
             )}
@@ -300,7 +593,7 @@ const NewForm = () => {
           isOpen={isRightDrawerActive}
           onClose={handleRightClosing}
         >
-          <RightDrawerContent handleElementsClick={handleElementsClick} />
+          <RightDrawerContent onAddElement={handleAddElement} />
         </Drawer>
         <ConfirmationModal
           message="Are you sure you want to delete this section ?"

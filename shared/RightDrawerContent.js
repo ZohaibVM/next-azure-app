@@ -1,7 +1,7 @@
 import { ADD_APPLICATION_FORM_ELEMENTS } from "../constants/constants";
 import useTheme from "./../hooks/useTheme";
 
-const RightDrawerContent = ({ handleElementsClick }) => {
+const RightDrawerContent = ({ onAddElement }) => {
   const {
     selectedTheme: { primaryColor, sidebarBgColor, iconColor, textColor },
   } = useTheme();
@@ -23,7 +23,7 @@ const RightDrawerContent = ({ handleElementsClick }) => {
             key={name}
             id={type}
             className="application-form-element-li"
-            onClick={handleElementsClick}
+            onClick={(e) => onAddElement(e.currentTarget.id)}
             style={{
               backgroundColor: sidebarBgColor,
               marginTop: checkBorderTop(name) ? 1 : 0,

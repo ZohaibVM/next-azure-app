@@ -39,142 +39,257 @@ const Elements = {
 
 export { FormSection };
 
-export const renderSectionElements = (element, onElementDelete) => {
+export const renderSectionElements = ({
+  element,
+  onElementDelete,
+  onElementTitleChange,
+  onElementDescriptionChange,
+  onAddOption,
+  onElementOptionChange,
+  onElementClone,
+  onElementPrimary,
+  onElementRequired,
+  onElementVisible,
+}) => {
   switch (element?.elementType) {
     case "heading":
       return (
-        <Elements.FormHeading
-          key={element?.id}
+        <FormHeading
+          // key={element?.id}
           data={element}
           onElementDelete={onElementDelete}
+          onElementTitleChange={onElementTitleChange}
+          onElementDescriptionChange={onElementDescriptionChange}
         />
       );
     case "address":
       return (
-        <Elements.FormAddress
-          key={element?.id}
+        <FormAddress
+          // key={element?.id}
           data={element}
+          onElementClone={onElementClone}
           onElementDelete={onElementDelete}
+          onElementVisible={onElementVisible}
+          onElementPrimary={onElementPrimary}
+          onElementRequired={onElementRequired}
+          onElementTitleChange={onElementTitleChange}
+          onElementDescriptionChange={onElementDescriptionChange}
         />
       );
     case "full name":
       return (
-        <Elements.FormName
-          key={element?.id}
+        <FormName
+          // key={element?.id}
           data={element}
+          onElementClone={onElementClone}
           onElementDelete={onElementDelete}
+          onElementPrimary={onElementPrimary}
+          onElementVisible={onElementVisible}
+          onElementRequired={onElementRequired}
+          onElementTitleChange={onElementTitleChange}
+          onElementDescriptionChange={onElementDescriptionChange}
         />
       );
     case "phone number":
       return (
-        <Elements.FormPhoneNumber
-          key={element?.id}
+        <FormPhoneNumber
+          // key={element?.id}
           data={element}
+          onElementClone={onElementClone}
           onElementDelete={onElementDelete}
+          onElementPrimary={onElementPrimary}
+          onElementVisible={onElementVisible}
+          onElementRequired={onElementRequired}
+          onElementTitleChange={onElementTitleChange}
+          onElementDescriptionChange={onElementDescriptionChange}
         />
       );
     case "email address":
       return (
-        <Elements.FormEmail
-          key={element?.id}
+        <FormEmail
+          // key={element?.id}
           data={element}
+          onElementClone={onElementClone}
           onElementDelete={onElementDelete}
+          onElementPrimary={onElementPrimary}
+          onElementVisible={onElementVisible}
+          onElementRequired={onElementRequired}
+          onElementTitleChange={onElementTitleChange}
+          onElementDescriptionChange={onElementDescriptionChange}
         />
       );
     case "time":
       return (
-        <Elements.FormTime
-          key={element?.id}
+        <FormTime
+          // key={element?.id}
           data={element}
+          onElementClone={onElementClone}
           onElementDelete={onElementDelete}
+          onElementPrimary={onElementPrimary}
+          onElementVisible={onElementVisible}
+          onElementRequired={onElementRequired}
+          onElementTitleChange={onElementTitleChange}
+          onElementDescriptionChange={onElementDescriptionChange}
         />
       );
     case "date":
       return (
-        <Elements.FormDate
-          key={element?.id}
+        <FormDate
+          // key={element?.id}
           data={element}
+          onElementClone={onElementClone}
           onElementDelete={onElementDelete}
+          onElementPrimary={onElementPrimary}
+          onElementVisible={onElementVisible}
+          onElementRequired={onElementRequired}
+          onElementTitleChange={onElementTitleChange}
+          onElementDescriptionChange={onElementDescriptionChange}
         />
       );
     case "integer":
       return (
-        <Elements.FormInteger
-          key={element?.id}
+        <FormInteger
+          // key={element?.id}
           data={element}
+          onElementClone={onElementClone}
           onElementDelete={onElementDelete}
+          onElementPrimary={onElementPrimary}
+          onElementVisible={onElementVisible}
+          onElementRequired={onElementRequired}
+          onElementTitleChange={onElementTitleChange}
+          onElementDescriptionChange={onElementDescriptionChange}
         />
       );
     case "decimal":
       return (
-        <Elements.FormDecimel
-          key={element?.id}
+        <FormDecimel
+          // key={element?.id}
           data={element}
+          onElementClone={onElementClone}
           onElementDelete={onElementDelete}
+          onElementPrimary={onElementPrimary}
+          onElementVisible={onElementVisible}
+          onElementRequired={onElementRequired}
+          onElementTitleChange={onElementTitleChange}
+          onElementDescriptionChange={onElementDescriptionChange}
         />
       );
     case "long text":
       return (
-        <Elements.FormLongText
-          key={element?.id}
+        <FormLongText
+          // key={element?.id}
           data={element}
+          onElementClone={onElementClone}
           onElementDelete={onElementDelete}
+          onElementPrimary={onElementPrimary}
+          onElementVisible={onElementVisible}
+          onElementRequired={onElementRequired}
+          onElementTitleChange={onElementTitleChange}
+          onElementDescriptionChange={onElementDescriptionChange}
         />
       );
     case "short text":
       return (
-        <Elements.FormShortText
-          key={element?.id}
+        <FormShortText
+          // key={element?.id}
           data={element}
+          onElementClone={onElementClone}
           onElementDelete={onElementDelete}
+          onElementPrimary={onElementPrimary}
+          onElementVisible={onElementVisible}
+          onElementRequired={onElementRequired}
+          onElementTitleChange={onElementTitleChange}
+          onElementDescriptionChange={onElementDescriptionChange}
         />
       );
     case "multiple choice":
       return (
-        <Elements.FormMultiChoice
-          key={element?.id}
+        <FormMultiChoice
+          // key={element?.id}
           data={element}
+          onAddOption={onAddOption}
+          onElementClone={onElementClone}
           onElementDelete={onElementDelete}
+          onElementPrimary={onElementPrimary}
+          onElementVisible={onElementVisible}
+          onElementRequired={onElementRequired}
+          onElementTitleChange={onElementTitleChange}
+          onElementOptionChange={onElementOptionChange}
+          onElementDescriptionChange={onElementDescriptionChange}
         />
       );
     case "single choice":
       return (
-        <Elements.FormSingleChoice
-          key={element?.id}
+        <FormSingleChoice
+          // key={element?.id}
           data={element}
+          onAddOption={onAddOption}
+          onElementClone={onElementClone}
           onElementDelete={onElementDelete}
+          onElementPrimary={onElementPrimary}
+          onElementVisible={onElementVisible}
+          onElementRequired={onElementRequired}
+          onElementTitleChange={onElementTitleChange}
+          onElementOptionChange={onElementOptionChange}
+          onElementDescriptionChange={onElementDescriptionChange}
         />
       );
     case "file upload":
       return (
-        <Elements.FormFileUpload
-          key={element?.id}
+        <FormFileUpload
+          // key={element?.id}
           data={element}
+          onElementClone={onElementClone}
           onElementDelete={onElementDelete}
+          onElementPrimary={onElementPrimary}
+          onElementVisible={onElementVisible}
+          onElementRequired={onElementRequired}
+          onElementTitleChange={onElementTitleChange}
+          onElementDescriptionChange={onElementDescriptionChange}
         />
       );
     case "dropdown":
       return (
-        <Elements.FormDropdown
-          key={element?.id}
+        <FormDropdown
+          // key={element?.id}
           data={element}
+          onAddOption={onAddOption}
+          onElementClone={onElementClone}
           onElementDelete={onElementDelete}
+          onElementPrimary={onElementPrimary}
+          onElementVisible={onElementVisible}
+          onElementRequired={onElementRequired}
+          onElementTitleChange={onElementTitleChange}
+          onElementOptionChange={onElementOptionChange}
+          onElementDescriptionChange={onElementDescriptionChange}
         />
       );
     case "scale rating":
       return (
-        <Elements.FormScaleRating
-          key={element?.id}
+        <FormScaleRating
+          // key={element?.id}
           data={element}
+          onElementClone={onElementClone}
           onElementDelete={onElementDelete}
+          onElementPrimary={onElementPrimary}
+          onElementVisible={onElementVisible}
+          onElementRequired={onElementRequired}
+          onElementTitleChange={onElementTitleChange}
+          onElementDescriptionChange={onElementDescriptionChange}
         />
       );
     case "signature":
       return (
-        <Elements.FormSignature
-          key={element?.id}
+        <FormSignature
+          // key={element?.id}
           data={element}
+          onElementClone={onElementClone}
           onElementDelete={onElementDelete}
+          onElementPrimary={onElementPrimary}
+          onElementVisible={onElementVisible}
+          onElementRequired={onElementRequired}
+          onElementTitleChange={onElementTitleChange}
+          onElementDescriptionChange={onElementDescriptionChange}
         />
       );
 
