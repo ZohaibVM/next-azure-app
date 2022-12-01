@@ -96,24 +96,31 @@ module.exports = {
 };
 
 function getBlobServiceClient() {
-  // const accountName = process.env.AZURE_STORAGE_ACCOUNT_NAME;
-  // const accountName = "formbuilderblobstorage";
+  const storageAccountName = process.env.AZURE_STORAGE_ACCOUNT_NAME;
+  const storageAccountKey = process.env.AZURE_STORAGE_ACCOUNT_KEY;
 
+  // ! Not using DefaultAzureCredential()
+  // const accountName = "formbuilderblobstorage";
   // const blobServiceClient = new BlobServiceClient(
   //   `https://${accountName}.blob.core.windows.net`,
   //   new DefaultAzureCredential()
   // );
+  // ! Ends here
 
-  const account = "formbuilderblobstorage";
-  const accountKey =
-    "+aMRUaVPWas9AelMigG1Z2iUWuE8gL3aLmt5LW7l6eHG9bX6S9BltlY0n7EA9UiytZ7/0bKkj/+x+AStOOV9CQ==";
+  // const account = "formbuilderblobstorage";
+  // const accountKey =
+  //   "+aMRUaVPWas9AelMigG1Z2iUWuE8gL3aLmt5LW7l6eHG9bX6S9BltlY0n7EA9UiytZ7/0bKkj/+x+AStOOV9CQ==";
+  // const sharedKeyCredential = new StorageSharedKeyCredential(
+  //   account,
+  //   accountKey
+  // );
 
   const sharedKeyCredential = new StorageSharedKeyCredential(
-    account,
-    accountKey
+    storageAccountName,
+    storageAccountKey
   );
   const blobServiceClient = new BlobServiceClient(
-    `https://${account}.blob.core.windows.net`,
+    `https://${storageAccountName}.blob.core.windows.net`,
     sharedKeyCredential
   );
 
@@ -180,7 +187,8 @@ async function listBlobsInContainer(blobServiceClient) {
 }
 
 function getContainerName() {
-  return "formscontainer93993e00-6423-11ed-aa80-91c0503ad210";
+  // return "formscontainer93993e00-6423-11ed-aa80-91c0503ad210";
+  return "form-builder-storage-container";
 }
 
 // Delete Container

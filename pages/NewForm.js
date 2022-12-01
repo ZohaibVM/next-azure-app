@@ -210,7 +210,6 @@ const NewForm = () => {
     try {
       const res = await axios.post(formsService.createForm, { form: newForm });
       if (res.status === 200) {
-        // console.log(res);
         form?.formId
           ? successToast("Form Edited SuccessFully")
           : successToast("Form Created SuccessFully");

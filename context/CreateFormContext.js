@@ -15,7 +15,9 @@ export const CreateContextProvider = ({ children }) => {
       try {
         const { data } = await axios.get(formsService.getForms);
         setFormsJSONLoading(false);
-        setFormsJSON([...data?.forms]);
+        if (data.forms.length && Array.isArray(data.forms)) {
+          setFormsJSON([...data?.forms]);
+        }
       } catch (error) {
         setFormsJSONLoading(false);
         console.log(error);
