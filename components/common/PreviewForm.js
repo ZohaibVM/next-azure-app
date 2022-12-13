@@ -16,7 +16,7 @@ const PreviewForm = ({ sections, onEditSection }) => {
     switch (element.elementType) {
       case "heading":
         return (
-          <div className="row">
+          <div className="row" key={element.id}>
             <div className="col-12">
               <label
                 className="vm_section_heading vm_dark_label m-0"
@@ -32,7 +32,7 @@ const PreviewForm = ({ sections, onEditSection }) => {
         );
       case "address":
         return (
-          <div className="af_h_box vm_af_h_box">
+          <div className="af_h_box vm_af_h_box" key={element.id}>
             <div className="vm_af_h_title_box_text">
               <div className="row">
                 <div className="col-12">
@@ -132,7 +132,7 @@ const PreviewForm = ({ sections, onEditSection }) => {
           options.push(element.options[property]);
         }
         return (
-          <div className="af_h_box vm_af_h_box">
+          <div className="af_h_box vm_af_h_box" key={element.id}>
             <div className="vm_af_h_title_box_text">
               <div className="row">
                 <div className="col-12">
@@ -174,7 +174,7 @@ const PreviewForm = ({ sections, onEditSection }) => {
         );
       case "full name":
         return (
-          <div className="af_h_box vm_af_h_box">
+          <div className="af_h_box vm_af_h_box" key={element.id}>
             <div className="vm_af_h_title_box_text">
               <div className="row">
                 <div className="col-12">
@@ -245,7 +245,7 @@ const PreviewForm = ({ sections, onEditSection }) => {
         );
       case "phone number":
         return (
-          <div className="af_h_box vm_af_h_box">
+          <div className="af_h_box vm_af_h_box" key={element.id}>
             <div className="vm_af_h_title_box_text">
               <div className="row">
                 <div className="col-12">
@@ -294,7 +294,7 @@ const PreviewForm = ({ sections, onEditSection }) => {
         );
       case "email address":
         return (
-          <div className="af_h_box vm_af_h_box">
+          <div className="af_h_box vm_af_h_box" key={element.id}>
             <div className="vm_af_h_title_box_text">
               <div className="row">
                 <div className="col-12">
@@ -332,7 +332,7 @@ const PreviewForm = ({ sections, onEditSection }) => {
         );
       case "time":
         return (
-          <div className="af_h_box vm_af_h_box">
+          <div className="af_h_box vm_af_h_box" key={element.id}>
             <div className="vm_af_h_title_box_text">
               <div className="row">
                 <div className="col-12">
@@ -370,7 +370,7 @@ const PreviewForm = ({ sections, onEditSection }) => {
         );
       case "date":
         return (
-          <div className="af_h_box vm_af_h_box">
+          <div className="af_h_box vm_af_h_box" key={element.id}>
             <div className="vm_af_h_title_box_text">
               <div className="row">
                 <div className="col-12">
@@ -408,7 +408,7 @@ const PreviewForm = ({ sections, onEditSection }) => {
         );
       case "long text":
         return (
-          <div className="af_h_box vm_af_h_box">
+          <div className="af_h_box vm_af_h_box" key={element.id}>
             <div className="vm_af_h_title_box_text">
               <div className="row">
                 <div className="col-12">
@@ -446,7 +446,7 @@ const PreviewForm = ({ sections, onEditSection }) => {
         );
       case "short text":
         return (
-          <div className="af_h_box vm_af_h_box">
+          <div className="af_h_box vm_af_h_box" key={element.id}>
             <div className="vm_af_h_title_box_text">
               <div className="row">
                 <div className="col-12">
@@ -484,7 +484,7 @@ const PreviewForm = ({ sections, onEditSection }) => {
         );
       case "integer":
         return (
-          <div className="af_h_box vm_af_h_box">
+          <div className="af_h_box vm_af_h_box" key={element.id}>
             <div className="vm_af_h_title_box_text">
               <div className="row">
                 <div className="col-12">
@@ -522,7 +522,7 @@ const PreviewForm = ({ sections, onEditSection }) => {
         );
       case "decimal":
         return (
-          <div className="af_h_box vm_af_h_box">
+          <div className="af_h_box vm_af_h_box" key={element.id}>
             <div className="vm_af_h_title_box_text">
               <div className="row">
                 <div className="col-12">
@@ -564,7 +564,7 @@ const PreviewForm = ({ sections, onEditSection }) => {
           singleChoiceOptions.push(element.options[property]);
         }
         return (
-          <div className="af_h_box vm_af_h_box">
+          <div className="af_h_box vm_af_h_box" key={element.id}>
             <div className="vm_af_h_title_box_text">
               <div className="row">
                 <div className="col-12">
@@ -601,7 +601,7 @@ const PreviewForm = ({ sections, onEditSection }) => {
         );
       case "file upload":
         return (
-          <div className="af_h_box vm_af_h_box">
+          <div className="af_h_box vm_af_h_box" key={element.id}>
             <div className="vm_af_h_title_box_text">
               <div className="row">
                 <div className="col-12">
@@ -639,7 +639,7 @@ const PreviewForm = ({ sections, onEditSection }) => {
         );
       case "dropdown":
         return (
-          <div className="af_h_box vm_af_h_box">
+          <div className="af_h_box vm_af_h_box" key={element.id}>
             <div className="vm_af_h_title_box_text">
               <div className="row">
                 <div className="col-12">
@@ -673,7 +673,7 @@ const PreviewForm = ({ sections, onEditSection }) => {
         );
       case "scale rating":
         return (
-          <div className="af_h_box vm_af_h_box">
+          <div className="af_h_box vm_af_h_box" key={element.id}>
             <div className="vm_af_h_title_box_text">
               <div className="row">
                 <div className="col-12">
@@ -714,7 +714,7 @@ const PreviewForm = ({ sections, onEditSection }) => {
         );
       case "signature":
         return (
-          <div className="af_h_box vm_af_h_box">
+          <div className="af_h_box vm_af_h_box" key={element.id}>
             <div className="vm_af_h_title_box_text">
               <div className="row">
                 <div className="col-12">
@@ -780,8 +780,8 @@ const PreviewForm = ({ sections, onEditSection }) => {
           </div>
         </div>
       ))}
-      <div className={`af_h_title_box d-flex justify-content-end`}>
-        <div
+      <div className="af_h_title_box d-flex justify-content-center">
+        {/* <div
           className="btn-left-container ACT_next_btn mr-0"
           style={{ width: "100px" }}
         >
@@ -800,7 +800,10 @@ const PreviewForm = ({ sections, onEditSection }) => {
           >
             Submit
           </button>
-        </div>
+        </div> */}
+        <button type="submit" className="form-submit-btn" disabled>
+          Submit
+        </button>
       </div>
     </div>
   );

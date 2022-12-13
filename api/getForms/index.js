@@ -1,15 +1,20 @@
 const blobService = require("../services/blobService");
 
 module.exports = async function (context, req, _) {
-  try {
-    const formsData = await blobService.downloadBlobData();
+  const body = req.body;
+  const user = req.body.user;
 
-    context.res = {
-      status: 200,
-      body: {
-        forms: formsData,
-      },
-    };
+  try {
+    if (body && user) {
+      const formsData = await blobService.downloadBlobData(user.id);
+
+      context.res = {
+        status: 200,
+        body: {
+          forms: formsData,
+        },
+      };
+    }
   } catch (error) {
     context.res = {
       status: 500,

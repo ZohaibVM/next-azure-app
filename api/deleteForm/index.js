@@ -1,12 +1,13 @@
 const blobService = require("../services/blobService");
 
 module.exports = async function (context, req) {
-  //   const body = req.body;
+  const body = req.body;
+  const user = req.body.user;
   const formId = context.req.params.id;
 
-  if (formId) {
+  if (formId && body && user) {
     try {
-      const message = await blobService.deleteBlob(`${formId}.txt`);
+      const message = await blobService.deleteBlob(`${formId}.txt`, user.id);
       context.res = {
         status: 200,
         body: {

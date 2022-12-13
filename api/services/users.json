@@ -1,0 +1,26 @@
+[
+  {
+    "id": "08225A9E-F2B3-4FA3-AB08-8C70ADD6C3C2",
+    "username": "zohaib",
+    "email": "m.zohaib@visiomate.com",
+    "password": "123456"
+  },
+  {
+    "id": "2C981511-AC73-4A65-9DA3-A0577E386394",
+    "username": "amir",
+    "email": "aamir.rasheed@visiomate.com",
+    "password": "abc12345"
+  },
+  {
+    "id": "0F124781-C991-48A9-ACF2-249771D44029",
+    "username": "usama",
+    "email": "usama@visiomate.com",
+    "password": "hi12345"
+  },
+  {
+    "id": "0b68e630-c486-4d41-93cd-0413b2a0817c",
+    "username": "visiomate",
+    "email": "visio@mate.com",
+    "password": "123456"
+  }
+]

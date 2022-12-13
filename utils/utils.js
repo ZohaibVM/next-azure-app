@@ -794,3 +794,13 @@ export const errorToast = (message) => toast(message, { type: "error" });
 export const warningToast = (message) => toast(message, { type: "warning" });
 
 export const successToast = (message) => toast(message, { type: "success" });
+
+export const validateEmail = (email) => {
+  const re =
+    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
+};
+
+export const getUserFromLocalStorage = () => {
+  return JSON.parse(localStorage.getItem("user"));
+};

@@ -1,7 +1,11 @@
 import { useState, useEffect, useRef } from "react";
-import { createElement, errorToast, successToast } from "./../utils/utils";
+import {
+  createElement,
+  errorToast,
+  getUserFromLocalStorage,
+  successToast,
+} from "./../utils/utils";
 import { useRouter } from "next/router";
-import { useForm } from "./../context/CreateFormContext";
 import { v4 as uuidv4 } from "uuid";
 import { formsService } from "./../services/formsService";
 import axios from "axios";
@@ -45,8 +49,6 @@ const NewForm = () => {
     pathname,
   } = useRouter();
 
-  const { addFormsJSON } = useForm();
-
   useEffect(() => {
     if (nodeRef.current) {
       const element = document.getElementById(nodeRef.current.id);
@@ -68,7 +70,9 @@ const NewForm = () => {
       if (formId) {
         const newForms = [];
         try {
-          const { data } = await axios.get(formsService.getForms);
+          const { data } = await axios.post(formsService.getForms, {
+            user: getUserFromLocalStorage(),
+          });
           newForms = [...data?.forms];
         } catch (error) {
           console.log(error);
@@ -208,15 +212,15 @@ const NewForm = () => {
     };
 
     try {
-      const res = await axios.post(formsService.createForm, { form: newForm });
+      const res = await axios.post(formsService.createForm, {
+        form: newForm,
+        user: getUserFromLocalStorage(),
+      });
       if (res.status === 200) {
         form?.formId
           ? successToast("Form Edited SuccessFully")
           : successToast("Form Created SuccessFully");
-
-        // Refactor this context code
-        addFormsJSON(newForm);
-        push("/");
+        push("/AllForms");
       }
     } catch (error) {
       errorToast(error.message);

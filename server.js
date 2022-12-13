@@ -3,8 +3,10 @@ const next = require("next");
 const { createProxyMiddleware } = require("http-proxy-middleware");
 
 const port = process.env.PORT || 3000;
+const hostname = "localhost";
 const dev = process.env.NODE_ENV !== "production";
-const app = next({ dev });
+const app = next({ dev, hostname, port });
+
 const handle = app.getRequestHandler();
 
 const apiPaths = {

@@ -1,29 +1,37 @@
 import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { formsService } from "./../services/formsService";
+// import { useRouter } from "next/router";
+
+const getUserFromLocalStorage = () => {
+  return JSON.parse(localStorage.getItem("user"));
+};
 
 export const CreateFormContext = React.createContext({});
 
 export const CreateContextProvider = ({ children }) => {
+  // const { pathname } = useRouter();
   const [forms, setForms] = useState([]);
   const [formsJSON, setFormsJSON] = useState([]);
   const [formsJSONLoading, setFormsJSONLoading] = useState(false);
 
-  useEffect(() => {
-    const getFormsJSON = async () => {
-      setFormsJSONLoading(true);
-      try {
-        const { data } = await axios.get(formsService.getForms);
-        setFormsJSONLoading(false);
-        if (data.forms.length && Array.isArray(data.forms)) {
-          setFormsJSON([...data?.forms]);
-        }
-      } catch (error) {
-        setFormsJSONLoading(false);
-        console.log(error);
+  const getFormsJSON = async () => {
+    setFormsJSONLoading(true);
+    try {
+      const { data } = await axios.post(formsService.getForms, {
+        user: getUserFromLocalStorage(),
+      });
+      setFormsJSONLoading(false);
+      if (data.forms.length && Array.isArray(data.forms)) {
+        setFormsJSON([...data?.forms]);
       }
-    };
+    } catch (error) {
+      setFormsJSONLoading(false);
+      console.log(error);
+    }
+  };
 
+  useEffect(() => {
     getFormsJSON();
   }, []);
 
@@ -42,6 +50,10 @@ export const CreateContextProvider = ({ children }) => {
 
   const removeFormsJSON = (formId) => {
     setFormsJSON(formsJSON.filter((form) => form.formId !== formId));
+  };
+
+  const clearFormsJSON = () => {
+    setFormsJSON([]);
   };
 
   const onAddForm = (form) => {
@@ -65,6 +77,7 @@ export const CreateContextProvider = ({ children }) => {
         formsJSON,
         formsJSONLoading,
         addFormsJSON,
+        clearFormsJSON,
         removeFormsJSON,
       }}
     >

@@ -1,5 +1,4 @@
-import { Provider } from "react-redux";
-import store, { wrapper } from "../store/store";
+import { ToastContainer } from "react-toastify";
 import ContextProvider from "../context/GlobalContext";
 import Dashboard from "../components/Dashboard/Dashboard";
 import "fontawesome-4.7/css/font-awesome.min.css";
@@ -15,14 +14,13 @@ import "../styles/dashboard.css";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Provider store={store}>
-      <ContextProvider>
-        <Dashboard>
-          <Component {...pageProps} />
-        </Dashboard>
-      </ContextProvider>
-    </Provider>
+    <ContextProvider>
+      <Dashboard>
+        <Component {...pageProps} />
+        <ToastContainer />
+      </Dashboard>
+    </ContextProvider>
   );
 }
 
-export default wrapper.withRedux(MyApp);
+export default MyApp;

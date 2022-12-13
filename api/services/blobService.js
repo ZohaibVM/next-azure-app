@@ -6,10 +6,9 @@ const { DefaultAzureCredential } = require("@azure/identity");
 const { v1: uuidv1 } = require("uuid");
 require("dotenv").config();
 
-async function createNewBlob(formData) {
+async function createNewBlob(formData, containerName) {
   try {
-    const blobServiceClient = getBlobServiceClient();
-    const res = await createAndUploadBlobData(formData, blobServiceClient);
+    const res = await createAndUploadBlobData(formData, containerName);
     return res;
   } catch (err) {
     console.error(`Error: ${err.message}`);
@@ -28,14 +27,12 @@ async function getBlobs() {
   }
 }
 
-async function downloadBlobData() {
+async function downloadBlobData(id) {
   try {
     const blobServiceClient = getBlobServiceClient();
-    const blobs = await listBlobsInContainer(blobServiceClient);
+    const blobs = await listBlobsInContainer(blobServiceClient, id);
 
-    const containerClient = blobServiceClient.getContainerClient(
-      getContainerName()
-    );
+    const containerClient = blobServiceClient.getContainerClient(id);
 
     const blobServiceClientList = [];
 
@@ -78,9 +75,9 @@ async function downloadBlobData() {
   }
 }
 
-async function deleteBlob(blobName) {
+async function deleteBlob(blobName, containerName) {
   try {
-    const message = await deleteBlobData(blobName);
+    const message = await deleteBlobData(blobName, containerName);
     return message;
   } catch (err) {
     console.error(`Error: ${err.message}`);
@@ -88,9 +85,45 @@ async function deleteBlob(blobName) {
   }
 }
 
+// !CREATE AND RETURN LIST OF CONTAINERS
+async function getContainers(signupData) {
+  try {
+    // const res = await createContainer(blobServiceClient);
+    // const containers = await listContainers(blobServiceClient);
+    // return { res, containers };
+
+    const res = await createAndUploadBlobData(signupData, containerName);
+    // const list = await listBlobsInContainer(blobServiceClient);
+    const list = await downloadBlobData();
+    return { res, list };
+  } catch (err) {
+    console.error(`Error: ${err.message}`);
+    return `Error: ${err.message}`;
+  }
+}
+
+// Create Container
+async function createContainer(containerName) {
+  // Create a unique name for the container
+  // const containerName = "formscontainer" + uuidv1();
+  // const containerName = uuidv1();
+  const blobServiceClient = getBlobServiceClient();
+  console.log("\nCreating container...");
+  console.log("\t", containerName);
+
+  // Get a reference to a container
+  const containerClient = blobServiceClient.getContainerClient(containerName);
+  // Create the container
+  const createContainerResponse = await containerClient.create();
+
+  return `Container was created successfully.\n\trequestId:${createContainerResponse.requestId}\n\tURL: ${containerClient.url}`;
+}
+
 module.exports = {
   createNewBlob,
   getBlobs,
+  getContainers,
+  createContainer,
   downloadBlobData,
   deleteBlob,
 };
@@ -127,26 +160,10 @@ function getBlobServiceClient() {
   return blobServiceClient;
 }
 
-// Create Container
-async function createContainer(blobServiceClient) {
-  // Create a unique name for the container
-  const containerName = "formscontainer" + uuidv1();
-
-  console.log("\nCreating container...");
-  console.log("\t", containerName);
-
-  // Get a reference to a container
-  const containerClient = blobServiceClient.getContainerClient(containerName);
-  // Create the container
-  const createContainerResponse = await containerClient.create();
-  return `Container was created successfully.\n\trequestId:${createContainerResponse.requestId}\n\tURL: ${containerClient.url}`;
-}
-
 // Create blob and upload data in blob
-async function createAndUploadBlobData(formData, blobServiceClient) {
-  const containerClient = blobServiceClient.getContainerClient(
-    getContainerName()
-  );
+async function createAndUploadBlobData(formData, containerName) {
+  const blobServiceClient = getBlobServiceClient();
+  const containerClient = blobServiceClient.getContainerClient(containerName);
   // Create a unique name for the blob
   const blobName = formData.formId + ".txt";
 
@@ -168,11 +185,9 @@ async function createAndUploadBlobData(formData, blobServiceClient) {
 }
 
 // List blobs in container
-async function listBlobsInContainer(blobServiceClient) {
+async function listBlobsInContainer(blobServiceClient, containerName) {
   console.log("\nListing blobs...");
-  const containerClient = blobServiceClient.getContainerClient(
-    getContainerName()
-  );
+  const containerClient = blobServiceClient.getContainerClient(containerName);
   let blobNames = [];
   // List the blob(s) in the container.
   for await (const blob of containerClient.listBlobsFlat()) {
@@ -187,7 +202,6 @@ async function listBlobsInContainer(blobServiceClient) {
 }
 
 function getContainerName() {
-  // return "formscontainer93993e00-6423-11ed-aa80-91c0503ad210";
   return "form-builder-storage-container";
 }
 
@@ -204,11 +218,9 @@ async function deleteContainer() {
 }
 
 // Delete Blob
-async function deleteBlobData(blobName) {
+async function deleteBlobData(blobName, containerName) {
   const blobServiceClient = getBlobServiceClient();
-  const containerClient = blobServiceClient.getContainerClient(
-    getContainerName()
-  );
+  const containerClient = blobServiceClient.getContainerClient(containerName);
   // include: Delete the base blob and all of its snapshots.
   // only: Delete only the blob's snapshots and not the blob itself.
   const options = {

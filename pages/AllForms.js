@@ -1,10 +1,10 @@
-import Dropdown from "../Dropdown/Dropdown";
+import Dropdown from "./../components/Dropdown/Dropdown";
+import useForm from "./../hooks/useForm";
 import { useRouter } from "next/router";
-import { useForm } from "../../context/CreateFormContext";
 
 export default function AllForms() {
   const { push } = useRouter();
-  const { formsJSON, formsJSONLoading } = useForm();
+  const { formsJSON, formsJSONLoading, onDeleteFormJSON } = useForm();
 
   return (
     <section className="all-forms">
@@ -23,7 +23,7 @@ export default function AllForms() {
           formsJSON?.map((form) => (
             <div className="all-forms-single" key={form.formId}>
               <i className="fa fa-2x fa-fw fa-newspaper-o"></i>
-              <Dropdown path={form.formId} />
+              <Dropdown path={form.formId} onDelete={onDeleteFormJSON} />
               <span>{form.formTitle}</span>
             </div>
           ))}

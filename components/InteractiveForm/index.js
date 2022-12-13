@@ -1,8 +1,6 @@
 import React from "react";
 import { useState, useEffect, useRef, useMemo } from "react";
-import FormInput from "../../shared/FormInput";
 import { useRouter } from "next/router";
-import useTheme from "../../hooks/useTheme";
 import {
   initialValues,
   checkboxInitialValues,
@@ -10,7 +8,9 @@ import {
   dropdownValues,
   mapFormState,
 } from "../../utils/utils";
-import { useForm } from "../../context/CreateFormContext";
+import FormInput from "../../shared/FormInput";
+import useTheme from "../../hooks/useTheme";
+import useForm from "./../../hooks/useForm";
 import Spinner from "./../Spinner/Spinner";
 
 const Form = () => {

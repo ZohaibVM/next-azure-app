@@ -1,25 +1,29 @@
 import Link from "next/link";
 import axios from "axios";
 import { useState } from "react";
-import { useForm } from "./../../context/CreateFormContext";
 import { formsService } from "../../services/formsService";
-import { errorToast, successToast } from "./../../utils/utils";
+import {
+  errorToast,
+  getUserFromLocalStorage,
+  successToast,
+} from "./../../utils/utils";
 
-const Dropdown = ({ path }) => {
+const Dropdown = ({ path, onDelete }) => {
   const [show, setShow] = useState(false);
-  const { removeFormsJSON } = useForm();
   const [deleteFormLoading, setDeleteFormLoading] = useState(false);
 
   const handleDropdown = () => setShow((prevState) => !prevState);
 
-  const handleDelete = async (e, path) => {
+  const handleDelete = async (e) => {
     e.preventDefault();
     setDeleteFormLoading(true);
     try {
-      const res = await axios.delete(`${formsService.deleteForm}/${path}`);
+      const res = await axios.post(`${formsService.deleteForm}/${path}`, {
+        user: getUserFromLocalStorage(),
+      });
       if (res.status === 200) {
         setDeleteFormLoading(false);
-        removeFormsJSON(path);
+        onDelete(path);
         successToast("Form Deleted Successfully");
       }
     } catch (error) {
@@ -56,7 +60,7 @@ const Dropdown = ({ path }) => {
             <Link href="">
               <a
                 className="all-forms-dropdown-link"
-                onClick={(e) => handleDelete(e, path)}
+                onClick={(e) => handleDelete(e)}
               >
                 Delete{" "}
                 {deleteFormLoading && <i className="fa fa-spinner fa-spin"></i>}

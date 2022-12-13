@@ -3,10 +3,11 @@ const blobService = require("../services/blobService");
 module.exports = async function (context, req) {
   const body = req.body;
   const form = req.body.form;
+  const user = req.body.user;
 
-  if (body && form) {
+  if (body && form && user) {
     try {
-      const message = await blobService.createNewBlob(form);
+      const message = await blobService.createNewBlob(form, user.id);
       context.res = {
         status: 200,
         body: {
@@ -22,7 +23,7 @@ module.exports = async function (context, req) {
   } else {
     context.res = {
       status: 400,
-      body: "Please attach form JSON object in the request body",
+      body: "Please attach form JSON object and UserID in the request body",
     };
   }
 };

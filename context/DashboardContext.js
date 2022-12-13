@@ -1,7 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 
-const invisibleRoutes = ["CreateForm", "EditForm", "PublishedForm", "NewForm"];
+const invisibleRoutes = [
+  "CreateForm",
+  "EditForm",
+  "PublishedForm",
+  "NewForm",
+  "Login",
+  "SignUp",
+  "ForgotPassword",
+];
 
 const DashboardContext = React.createContext({
   isSidebarCollapsed: true,
@@ -10,14 +18,12 @@ const DashboardContext = React.createContext({
 
 export const DashboardContextProvider = ({ children }) => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true);
-  // const { pathname } = useLocation();
   const { pathname } = useRouter();
 
   useEffect(() => {
     const newPath = pathname.split("/");
-
     if (invisibleRoutes.includes(newPath[1])) {
-      setIsSidebarCollapsed((prevState) => !prevState);
+      setIsSidebarCollapsed(false);
       return;
     }
     setIsSidebarCollapsed(true);
