@@ -20,8 +20,10 @@ import ContainerContent from "./../components/common/ContainerContent";
 import PreviewForm from "./../components/common/PreviewForm";
 import Spinner from "../components/Spinner/Spinner";
 import arrayMove from "array-move";
+import useAuth from "./../hooks/useAuth";
 
 const NewForm = () => {
+  const { user } = useAuth({ redirectTo: "/Login" });
   const [isLeftDrawerActive, setIsLeftDrawerActive] = useState(false);
   const [isRightDrawerActive, setIsRightDrawerActive] = useState(false);
   const [isPreviewActive, setIsPreviewActive] = useState(false);
@@ -76,8 +78,8 @@ const NewForm = () => {
           newForms = [...data?.forms];
         } catch (error) {
           console.log(error);
-          errorToast("Something went wrong");
-          push("/");
+          user && errorToast("Something went wrong");
+          user ? push("/AllForms") : push("/Login");
         }
         const singleForm = newForms.find((form) => form.formId === formId);
 
@@ -92,8 +94,8 @@ const NewForm = () => {
           });
           setIsFetching(false);
         } else {
-          errorToast("404: Form Not Found");
-          push("/");
+          user && errorToast("404: Form Not Found");
+          push("/Login");
         }
       }
     };
@@ -501,6 +503,14 @@ const NewForm = () => {
 
     setSections(sectionsClone);
   };
+
+  if (!user)
+    return (
+      <Spinner
+        styles={{ position: "fixed", inset: 0 }}
+        message="Getting Your Requested Page..."
+      />
+    );
 
   if (isFetching) return <Spinner message="Getting Form Data Please Wait..." />;
 

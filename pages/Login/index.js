@@ -1,10 +1,12 @@
 import Link from "next/link";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { successToast, errorToast } from "../../utils/utils";
 import { formsService } from "../../services/formsService";
+import useAuth from "../../hooks/useAuth";
+import Spinner from "./../../components/Spinner/Spinner";
 
 const storeInLocalStorage = (user) => {
   localStorage.setItem("user", JSON.stringify(user));
@@ -15,7 +17,15 @@ function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(null);
-  const { replace } = useRouter();
+  const { replace, back } = useRouter();
+  const { user } = useAuth({ redirectTo: "" });
+
+  useEffect(() => {
+    // if user true redirect to previous path
+    if (user) {
+      back();
+    }
+  }, [user, back]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -56,6 +66,14 @@ function Login() {
       setLoading(null);
     }
   };
+
+  if (user)
+    return (
+      <Spinner
+        styles={{ position: "fixed", inset: 0 }}
+        message="Getting Your Requested Page..."
+      />
+    );
 
   return (
     <section className="login-wrapper">

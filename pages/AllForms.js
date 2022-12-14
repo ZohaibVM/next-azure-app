@@ -1,10 +1,21 @@
 import Dropdown from "./../components/Dropdown/Dropdown";
 import useForm from "./../hooks/useForm";
+import useAuth from "../hooks/useAuth";
+import Spinner from "./../components/Spinner/Spinner";
 import { useRouter } from "next/router";
 
 export default function AllForms() {
+  const { user } = useAuth({ redirectTo: "/Login" });
   const { push } = useRouter();
   const { formsJSON, formsJSONLoading, onDeleteFormJSON } = useForm();
+
+  if (!user)
+    return (
+      <Spinner
+        styles={{ position: "fixed", inset: 0 }}
+        message="Getting Your Requested Page..."
+      />
+    );
 
   return (
     <section className="all-forms">
