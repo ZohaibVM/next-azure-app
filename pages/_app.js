@@ -15,10 +15,10 @@ import "../styles/dashboard.css";
 function MyApp({ Component, pageProps }) {
   return (
     <ContextProvider>
-      <Dashboard>
-        <Component {...pageProps} />
-        <ToastContainer />
-      </Dashboard>
+      {/* <Dashboard> */}
+      <Component {...pageProps} />
+      <ToastContainer />
+      {/* </Dashboard> */}
     </ContextProvider>
   );
 }
