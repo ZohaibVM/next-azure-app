@@ -8,7 +8,7 @@ const SideBar = () => {
   const handleLogout = () => {
     localStorage.removeItem("user");
     Cookies.remove("loggedin");
-    push("Login");
+    push("/");
   };
 
   return (

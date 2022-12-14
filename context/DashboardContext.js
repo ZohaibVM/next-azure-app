@@ -6,9 +6,9 @@ const invisibleRoutes = [
   "EditForm",
   "PublishedForm",
   "NewForm",
-  "Login",
   "SignUp",
   "ForgotPassword",
+  "",
 ];
 
 const DashboardContext = React.createContext({

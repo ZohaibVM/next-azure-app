@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { successToast, errorToast } from "../../utils/utils";
 import { formsService } from "../../services/formsService";
 import useAuth from "../../hooks/useAuth";
-import Spinner from "./../../components/Spinner/Spinner";
+import Spinner from "../Spinner/Spinner";
 
 const storeInLocalStorage = (user) => {
   localStorage.setItem("user", JSON.stringify(user));
@@ -17,15 +17,15 @@ function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(null);
-  const { replace, back } = useRouter();
+  const { replace, push } = useRouter();
   const { user } = useAuth({ redirectTo: "" });
 
   useEffect(() => {
     // if user true redirect to previous path
     if (user) {
-      back();
+      push("/AllForms");
     }
-  }, [user, back]);
+  }, [user, push]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -23,7 +23,7 @@ import arrayMove from "array-move";
 import useAuth from "./../hooks/useAuth";
 
 const NewForm = () => {
-  const { user } = useAuth({ redirectTo: "/Login" });
+  const { user } = useAuth({ redirectTo: "/" });
   const [isLeftDrawerActive, setIsLeftDrawerActive] = useState(false);
   const [isRightDrawerActive, setIsRightDrawerActive] = useState(false);
   const [isPreviewActive, setIsPreviewActive] = useState(false);
@@ -79,7 +79,7 @@ const NewForm = () => {
         } catch (error) {
           console.log(error);
           user && errorToast("Something went wrong");
-          user ? push("/AllForms") : push("/Login");
+          user ? push("/AllForms") : push("/");
         }
         const singleForm = newForms.find((form) => form.formId === formId);
 
@@ -95,7 +95,7 @@ const NewForm = () => {
           setIsFetching(false);
         } else {
           user && errorToast("404: Form Not Found");
-          push("/Login");
+          push("/");
         }
       }
     };

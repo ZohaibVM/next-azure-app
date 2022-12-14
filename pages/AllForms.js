@@ -5,7 +5,7 @@ import Spinner from "./../components/Spinner/Spinner";
 import { useRouter } from "next/router";
 
 export default function AllForms() {
-  const { user } = useAuth({ redirectTo: "/Login" });
+  const { user } = useAuth({ redirectTo: "/" });
   const { push } = useRouter();
   const { formsJSON, formsJSONLoading, onDeleteFormJSON } = useForm();
 

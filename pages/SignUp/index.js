@@ -51,7 +51,7 @@ function SignUp() {
         setEmail("");
         setPassword("");
         setConfirmPassword("");
-        push("/Login");
+        push("/");
         successToast(res?.data?.message);
       }
     } catch (error) {
@@ -115,7 +115,7 @@ function SignUp() {
             )}
             <div className="col-12">
               <div className="d-flex justify-content-end">
-                <Link href="/Login">
+                <Link href="/">
                   <a className="text-dark">Already Have an Account?</a>
                 </Link>
               </div>
