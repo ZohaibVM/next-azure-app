@@ -1,6 +1,7 @@
 const { CosmosClient } = require("@azure/cosmos");
 const users = require("./users.json");
 require("dotenv").config();
+
 const key = process.env.COSMOS_KEY;
 const endpoint = process.env.COSMOS_ENDPOINT;
 const databaseName = `formbuilder_db_1670571268301`;
@@ -104,13 +105,44 @@ async function findAllResources(container, user) {
   // }
 }
 
+async function isUserEmailExist(container, user) {
+  const querySpec = {
+    query: "select * from items i where i.email=@email",
+    parameters: [
+      {
+        name: "@email",
+        value: user.email,
+      },
+    ],
+  };
+
+  // Get items
+  const { resources } = await container.items.query(querySpec).fetchAll();
+  return resources[0];
+}
+
+async function editResource(container, user) {
+  const { resource: updatedUser } = await container.items.upsert(user);
+  return `${updatedUser.username} updated`;
+
+  // const user = { ...users[0] };
+  // user.username = "zohaib ashraf";
+  // const { resource: updatedUser } = await container.items.upsert(
+  //   user,
+  //   users[0].id
+  // );
+  // console.log(updatedUser.username, "updated");
+}
+
 module.exports = {
   initDB,
   readAll,
   createUser,
+  editResource,
   findResource,
   findAllResources,
   deleteResource,
+  isUserEmailExist,
 };
 
 const createResources = async (container) => {
@@ -119,14 +151,4 @@ const createResources = async (container) => {
     const { resource } = await container.items.create(user);
     console.log(`'${resource.username}' inserted`);
   }
-};
-
-const editResource = async (container) => {
-  const user = { ...users[0] };
-  user.username = "zohaib ashraf";
-  const { resource: updatedUser } = await container.items.upsert(
-    user,
-    users[0].id
-  );
-  console.log(updatedUser.username, "updated");
 };
