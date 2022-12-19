@@ -8,15 +8,42 @@ module.exports = async function (context, req) {
   if (body && userData) {
     try {
       const { container } = await databaseService.initDB();
-      const user = await databaseService.findAllResources(container, userData);
-      const { password, ...userWithoutPassword } = user || {};
-      context.res = {
-        status: 200,
-        body: {
-          message: user ? "User Login Successfully" : "User is Not Registered!",
-          user: user && userWithoutPassword,
-        },
-      };
+      const userFromDB = await databaseService.isUserExist(container, userData);
+
+      // if username not exist in DB
+      if (!userFromDB) {
+        context.res = {
+          status: 201,
+          body: {
+            message: "User is Not Registered!",
+          },
+        };
+        return;
+      }
+
+      // if user exist and its password matched
+      if (userFromDB.password === userData.password) {
+        const { password, ...userWithoutPassword } = userFromDB || {};
+        context.res = {
+          status: 200,
+          body: {
+            user: userFromDB && userWithoutPassword,
+            message: userFromDB
+              ? "User Login Successfully"
+              : "User is Not Registered!",
+          },
+        };
+      }
+
+      // if user exist and its password not matched
+      if (userFromDB.password !== userData.password) {
+        context.res = {
+          status: 201,
+          body: {
+            message: "User Password is Incorrect!",
+          },
+        };
+      }
     } catch (error) {
       context.res = {
         status: 500,

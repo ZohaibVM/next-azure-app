@@ -121,6 +121,22 @@ async function isUserEmailExist(container, user) {
   return resources[0];
 }
 
+async function isUserExist(container, user) {
+  const querySpec = {
+    query: "select * from items i where i.username=@userName",
+    parameters: [
+      {
+        name: "@userName",
+        value: user.username,
+      },
+    ],
+  };
+
+  // Get items
+  const { resources } = await container.items.query(querySpec).fetchAll();
+  return resources[0];
+}
+
 async function editResource(container, user) {
   const { resource: updatedUser } = await container.items.upsert(user);
   return `${updatedUser.username} updated`;
@@ -138,6 +154,7 @@ module.exports = {
   initDB,
   readAll,
   createUser,
+  isUserExist,
   editResource,
   findResource,
   findAllResources,

@@ -14,7 +14,14 @@ const FormName = ({
   onElementVisible,
 }) => {
   const {
-    selectedTheme: { whiteColor, primaryColor, inputStyle, labelAlignment },
+    selectedTheme: {
+      whiteColor,
+      primaryColor,
+      inputStyle,
+      labelAlignment,
+      primaryToggleIconActive,
+      primaryToggleIconDisabled,
+    },
   } = useTheme();
 
   return (
@@ -37,16 +44,6 @@ const FormName = ({
               value={data?.elementTitle}
               onChange={(e) => onElementTitleChange(e, data)}
             />
-            {/* <div
-              contentEditable
-              //   onInput={handleContentEditableChange}
-              id="element"
-              //   uniqueIdentifier={uniqueIdentifier}
-              dataToggle="tooltip"
-              title="This text is editable"
-            >
-              {data?.elementTitle}
-            </div> */}
           </div>
           <FormIcons
             data={data}
@@ -56,15 +53,6 @@ const FormName = ({
             onElementRequired={onElementRequired}
             onElementVisible={onElementVisible}
           />
-          {/* {!element.isTemplateElement && (
-          <CardIcons
-          handleClickedElement={handleIconsClick}
-          name="Full Name"
-          uniqueIdentifier={uniqueIdentifier}
-          editMode={editMode}
-          isPrimary={isPrimary}
-          />
-          )} */}
         </div>
       </div>
       <div className="af_h_title_box_text custom-card-body-padding">
@@ -81,7 +69,12 @@ const FormName = ({
           <div
             className="toggle-container ml-1 element-icon"
             onClick={() => onElementPrimary(data)}
-            style={{ backgroundColor: primaryColor }}
+            // style={{ backgroundColor: primaryColor }}
+            style={{
+              backgroundColor: data?.isPrimary
+                ? primaryToggleIconActive
+                : primaryToggleIconDisabled,
+            }}
           >
             <div
               className={`dialog-button ${!data?.isPrimary ? "disabled" : ""}`}

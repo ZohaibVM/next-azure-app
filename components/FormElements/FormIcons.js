@@ -4,12 +4,16 @@ const FormIcons = ({
   data,
   onElementDelete,
   onElementClone,
-  onElementPrimary,
   onElementRequired,
   onElementVisible,
 }) => {
   const {
-    selectedTheme: { toggleIconColor, whiteColor },
+    selectedTheme: {
+      toggleIconColor,
+      whiteColor,
+      secondaryToggleIconActive,
+      secondaryToggleIconDisabled,
+    },
   } = useTheme();
 
   return (
@@ -20,7 +24,12 @@ const FormIcons = ({
         id={`required-toggle-icon`}
         // dataToggle="tooltip"
         title="Mark/Un Mark element as required"
-        style={{ backgroundColor: whiteColor }}
+        // style={{ backgroundColor: whiteColor }}
+        style={{
+          backgroundColor: data?.isRequired
+            ? secondaryToggleIconActive
+            : secondaryToggleIconDisabled,
+        }}
       >
         <div
           // className="dialog-button"

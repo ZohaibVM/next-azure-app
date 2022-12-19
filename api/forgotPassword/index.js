@@ -23,7 +23,7 @@ module.exports = async function (context, req) {
         context.res = {
           status: 200,
           body: {
-            message: "User Password is updated Successfully!",
+            message: "User Password is updated Successfully! Please Login",
             userMessage: userPassUpdateRes,
           },
         };

@@ -39,7 +39,9 @@ const NewForm = () => {
       elements: [],
     },
   ]);
-  const [form, setForm] = useState(null);
+  const [form, setForm] = useState({
+    isEmailMendatory: false,
+  });
   const [activeSectionIndex, setActiveSectionIndex] = useState(0);
   const sectionsEndRef = useRef(null);
   const formTitleRef = useRef(null);
@@ -91,6 +93,7 @@ const NewForm = () => {
             formDescription: singleForm?.formDescription,
             creationDate: singleForm?.creationDate,
             lastUpdateDate: singleForm?.lastUpdateDate,
+            isEmailMendatory: singleForm?.isEmailMendatory,
           });
           setIsFetching(false);
         } else {
@@ -210,6 +213,7 @@ const NewForm = () => {
       formDescription: form?.formDescription ? form?.formDescription : "",
       creationDate: form?.creationDate ? form.creationDate : Date.now(),
       lastUpdateDate: form?.lastUpdateDate ? form?.lastUpdateDate : null,
+      isEmailMendatory: form?.isEmailMendatory,
       sections: [...sections],
     };
 
@@ -229,6 +233,13 @@ const NewForm = () => {
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleEmailMandatory = () => {
+    setForm((prevForm) => ({
+      ...prevForm,
+      isEmailMendatory: !prevForm.isEmailMendatory,
+    }));
   };
 
   // ref used
@@ -554,6 +565,7 @@ const NewForm = () => {
             {!isPreviewActive && (
               <>
                 <ContainerHeader
+                  form={form}
                   sections={sections}
                   activeSectionIndex={activeSectionIndex}
                   isSaveLoading={isSubmitting}
@@ -561,6 +573,7 @@ const NewForm = () => {
                   onEditSection={handleEditSection}
                   onDeleteSection={handleDeleteSection}
                   onModalOpen={handleModalOpen}
+                  onEmailMandatory={handleEmailMandatory}
                   onSave={handleSaveForm}
                 />
                 <ContainerContent

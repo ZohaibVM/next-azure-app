@@ -119,11 +119,26 @@ async function createContainer(containerName) {
   return `Container was created successfully.\n\trequestId:${createContainerResponse.requestId}\n\tURL: ${containerClient.url}`;
 }
 
+// Create Container if not exists
+async function createContainerIfNotExists(containerName) {
+  const blobServiceClient = getBlobServiceClient();
+  console.log("\nCreating container...");
+  console.log("\t", containerName);
+
+  // Get a reference to a container
+  const containerClient = blobServiceClient.getContainerClient(containerName);
+  // Create the container
+  const createContainerResponse = await containerClient.createIfNotExists();
+
+  return `Container was created successfully.\n\trequestId:${createContainerResponse.requestId}\n\tURL: ${containerClient.url}`;
+}
+
 module.exports = {
   createNewBlob,
   getBlobs,
   getContainers,
   createContainer,
+  createContainerIfNotExists,
   downloadBlobData,
   deleteBlob,
 };
@@ -199,10 +214,6 @@ async function listBlobsInContainer(blobServiceClient, containerName) {
   }
 
   return blobNames;
-}
-
-function getContainerName() {
-  return "form-builder-storage-container";
 }
 
 // Delete Container

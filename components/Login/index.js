@@ -7,6 +7,7 @@ import { successToast, errorToast } from "../../utils/utils";
 import { formsService } from "../../services/formsService";
 import useAuth from "../../hooks/useAuth";
 import Spinner from "../Spinner/Spinner";
+import { warningToast } from "./../../utils/utils";
 
 const storeInLocalStorage = (user) => {
   localStorage.setItem("user", JSON.stringify(user));
@@ -39,26 +40,26 @@ function Login() {
       password,
     };
 
+    setError(null);
     setLoading(true);
 
     try {
       const res = await axios.post(formsService.login, { userData });
 
+      // if user password is incorrect || username not exist
+      if (res?.status === 201) {
+        errorToast(res?.data?.message);
+        return;
+      }
+
       // if user exists
       if (res?.status === 200 && res?.data?.user) {
-        setError(null);
         setUsername("");
         setPassword("");
         Cookies.set("loggedin", "true");
         replace("/AllForms");
         storeInLocalStorage(res?.data?.user);
         successToast(res?.data?.message);
-      }
-
-      // if user not exists
-      if (res?.status === 200 && !res?.data?.user) {
-        setError(null);
-        errorToast(res?.data?.message);
       }
     } catch (error) {
       errorToast(error.message);

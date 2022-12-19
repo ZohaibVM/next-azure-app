@@ -32,7 +32,7 @@ function SignUp() {
       : setRegisterError("Email is not Valid!");
   };
 
-  const handleSubmit = async (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
     if (!username || !email || !password || !confirmpassword) {
       setRegisterError("Please Fill All Fields !!");
@@ -58,11 +58,6 @@ function SignUp() {
       const res = await axios.post(formsService.signup, { userData });
       if (res.status === 200) {
         setRegisterError(null);
-        // setUsername("");
-        // setEmail("");
-        // setPassword("");
-        // setConfirmPassword("");
-        // push("/");
         setIsRegistered(true);
         successToast(res?.data?.message);
       }
@@ -119,7 +114,7 @@ function SignUp() {
       <div className="signup">
         <h1 className="text-center mb-4">SignUp</h1>
         {!isRegistered && (
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSignup}>
             <div className="row">
               <div className="col-12 mb-3">
                 <input
@@ -201,7 +196,7 @@ function SignUp() {
                   className="btn btn-dark btn-block"
                   disabled={otpLoading}
                 >
-                  Verify
+                  Verify{" "}
                   {otpLoading && <i className="fa fa-spinner fa-spin"></i>}
                 </button>
               </div>

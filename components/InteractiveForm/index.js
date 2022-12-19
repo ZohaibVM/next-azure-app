@@ -5,7 +5,6 @@ import {
   initialValues,
   checkboxInitialValues,
   radioInitialValues,
-  dropdownValues,
   mapFormState,
 } from "../../utils/utils";
 import FormInput from "../../shared/FormInput";
@@ -35,13 +34,8 @@ const Form = () => {
   const [values, setValues] = useState({});
   const [checkedList, setCheckedList] = useState(checkboxInitialValues);
   const [radioList, setRadioList] = useState(radioInitialValues);
-  const [dropdownList, setDropdownList] = useState(dropdownValues);
   const [success, setSuccess] = useState(false);
   const validated = useRef(false);
-
-  // useEffect(() => {
-  //   dispatch(mapFormState({ form: singleForm }));
-  // }, []);
 
   useEffect(() => {
     for (const key in values) {
@@ -61,6 +55,8 @@ const Form = () => {
       .every((val) => val.value.length && val.error === false);
     validated.current = isValidated;
   }, [values]);
+
+  console.log(values);
 
   const {
     selectedTheme: {
@@ -216,20 +212,6 @@ const Form = () => {
           });
         }
       }
-
-      // else if (
-      //   values[key].value &&
-      //   values[key].value.length &&
-      //   values[key].error
-      // ) {
-      //   // hide error if exists
-      //   setValues((prevState) => {
-      //     return {
-      //       ...prevState,
-      //       [key]: { ...prevState[key], error: false },
-      //     };
-      //   });
-      // }
     }
 
     if (validated.current) {
@@ -300,6 +282,7 @@ const Form = () => {
       }
       return;
     }
+
     setValues({ ...values, [name]: { ...values[name], value } });
   };
 
@@ -331,6 +314,7 @@ const Form = () => {
     elementType,
     elementTitle,
     elementDescription,
+    isVisible,
     ...rest
   }) => {
     switch (elementType) {
@@ -342,522 +326,539 @@ const Form = () => {
         );
       case "address":
         return (
-          <div key={id} className="form-card">
-            <h5 className="form-title-small" style={{ color: fontColor }}>
-              {elementTitle}
-            </h5>
-            <h6 className="form-subtitle" style={{ color: fontColor }}>
-              {elementDescription}
-            </h6>
-            <div className="row">
-              <div className="col-md-6">
-                <FormInput
-                  value={values?.addressline1?.value}
-                  type="text"
-                  name="addressline1"
-                  onChange={handleChange}
-                  formStyle={inputStyle}
-                  className={renderInputClasses("addressline1")}
-                  labelAlign={labelAlignment}
-                  placeholder="Address line 1 *"
-                />
-                {values?.addressline1?.error && (
-                  <p className="form-error-message">
-                    <i className="fa fa-info-circle" aria-hidden="true"></i>
-                    This Field Is Required.
-                  </p>
-                )}
-              </div>
-              <div className="col-md-6">
-                <div className="form-input-wrapper">
-                  {/* <label className="form-label">Name</label> */}
+          isVisible && (
+            <div key={id} className="form-card">
+              <h5 className="form-title-small" style={{ color: fontColor }}>
+                {elementTitle}
+              </h5>
+              <h6 className="form-subtitle" style={{ color: fontColor }}>
+                {elementDescription}
+              </h6>
+              <div className="row">
+                <div className="col-md-6">
                   <FormInput
-                    value={values?.addressline2?.value}
+                    value={values?.addressline1?.value}
                     type="text"
-                    name="addressline2"
+                    name="addressline1"
                     onChange={handleChange}
                     formStyle={inputStyle}
-                    className={renderInputClasses("addressline2")}
+                    className={renderInputClasses("addressline1")}
                     labelAlign={labelAlignment}
-                    placeholder="Address line 2"
+                    placeholder="Address line 1 *"
                   />
+                  {values?.addressline1?.error && (
+                    <p className="form-error-message">
+                      <i className="fa fa-info-circle" aria-hidden="true"></i>
+                      This Field Is Required.
+                    </p>
+                  )}
                 </div>
-                {values?.addressline2?.error && (
-                  <p className="form-error-message">
-                    <i className="fa fa-info-circle" aria-hidden="true"></i>
-                    This Field Is Required.
-                  </p>
-                )}
-              </div>
-              <div className="col-md-6">
-                <div className="form-input-wrapper">
-                  {/* <label className="form-label">Name</label> */}
-                  <FormInput
-                    value={values?.city?.value}
-                    type="text"
-                    name="city"
-                    onChange={handleChange}
-                    formStyle={inputStyle}
-                    className={renderInputClasses("city")}
-                    labelAlign={labelAlignment}
-                    placeholder="City *"
-                  />
+                <div className="col-md-6">
+                  <div className="form-input-wrapper">
+                    {/* <label className="form-label">Name</label> */}
+                    <FormInput
+                      value={values?.addressline2?.value}
+                      type="text"
+                      name="addressline2"
+                      onChange={handleChange}
+                      formStyle={inputStyle}
+                      className={renderInputClasses("addressline2")}
+                      labelAlign={labelAlignment}
+                      placeholder="Address line 2"
+                    />
+                  </div>
+                  {values?.addressline2?.error && (
+                    <p className="form-error-message">
+                      <i className="fa fa-info-circle" aria-hidden="true"></i>
+                      This Field Is Required.
+                    </p>
+                  )}
                 </div>
-                {values?.city?.error && (
-                  <p className="form-error-message">
-                    <i className="fa fa-info-circle" aria-hidden="true"></i>
-                    This Field Is Required.
-                  </p>
-                )}
-              </div>
-              <div className="col-md-6">
-                <div className="form-input-wrapper">
-                  {/* <label className="form-label">Name</label> */}
-                  <FormInput
-                    value={values?.state?.value}
-                    type="text"
-                    name="state"
-                    onChange={handleChange}
-                    formStyle={inputStyle}
-                    className={renderInputClasses("state")}
-                    labelAlign={labelAlignment}
-                    placeholder="State *"
-                  />
+                <div className="col-md-6">
+                  <div className="form-input-wrapper">
+                    {/* <label className="form-label">Name</label> */}
+                    <FormInput
+                      value={values?.city?.value}
+                      type="text"
+                      name="city"
+                      onChange={handleChange}
+                      formStyle={inputStyle}
+                      className={renderInputClasses("city")}
+                      labelAlign={labelAlignment}
+                      placeholder="City *"
+                    />
+                  </div>
+                  {values?.city?.error && (
+                    <p className="form-error-message">
+                      <i className="fa fa-info-circle" aria-hidden="true"></i>
+                      This Field Is Required.
+                    </p>
+                  )}
                 </div>
-                {values?.state?.error && (
-                  <p className="form-error-message">
-                    <i className="fa fa-info-circle" aria-hidden="true"></i>
-                    This Field Is Required.
-                  </p>
-                )}
-              </div>
-              <div className="col-md-6">
-                <div className="form-input-wrapper">
-                  {/* <label className="form-label">Name</label> */}
-                  <FormInput
-                    value={values?.country?.value}
-                    type="text"
-                    name="country"
-                    onChange={handleChange}
-                    formStyle={inputStyle}
-                    className={renderInputClasses("country")}
-                    labelAlign={labelAlignment}
-                    placeholder="Country *"
-                  />
+                <div className="col-md-6">
+                  <div className="form-input-wrapper">
+                    {/* <label className="form-label">Name</label> */}
+                    <FormInput
+                      value={values?.state?.value}
+                      type="text"
+                      name="state"
+                      onChange={handleChange}
+                      formStyle={inputStyle}
+                      className={renderInputClasses("state")}
+                      labelAlign={labelAlignment}
+                      placeholder="State *"
+                    />
+                  </div>
+                  {values?.state?.error && (
+                    <p className="form-error-message">
+                      <i className="fa fa-info-circle" aria-hidden="true"></i>
+                      This Field Is Required.
+                    </p>
+                  )}
                 </div>
-                {values?.country?.error && (
-                  <p className="form-error-message">
-                    <i className="fa fa-info-circle" aria-hidden="true"></i>
-                    This Field Is Required.
-                  </p>
-                )}
-              </div>
-              <div className="col-md-6">
-                <div className="form-input-wrapper">
-                  {/* <label className="form-label">Name</label> */}
-                  <FormInput
-                    value={values?.zipcode?.value}
-                    type="text"
-                    name="zipcode"
-                    onChange={handleChange}
-                    formStyle={inputStyle}
-                    className={renderInputClasses("zipcode")}
-                    labelAlign={labelAlignment}
-                    placeholder="Zipcode *"
-                  />
+                <div className="col-md-6">
+                  <div className="form-input-wrapper">
+                    {/* <label className="form-label">Name</label> */}
+                    <FormInput
+                      value={values?.country?.value}
+                      type="text"
+                      name="country"
+                      onChange={handleChange}
+                      formStyle={inputStyle}
+                      className={renderInputClasses("country")}
+                      labelAlign={labelAlignment}
+                      placeholder="Country *"
+                    />
+                  </div>
+                  {values?.country?.error && (
+                    <p className="form-error-message">
+                      <i className="fa fa-info-circle" aria-hidden="true"></i>
+                      This Field Is Required.
+                    </p>
+                  )}
                 </div>
-                {values?.zipcode?.error && (
-                  <p className="form-error-message">
-                    <i className="fa fa-info-circle" aria-hidden="true"></i>
-                    This Field Is Required.
-                  </p>
-                )}
+                <div className="col-md-6">
+                  <div className="form-input-wrapper">
+                    {/* <label className="form-label">Name</label> */}
+                    <FormInput
+                      value={values?.zipcode?.value}
+                      type="text"
+                      name="zipcode"
+                      onChange={handleChange}
+                      formStyle={inputStyle}
+                      className={renderInputClasses("zipcode")}
+                      labelAlign={labelAlignment}
+                      placeholder="Zipcode *"
+                    />
+                  </div>
+                  {values?.zipcode?.error && (
+                    <p className="form-error-message">
+                      <i className="fa fa-info-circle" aria-hidden="true"></i>
+                      This Field Is Required.
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
+          )
         );
       case "full name":
         return (
-          <div key={id} className="form-card">
-            <h5 className="form-title-small" style={{ color: fontColor }}>
-              {elementTitle}
-            </h5>
-            <h6 className="form-subtitle" style={{ color: fontColor }}>
-              {elementDescription}
-            </h6>
-            <div className="row">
-              <div className="col-md-6">
-                <div className="form-input-wrapper">
-                  {/* <label className="form-label">Name</label> */}
-                  <FormInput
-                    value={values?.prefix?.value}
-                    type="text"
-                    name="prefix"
-                    onChange={handleChange}
-                    formStyle={inputStyle}
-                    className={renderInputClasses("prefix")}
-                    labelAlign={labelAlignment}
-                    placeholder="Prefix *"
-                  />
+          isVisible && (
+            <div key={id} className="form-card">
+              <h5 className="form-title-small" style={{ color: fontColor }}>
+                {elementTitle}
+              </h5>
+              <h6 className="form-subtitle" style={{ color: fontColor }}>
+                {elementDescription}
+              </h6>
+              <div className="row">
+                <div className="col-md-6">
+                  <div className="form-input-wrapper">
+                    {/* <label className="form-label">Name</label> */}
+                    <FormInput
+                      value={values?.prefix?.value}
+                      type="text"
+                      name="prefix"
+                      onChange={handleChange}
+                      formStyle={inputStyle}
+                      className={renderInputClasses("prefix")}
+                      labelAlign={labelAlignment}
+                      placeholder="Prefix *"
+                    />
+                  </div>
+                  {values?.prefix?.error && (
+                    <p className="form-error-message">
+                      <i className="fa fa-info-circle" aria-hidden="true"></i>
+                      This Field Is Required.
+                    </p>
+                  )}
                 </div>
-                {values?.prefix?.error && (
-                  <p className="form-error-message">
-                    <i className="fa fa-info-circle" aria-hidden="true"></i>
-                    This Field Is Required.
-                  </p>
-                )}
-              </div>
-              <div className="col-md-6">
-                <div className="form-input-wrapper">
-                  {/* <label className="form-label">Name</label> */}
-                  <FormInput
-                    value={values?.firstname?.value}
-                    type="text"
-                    name="firstname"
-                    onChange={handleChange}
-                    formStyle={inputStyle}
-                    className={renderInputClasses("firstname")}
-                    labelAlign={labelAlignment}
-                    placeholder="First Name *"
-                  />
+                <div className="col-md-6">
+                  <div className="form-input-wrapper">
+                    {/* <label className="form-label">Name</label> */}
+                    <FormInput
+                      value={values?.firstname?.value}
+                      type="text"
+                      name="firstname"
+                      onChange={handleChange}
+                      formStyle={inputStyle}
+                      className={renderInputClasses("firstname")}
+                      labelAlign={labelAlignment}
+                      placeholder="First Name *"
+                    />
+                  </div>
+                  {values?.firstname?.error && (
+                    <p className="form-error-message">
+                      <i className="fa fa-info-circle" aria-hidden="true"></i>
+                      This Field Is Required.
+                    </p>
+                  )}
                 </div>
-                {values?.firstname?.error && (
-                  <p className="form-error-message">
-                    <i className="fa fa-info-circle" aria-hidden="true"></i>
-                    This Field Is Required.
-                  </p>
-                )}
-              </div>
-              <div className="col-md-6">
-                <div className="form-input-wrapper">
-                  {/* <label className="form-label">Name</label> */}
-                  <FormInput
-                    value={values?.middlename?.value}
-                    type="text"
-                    name="middlename"
-                    onChange={handleChange}
-                    formStyle={inputStyle}
-                    className={renderInputClasses("middlename")}
-                    labelAlign={labelAlignment}
-                    placeholder="Middle Name"
-                  />
+                <div className="col-md-6">
+                  <div className="form-input-wrapper">
+                    {/* <label className="form-label">Name</label> */}
+                    <FormInput
+                      value={values?.middlename?.value}
+                      type="text"
+                      name="middlename"
+                      onChange={handleChange}
+                      formStyle={inputStyle}
+                      className={renderInputClasses("middlename")}
+                      labelAlign={labelAlignment}
+                      placeholder="Middle Name"
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="col-md-6">
-                <div className="form-input-wrapper">
-                  {/* <label className="form-label">Name</label> */}
-                  <FormInput
-                    value={values?.lastname?.value}
-                    type="text"
-                    name="lastname"
-                    onChange={handleChange}
-                    formStyle={inputStyle}
-                    className={renderInputClasses("lastname")}
-                    labelAlign={labelAlignment}
-                    placeholder="Last Name *"
-                  />
+                <div className="col-md-6">
+                  <div className="form-input-wrapper">
+                    {/* <label className="form-label">Name</label> */}
+                    <FormInput
+                      value={values?.lastname?.value}
+                      type="text"
+                      name="lastname"
+                      onChange={handleChange}
+                      formStyle={inputStyle}
+                      className={renderInputClasses("lastname")}
+                      labelAlign={labelAlignment}
+                      placeholder="Last Name *"
+                    />
+                  </div>
+                  {values?.lastname?.error && (
+                    <p className="form-error-message">
+                      <i className="fa fa-info-circle" aria-hidden="true"></i>
+                      This Field Is Required.
+                    </p>
+                  )}
                 </div>
-                {values?.lastname?.error && (
-                  <p className="form-error-message">
-                    <i className="fa fa-info-circle" aria-hidden="true"></i>
-                    This Field Is Required.
-                  </p>
-                )}
               </div>
             </div>
-          </div>
+          )
         );
       case "phone number":
         return (
-          <div key={id} className="form-card">
-            <h5 className="form-title-small" style={{ color: fontColor }}>
-              {elementTitle}
-            </h5>
-            <h6 className="form-subtitle" style={{ color: fontColor }}>
-              {elementDescription}
-            </h6>
-            <div className="row">
-              <div className="col-md-6">
-                <div className="form-input-wrapper">
-                  {/* <label className="form-label">Name</label> */}
-                  <FormInput
-                    value={values?.areacode?.value}
-                    type="text"
-                    name="areacode"
-                    onChange={handleChange}
-                    formStyle={inputStyle}
-                    className={renderInputClasses("areacode")}
-                    labelAlign={labelAlignment}
-                    placeholder="Area Code *"
-                  />
+          isVisible && (
+            <div key={id} className="form-card">
+              <h5 className="form-title-small" style={{ color: fontColor }}>
+                {elementTitle}
+              </h5>
+              <h6 className="form-subtitle" style={{ color: fontColor }}>
+                {elementDescription}
+              </h6>
+              <div className="row">
+                <div className="col-md-6">
+                  <div className="form-input-wrapper">
+                    {/* <label className="form-label">Name</label> */}
+                    <FormInput
+                      value={values?.areacode?.value}
+                      type="text"
+                      name="areacode"
+                      onChange={handleChange}
+                      formStyle={inputStyle}
+                      className={renderInputClasses("areacode")}
+                      labelAlign={labelAlignment}
+                      placeholder="Area Code *"
+                    />
+                  </div>
+                  {values?.areacode?.error && (
+                    <p className="form-error-message">
+                      <i className="fa fa-info-circle" aria-hidden="true"></i>
+                      This Field Is Required.
+                    </p>
+                  )}
                 </div>
-                {values?.areacode?.error && (
-                  <p className="form-error-message">
-                    <i className="fa fa-info-circle" aria-hidden="true"></i>
-                    This Field Is Required.
-                  </p>
-                )}
-              </div>
-              <div className="col-md-6">
-                <div className="form-input-wrapper">
-                  {/* <label className="form-label">Name</label> */}
-                  <FormInput
-                    value={values?.phonenumber?.value}
-                    type="text"
-                    name="phonenumber"
-                    onChange={handleChange}
-                    formStyle={inputStyle}
-                    className={renderInputClasses("phonenumber")}
-                    labelAlign={labelAlignment}
-                    placeholder="Phone Number *"
-                  />
+                <div className="col-md-6">
+                  <div className="form-input-wrapper">
+                    {/* <label className="form-label">Name</label> */}
+                    <FormInput
+                      value={values?.phonenumber?.value}
+                      type="text"
+                      name="phonenumber"
+                      onChange={handleChange}
+                      formStyle={inputStyle}
+                      className={renderInputClasses("phonenumber")}
+                      labelAlign={labelAlignment}
+                      placeholder="Phone Number *"
+                    />
+                  </div>
+                  {values?.phonenumber?.error && (
+                    <p className="form-error-message">
+                      <i className="fa fa-info-circle" aria-hidden="true"></i>
+                      This Field Is Required.
+                    </p>
+                  )}
                 </div>
-                {values?.phonenumber?.error && (
-                  <p className="form-error-message">
-                    <i className="fa fa-info-circle" aria-hidden="true"></i>
-                    This Field Is Required.
-                  </p>
-                )}
               </div>
             </div>
-          </div>
+          )
         );
       case "email address":
         return (
-          <div key={id} className="form-card">
-            <h5 className="form-title-small" style={{ color: fontColor }}>
-              {elementTitle}
-            </h5>
-            <h6 className="form-subtitle" style={{ color: fontColor }}>
-              {elementDescription}
-            </h6>
-            <div className="row">
-              <div className="col-md-6">
-                <div className="form-input-wrapper">
-                  {/* <label className="form-label">Name</label> */}
-                  <FormInput
-                    value={values?.email?.value}
-                    type="email"
-                    name="email"
-                    onChange={handleChange}
-                    formStyle={inputStyle}
-                    className={renderInputClasses("email")}
-                    labelAlign={labelAlignment}
-                    placeholder="Email *"
-                  />
+          isVisible && (
+            <div key={id} className="form-card">
+              <h5 className="form-title-small" style={{ color: fontColor }}>
+                {elementTitle}
+              </h5>
+              <h6 className="form-subtitle" style={{ color: fontColor }}>
+                {elementDescription}
+              </h6>
+              <div className="row">
+                <div className="col-md-6">
+                  <div className="form-input-wrapper">
+                    {/* <label className="form-label">Name</label> */}
+                    <FormInput
+                      value={values?.email?.value}
+                      type="email"
+                      name="email"
+                      onChange={handleChange}
+                      formStyle={inputStyle}
+                      className={renderInputClasses("email")}
+                      labelAlign={labelAlignment}
+                      placeholder="Email *"
+                    />
+                  </div>
+                  {values?.email?.error && (
+                    <p className="form-error-message">
+                      <i className="fa fa-info-circle" aria-hidden="true"></i>
+                      This Field Is Required.
+                    </p>
+                  )}
                 </div>
-                {values?.email?.error && (
-                  <p className="form-error-message">
-                    <i className="fa fa-info-circle" aria-hidden="true"></i>
-                    This Field Is Required.
-                  </p>
-                )}
               </div>
             </div>
-          </div>
+          )
         );
       case "time":
         return (
-          <div key={id} className="form-card">
-            <h5 className="form-title-small" style={{ color: fontColor }}>
-              {elementTitle}
-            </h5>
-            <h6 className="form-subtitle" style={{ color: fontColor }}>
-              {elementDescription}
-            </h6>
-            <div className="row">
-              <div className="col-md-6">
-                <div className="form-input-wrapper">
-                  {/* <label className="form-label">Name</label> */}
-                  <FormInput
-                    value={values?.hours?.value}
-                    type="number"
-                    name="hours"
-                    onChange={handleChange}
-                    formStyle={inputStyle}
-                    className={renderInputClasses("hours")}
-                    labelAlign={labelAlignment}
-                    placeholder="Hours *"
-                  />
+          isVisible && (
+            <div key={id} className="form-card">
+              <h5 className="form-title-small" style={{ color: fontColor }}>
+                {elementTitle}
+              </h5>
+              <h6 className="form-subtitle" style={{ color: fontColor }}>
+                {elementDescription}
+              </h6>
+              <div className="row">
+                <div className="col-md-6">
+                  <div className="form-input-wrapper">
+                    {/* <label className="form-label">Name</label> */}
+                    <FormInput
+                      value={values?.hours?.value}
+                      type="number"
+                      name="hours"
+                      onChange={handleChange}
+                      formStyle={inputStyle}
+                      className={renderInputClasses("hours")}
+                      labelAlign={labelAlignment}
+                      placeholder="Hours *"
+                    />
+                  </div>
+                  {values?.hours?.error && (
+                    <p className="form-error-message">
+                      <i className="fa fa-info-circle" aria-hidden="true"></i>
+                      This Field Is Required.
+                    </p>
+                  )}
                 </div>
-                {values?.hours?.error && (
-                  <p className="form-error-message">
-                    <i className="fa fa-info-circle" aria-hidden="true"></i>
-                    This Field Is Required.
-                  </p>
-                )}
-              </div>
-              <div className="col-md-6">
-                <div className="form-input-wrapper">
-                  {/* <label className="form-label">Name</label> */}
-                  <FormInput
-                    value={values?.minutes?.value}
-                    type="number"
-                    name="minutes"
-                    onChange={handleChange}
-                    formStyle={inputStyle}
-                    className={renderInputClasses("minutes")}
-                    labelAlign={labelAlignment}
-                    placeholder="Minutes *"
-                  />
+                <div className="col-md-6">
+                  <div className="form-input-wrapper">
+                    {/* <label className="form-label">Name</label> */}
+                    <FormInput
+                      value={values?.minutes?.value}
+                      type="number"
+                      name="minutes"
+                      onChange={handleChange}
+                      formStyle={inputStyle}
+                      className={renderInputClasses("minutes")}
+                      labelAlign={labelAlignment}
+                      placeholder="Minutes *"
+                    />
+                  </div>
+                  {values?.minutes?.error && (
+                    <p className="form-error-message">
+                      <i className="fa fa-info-circle" aria-hidden="true"></i>
+                      This Field Is Required.
+                    </p>
+                  )}
                 </div>
-                {values?.minutes?.error && (
-                  <p className="form-error-message">
-                    <i className="fa fa-info-circle" aria-hidden="true"></i>
-                    This Field Is Required.
-                  </p>
-                )}
-              </div>
-              <div className="col-md-6">
-                <div className="form-input-wrapper">
-                  {/* <label className="form-label">Name</label> */}
-                  <FormInput
-                    value={values?.period?.value}
-                    type="number"
-                    name="period"
-                    onChange={handleChange}
-                    formStyle={inputStyle}
-                    className={renderInputClasses("period")}
-                    labelAlign={labelAlignment}
-                    placeholder="Period *"
-                  />
+                <div className="col-md-6">
+                  <div className="form-input-wrapper">
+                    {/* <label className="form-label">Name</label> */}
+                    <FormInput
+                      value={values?.period?.value}
+                      type="number"
+                      name="period"
+                      onChange={handleChange}
+                      formStyle={inputStyle}
+                      className={renderInputClasses("period")}
+                      labelAlign={labelAlignment}
+                      placeholder="Period *"
+                    />
+                  </div>
+                  {values?.period?.error && (
+                    <p className="form-error-message">
+                      <i className="fa fa-info-circle" aria-hidden="true"></i>
+                      This Field Is Required.
+                    </p>
+                  )}
                 </div>
-                {values?.period?.error && (
-                  <p className="form-error-message">
-                    <i className="fa fa-info-circle" aria-hidden="true"></i>
-                    This Field Is Required.
-                  </p>
-                )}
               </div>
             </div>
-          </div>
+          )
         );
       case "date":
         return (
-          <div key={id} className="form-card">
-            <h5 className="form-title-small" style={{ color: fontColor }}>
-              {elementTitle}
-            </h5>
-            <h6 className="form-subtitle" style={{ color: fontColor }}>
-              {elementDescription}
-            </h6>
-            <div className="row">
-              <div className="col-md-6">
-                <div className="form-input-wrapper">
-                  {/* <label className="form-label">Name</label> */}
-                  <FormInput
-                    value={values?.date?.value}
-                    type="date"
-                    name="date"
-                    onChange={handleChange}
-                    formStyle={inputStyle}
-                    className={renderInputClasses("date")}
-                    labelAlign={labelAlignment}
-                    placeholder="Date *"
-                  />
+          isVisible && (
+            <div key={id} className="form-card">
+              <h5 className="form-title-small" style={{ color: fontColor }}>
+                {elementTitle}
+              </h5>
+              <h6 className="form-subtitle" style={{ color: fontColor }}>
+                {elementDescription}
+              </h6>
+              <div className="row">
+                <div className="col-md-6">
+                  <div className="form-input-wrapper">
+                    {/* <label className="form-label">Name</label> */}
+                    <FormInput
+                      value={values?.date?.value}
+                      type="date"
+                      name="date"
+                      onChange={handleChange}
+                      formStyle={inputStyle}
+                      className={renderInputClasses("date")}
+                      labelAlign={labelAlignment}
+                      placeholder="Date *"
+                    />
+                  </div>
+                  {values?.date?.error && (
+                    <p className="form-error-message">
+                      <i className="fa fa-info-circle" aria-hidden="true"></i>
+                      This Field Is Required.
+                    </p>
+                  )}
                 </div>
-                {values?.date?.error && (
-                  <p className="form-error-message">
-                    <i className="fa fa-info-circle" aria-hidden="true"></i>
-                    This Field Is Required.
-                  </p>
-                )}
               </div>
             </div>
-          </div>
+          )
         );
       case "integer":
         return (
-          <div key={id} className="form-card">
-            <h5 className="form-title-small" style={{ color: fontColor }}>
-              {elementTitle}
-            </h5>
-            <h6 className="form-subtitle" style={{ color: fontColor }}>
-              {elementDescription}
-            </h6>
-            <div className="row">
-              <div className="col-md-6">
-                <div className="form-input-wrapper">
-                  {/* <label className="form-label">Name</label> */}
-                  <FormInput
-                    value={values?.integar?.value}
-                    // type="date"
-                    name="integar"
-                    onChange={handleChange}
-                    formStyle={inputStyle}
-                    className={renderInputClasses("integar")}
-                    labelAlign={labelAlignment}
-                    placeholder="Integar *"
-                  />
+          isVisible && (
+            <div key={id} className="form-card">
+              <h5 className="form-title-small" style={{ color: fontColor }}>
+                {elementTitle}
+              </h5>
+              <h6 className="form-subtitle" style={{ color: fontColor }}>
+                {elementDescription}
+              </h6>
+              <div className="row">
+                <div className="col-md-6">
+                  <div className="form-input-wrapper">
+                    {/* <label className="form-label">Name</label> */}
+                    <FormInput
+                      value={values?.integar?.value}
+                      // type="date"
+                      name="integar"
+                      onChange={handleChange}
+                      formStyle={inputStyle}
+                      className={renderInputClasses("integar")}
+                      labelAlign={labelAlignment}
+                      placeholder="Integar *"
+                    />
+                  </div>
+                  {values?.integar?.error && (
+                    <p className="form-error-message">
+                      <i className="fa fa-info-circle" aria-hidden="true"></i>
+                      This Field Is Required.
+                    </p>
+                  )}
                 </div>
-                {values?.integar?.error && (
-                  <p className="form-error-message">
-                    <i className="fa fa-info-circle" aria-hidden="true"></i>
-                    This Field Is Required.
-                  </p>
-                )}
               </div>
             </div>
-          </div>
+          )
         );
       case "decimal":
         return (
-          <div key={id} className="form-card">
-            <h5 className="form-title-small" style={{ color: fontColor }}>
-              {elementTitle}
-            </h5>
-            <h6 className="form-subtitle" style={{ color: fontColor }}>
-              {elementDescription}
-            </h6>
-            <div className="row">
-              <div className="col-md-6">
-                <div className="form-input-wrapper">
-                  {/* <label className="form-label">Name</label> */}
-                  <FormInput
-                    value={values?.decimel?.value}
-                    type="text"
-                    name="decimel"
-                    onChange={handleChange}
-                    formStyle={inputStyle}
-                    className={renderInputClasses("decimel")}
-                    labelAlign={labelAlignment}
-                    placeholder="Decimel *"
-                  />
+          isVisible && (
+            <div key={id} className="form-card">
+              <h5 className="form-title-small" style={{ color: fontColor }}>
+                {elementTitle}
+              </h5>
+              <h6 className="form-subtitle" style={{ color: fontColor }}>
+                {elementDescription}
+              </h6>
+              <div className="row">
+                <div className="col-md-6">
+                  <div className="form-input-wrapper">
+                    {/* <label className="form-label">Name</label> */}
+                    <FormInput
+                      value={values?.decimel?.value}
+                      type="text"
+                      name="decimel"
+                      onChange={handleChange}
+                      formStyle={inputStyle}
+                      className={renderInputClasses("decimel")}
+                      labelAlign={labelAlignment}
+                      placeholder="Decimel *"
+                    />
+                  </div>
+                  {values?.decimel?.error && (
+                    <p className="form-error-message">
+                      <i className="fa fa-info-circle" aria-hidden="true"></i>
+                      This Field Is Required.
+                    </p>
+                  )}
                 </div>
-                {values?.decimel?.error && (
-                  <p className="form-error-message">
-                    <i className="fa fa-info-circle" aria-hidden="true"></i>
-                    This Field Is Required.
-                  </p>
-                )}
               </div>
             </div>
-          </div>
+          )
         );
       case "long text":
         return (
-          <div key={id} className="form-card">
-            <h5 className="form-title-small" style={{ color: fontColor }}>
-              {elementTitle}
-            </h5>
-            <h6 className="form-subtitle" style={{ color: fontColor }}>
-              {elementDescription}
-            </h6>
-            <div className="row">
-              <div className="col-md-6">
-                <div className="form-input-wrapper">
-                  {/* <label className="form-label">Name</label> */}
-                  <FormInput
-                    value={values?.longtext?.value}
-                    type="textarea"
-                    name="longtext"
-                    onChange={handleChange}
-                    formStyle={inputStyle}
-                    className={renderInputClasses("longtext")}
-                    labelAlign={labelAlignment}
-                    placeholder="Long Text *"
-                  />
-                  {/* <textarea
+          isVisible && (
+            <div key={id} className="form-card">
+              <h5 className="form-title-small" style={{ color: fontColor }}>
+                {elementTitle}
+              </h5>
+              <h6 className="form-subtitle" style={{ color: fontColor }}>
+                {elementDescription}
+              </h6>
+              <div className="row">
+                <div className="col-md-6">
+                  <div className="form-input-wrapper">
+                    {/* <label className="form-label">Name</label> */}
+                    <FormInput
+                      value={values?.longtext?.value}
+                      type="textarea"
+                      name="longtext"
+                      onChange={handleChange}
+                      formStyle={inputStyle}
+                      className={renderInputClasses("longtext")}
+                      labelAlign={labelAlignment}
+                      placeholder="Long Text *"
+                    />
+                    {/* <textarea
                     className={renderInputClasses("longtext")}
                     placeholder="Long Text"
                     rows="4"
@@ -865,212 +866,202 @@ const Form = () => {
                     value={values.longtext.value}
                     onChange={handleChange}
                   ></textarea> */}
+                  </div>
+                  {values?.longtext?.error && (
+                    <p className="form-error-message">
+                      <i className="fa fa-info-circle" aria-hidden="true"></i>
+                      This Field Is Required.
+                    </p>
+                  )}
                 </div>
-                {values?.longtext?.error && (
-                  <p className="form-error-message">
-                    <i className="fa fa-info-circle" aria-hidden="true"></i>
-                    This Field Is Required.
-                  </p>
-                )}
               </div>
             </div>
-          </div>
+          )
         );
       case "short text":
         return (
-          <div key={id} className="form-card">
-            <h5 className="form-title-small" style={{ color: fontColor }}>
-              {elementTitle}
-            </h5>
-            <h6 className="form-subtitle" style={{ color: fontColor }}>
-              {elementDescription}
-            </h6>
-            <div className="row">
-              <div className="col-md-6">
-                <div className="form-input-wrapper">
-                  {/* <label className="form-label">Name</label> */}
-                  <FormInput
-                    value={values?.shorttext?.value}
-                    type="text"
-                    name="shorttext"
-                    onChange={handleChange}
-                    formStyle={inputStyle}
-                    className={renderInputClasses("shorttext")}
-                    labelAlign={labelAlignment}
-                    placeholder="Short Text *"
-                  />
+          isVisible && (
+            <div key={id} className="form-card">
+              <h5 className="form-title-small" style={{ color: fontColor }}>
+                {elementTitle}
+              </h5>
+              <h6 className="form-subtitle" style={{ color: fontColor }}>
+                {elementDescription}
+              </h6>
+              <div className="row">
+                <div className="col-md-6">
+                  <div className="form-input-wrapper">
+                    {/* <label className="form-label">Name</label> */}
+                    <FormInput
+                      value={values?.shorttext?.value}
+                      type="text"
+                      name="shorttext"
+                      onChange={handleChange}
+                      formStyle={inputStyle}
+                      className={renderInputClasses("shorttext")}
+                      labelAlign={labelAlignment}
+                      placeholder="Short Text *"
+                    />
+                  </div>
+                  {values?.shorttext?.error && (
+                    <p className="form-error-message">
+                      <i className="fa fa-info-circle" aria-hidden="true"></i>
+                      This Field Is Required.
+                    </p>
+                  )}
                 </div>
-                {values?.shorttext?.error && (
-                  <p className="form-error-message">
-                    <i className="fa fa-info-circle" aria-hidden="true"></i>
-                    This Field Is Required.
-                  </p>
-                )}
               </div>
             </div>
-          </div>
+          )
         );
       case "multiple choice":
         return (
-          <div key={id} className="form-card">
-            <h5 className="form-title-small" style={{ color: fontColor }}>
-              {elementTitle}
-            </h5>
-            <h6 className="form-subtitle" style={{ color: fontColor }}>
-              {elementDescription}
-            </h6>
-            <div className="row">
-              <div className="col-md-6">
-                <div className="form-input-wrapper">
-                  {/* <label className="form-label">Name</label> */}
-                  <div className="form-choice-wrapper">
-                    {/* <label className="form-choice-label">Multichoice</label> */}
-                    {rest?.fields?.[0]?.options?.map((option, index) => (
-                      <div key={index} className="form-choice-row">
-                        <input
-                          type="checkbox"
-                          className={renderInputClasses("multichoice")}
-                          name="multichoice"
-                          value={option.value}
-                          // checked={option.checked}
-                          onChange={(e) => handleChange(e, index)}
-                        />
-                        <label htmlFor="">{option.title}</label>
-                      </div>
-                    ))}
-                    {/* {checkedList.map((option, index) => (
-                      <div key={option.label} className="form-choice-row">
-                        <input
-                          type="checkbox"
-                          className={renderInputClasses("multichoice")}
-                          name="multichoice"
-                          checked={option.checked}
-                          onChange={(e) => handleChange(e, index)}
-                        />
-                        <label htmlFor="">{option.label}</label>
-                      </div>
-                    ))} */}
+          isVisible && (
+            <div key={id} className="form-card">
+              <h5 className="form-title-small" style={{ color: fontColor }}>
+                {elementTitle}
+              </h5>
+              <h6 className="form-subtitle" style={{ color: fontColor }}>
+                {elementDescription}
+              </h6>
+              <div className="row">
+                <div className="col-md-6">
+                  <div className="form-input-wrapper">
+                    {/* <label className="form-label">Name</label> */}
+                    <div className="form-choice-wrapper">
+                      {/* <label className="form-choice-label">Multichoice</label> */}
+                      {rest?.fields?.[0]?.options?.map((option, index) => (
+                        <div key={index} className="form-choice-row">
+                          <input
+                            type="checkbox"
+                            className={renderInputClasses("multichoice")}
+                            name="multichoice"
+                            value={option.value}
+                            // checked={option.checked}
+                            onChange={(e) => handleChange(e, index)}
+                          />
+                          <label htmlFor="">{option.title}</label>
+                        </div>
+                      ))}
+                    </div>
                   </div>
+                  {values?.multichoice?.error && (
+                    <p className="form-error-message">
+                      <i className="fa fa-info-circle" aria-hidden="true"></i>
+                      This Field Is Required.
+                    </p>
+                  )}
                 </div>
-                {values?.multichoice?.error && (
-                  <p className="form-error-message">
-                    <i className="fa fa-info-circle" aria-hidden="true"></i>
-                    This Field Is Required.
-                  </p>
-                )}
               </div>
             </div>
-          </div>
+          )
         );
       case "single choice":
         return (
-          <div key={id} className="form-card">
-            <h5 className="form-title-small" style={{ color: fontColor }}>
-              {elementTitle}
-            </h5>
-            <h6 className="form-subtitle" style={{ color: fontColor }}>
-              {elementDescription}
-            </h6>
-            <div className="row">
-              <div className="col-md-6">
-                <div className="form-input-wrapper">
-                  {/* <label className="form-label">Name</label> */}
-                  <div className="form-choice-wrapper">
-                    {rest?.fields?.[0]?.options?.map((radio, index) => (
-                      <div className="form-choice-row" key={index}>
-                        <input
-                          className={renderInputClasses("singlechoice")}
-                          type="radio"
-                          name="singlechoice"
-                          // checked={radio.checked}
-                          value={radio.value}
-                          onChange={(e) => handleChange(e, index)}
-                          style={{ visibility: "visible", position: "static" }}
-                        />
-                        <label>{radio.title}</label>
-                      </div>
-                    ))}
-                    {/* {radioList.map((radio, index) => (
-                      <div className="form-choice-row" key={radio.label}>
-                        <input
-                          className={renderInputClasses("singlechoice")}
-                          type="radio"
-                          name="singlechoice"
-                          checked={radio.checked}
-                          value={radio.value}
-                          onChange={(e) => handleChange(e, index)}
-                          style={{ visibility: "visible", position: "static" }}
-                        />
-                        <label>{radio.label}</label>
-                      </div>
-                    ))} */}
+          isVisible && (
+            <div key={id} className="form-card">
+              <h5 className="form-title-small" style={{ color: fontColor }}>
+                {elementTitle}
+              </h5>
+              <h6 className="form-subtitle" style={{ color: fontColor }}>
+                {elementDescription}
+              </h6>
+              <div className="row">
+                <div className="col-md-6">
+                  <div className="form-input-wrapper">
+                    {/* <label className="form-label">Name</label> */}
+                    <div className="form-choice-wrapper">
+                      {rest?.fields?.[0]?.options?.map((radio, index) => (
+                        <div className="form-choice-row" key={index}>
+                          <input
+                            className={renderInputClasses("singlechoice")}
+                            type="radio"
+                            name="singlechoice"
+                            // checked={radio.checked}
+                            value={radio.value}
+                            onChange={(e) => handleChange(e, index)}
+                            style={{
+                              visibility: "visible",
+                              position: "static",
+                            }}
+                          />
+                          <label>{radio.title}</label>
+                        </div>
+                      ))}
+                    </div>
                   </div>
+                  {values?.singlechoice?.error && (
+                    <p className="form-error-message">
+                      <i className="fa fa-info-circle" aria-hidden="true"></i>
+                      This Field Is Required.
+                    </p>
+                  )}
                 </div>
-                {values?.singlechoice?.error && (
-                  <p className="form-error-message">
-                    <i className="fa fa-info-circle" aria-hidden="true"></i>
-                    This Field Is Required.
-                  </p>
-                )}
               </div>
             </div>
-          </div>
+          )
         );
       case "file upload":
         return (
-          <div key={id} className="form-card">
-            <h5 className="form-title-small" style={{ color: fontColor }}>
-              {elementTitle}
-            </h5>
-            <h6 className="form-subtitle" style={{ color: fontColor }}>
-              {elementDescription}
-            </h6>
-            <div className="row">
-              <div className="col-md-6">
-                <div className="form-input-wrapper">
-                  {/* <label className="form-label">Name</label> */}
-                  <div className="form-upload-wrapper">
-                    <label htmlFor="form-upload" className="form-upload-label">
-                      <i className="fa fa-cloud-upload"></i> Upload here
-                    </label>
-                    <input
-                      className={renderInputClasses("fileupload")}
-                      id="form-upload"
-                      type="file"
-                      name="fileupload"
-                      onChange={handleChange}
-                    />
+          isVisible && (
+            <div key={id} className="form-card">
+              <h5 className="form-title-small" style={{ color: fontColor }}>
+                {elementTitle}
+              </h5>
+              <h6 className="form-subtitle" style={{ color: fontColor }}>
+                {elementDescription}
+              </h6>
+              <div className="row">
+                <div className="col-md-6">
+                  <div className="form-input-wrapper">
+                    {/* <label className="form-label">Name</label> */}
+                    <div className="form-upload-wrapper">
+                      <label
+                        htmlFor="form-upload"
+                        className="form-upload-label"
+                      >
+                        <i className="fa fa-cloud-upload"></i> Upload here
+                      </label>
+                      <input
+                        className={renderInputClasses("fileupload")}
+                        id="form-upload"
+                        type="file"
+                        name="fileupload"
+                        onChange={handleChange}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          )
         );
       case "dropdown":
         return (
-          <div key={id} className="form-card">
-            <h5 className="form-title-small" style={{ color: fontColor }}>
-              {elementTitle}
-            </h5>
-            <h6 className="form-subtitle" style={{ color: fontColor }}>
-              {elementDescription}
-            </h6>
-            <div className="row">
-              <div className="col-md-6">
-                <div className="form-input-wrapper">
-                  {/* <label className="form-label">Name</label> */}
-                  <FormInput
-                    // value={rest?.fields?.[0]?.options}
-                    options={rest?.fields?.[0]?.options}
-                    type="dropdown"
-                    name="dropdown"
-                    onChange={handleChange}
-                    formStyle={inputStyle}
-                    className={renderInputClasses("dropdown")}
-                    labelAlign={labelAlignment}
-                    placeholder="Dropdown *"
-                  />
-                  {/* <select
+          isVisible && (
+            <div key={id} className="form-card">
+              <h5 className="form-title-small" style={{ color: fontColor }}>
+                {elementTitle}
+              </h5>
+              <h6 className="form-subtitle" style={{ color: fontColor }}>
+                {elementDescription}
+              </h6>
+              <div className="row">
+                <div className="col-md-6">
+                  <div className="form-input-wrapper">
+                    {/* <label className="form-label">Name</label> */}
+                    <FormInput
+                      // value={rest?.fields?.[0]?.options}
+                      options={rest?.fields?.[0]?.options}
+                      type="dropdown"
+                      name="dropdown"
+                      onChange={handleChange}
+                      formStyle={inputStyle}
+                      className={renderInputClasses("dropdown")}
+                      labelAlign={labelAlignment}
+                      placeholder="Dropdown *"
+                    />
+                    {/* <select
                     name="dropdown"
                     className={renderInputClasses("dropdown")}
                     value={values.dropdown.value}
@@ -1083,60 +1074,65 @@ const Form = () => {
                       </option>
                     ))}
                   </select> */}
+                  </div>
+                  {values?.dropdown?.error && (
+                    <p className="form-error-message">
+                      <i className="fa fa-info-circle" aria-hidden="true"></i>
+                      This Field Is Required.
+                    </p>
+                  )}
                 </div>
-                {values?.dropdown?.error && (
-                  <p className="form-error-message">
-                    <i className="fa fa-info-circle" aria-hidden="true"></i>
-                    This Field Is Required.
-                  </p>
-                )}
               </div>
             </div>
-          </div>
+          )
         );
       case "scale rating":
         return (
-          <div key={id} className="form-card">
-            <h5 className="form-title-small" style={{ color: fontColor }}>
-              {elementTitle}
-            </h5>
-            <h6 className="form-subtitle" style={{ color: fontColor }}>
-              {elementDescription}
-            </h6>
-            <div className="row">
-              <div className="col-md-6">
-                <div className="form-input-wrapper">
-                  {/* <label className="form-label">Name</label> */}
-                </div>
-                {/* <p className="form-error-message">
+          isVisible && (
+            <div key={id} className="form-card">
+              <h5 className="form-title-small" style={{ color: fontColor }}>
+                {elementTitle}
+              </h5>
+              <h6 className="form-subtitle" style={{ color: fontColor }}>
+                {elementDescription}
+              </h6>
+              <div className="row">
+                <div className="col-md-6">
+                  <div className="form-input-wrapper">
+                    {/* <label className="form-label">Name</label> */}
+                  </div>
+                  {/* <p className="form-error-message">
         <i className="fa fa-info-circle" aria-hidden="true"></i>
         This Field Is Required.
       </p> */}
+                </div>
               </div>
             </div>
-          </div>
+          )
         );
       case "signature":
         return (
-          <div key={id} className="form-card">
-            <h5 className="form-title-small" style={{ color: fontColor }}>
-              {elementTitle}
-            </h5>
-            <h6 className="form-subtitle" style={{ color: fontColor }}>
-              {elementDescription}
-            </h6>
-            <div className="row">
-              <div className="col-md-6">
-                <div className="form-input-wrapper">
-                  {/* <label className="form-label">Name</label> */}
-                </div>
-                {/* <p className="form-error-message">
+          isVisible && (
+            <div key={id} className="form-card">
+              <h5 className="form-title-small" style={{ color: fontColor }}>
+                {elementTitle}
+              </h5>
+              <h6 className="form-subtitle" style={{ color: fontColor }}>
+                {elementDescription}
+              </h6>
+              <div className="row">
+                <div className="col-md-6">
+                  <div className="form-input-wrapper">
+                    {/* <label className="form-label">Name</label> */}
+                  </div>
+                  {/* <p className="form-error-message">
         <i className="fa fa-info-circle" aria-hidden="true"></i>
         This Field Is Required.
       </p> */}
+                </div>
               </div>
             </div>
-          </div>
+          )
         );
       default:
         return "element type didn't match";
@@ -1182,6 +1178,33 @@ const Form = () => {
                       </h6>
                     </div>
                     <div className="form-content">
+                      {index === 0 && singleForm?.isEmailMendatory && (
+                        <div className="form-card">
+                          <div className="row">
+                            <div className="col-md-6">
+                              <FormInput
+                                value={values?.emailMandatory?.value}
+                                type="text"
+                                name="emailMandatory"
+                                onChange={handleChange}
+                                formStyle={inputStyle}
+                                className={renderInputClasses("email")}
+                                labelAlign={labelAlignment}
+                                placeholder="Your Email *"
+                              />
+                              {values?.emailMandatory?.error && (
+                                <p className="form-error-message">
+                                  <i
+                                    className="fa fa-info-circle"
+                                    aria-hidden="true"
+                                  ></i>
+                                  This Field Is Required.
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      )}
                       {!!section.elements.length &&
                         section.elements.map((element) => renderJSX(element))}
                     </div>

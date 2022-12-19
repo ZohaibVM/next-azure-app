@@ -20,6 +20,8 @@ const FormEmail = ({
       fontColor,
       inputStyle,
       labelAlignment,
+      primaryToggleIconActive,
+      primaryToggleIconDisabled,
     },
   } = useTheme();
   return (
@@ -86,7 +88,12 @@ const FormEmail = ({
           <div
             className="toggle-container ml-1 element-icon"
             onClick={() => onElementPrimary(data)}
-            style={{ backgroundColor: primaryColor }}
+            // style={{ backgroundColor: primaryColor }}
+            style={{
+              backgroundColor: data?.isPrimary
+                ? primaryToggleIconActive
+                : primaryToggleIconDisabled,
+            }}
           >
             <div
               className={`dialog-button ${!data?.isPrimary ? "disabled" : ""}`}

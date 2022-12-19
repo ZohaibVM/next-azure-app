@@ -20,6 +20,8 @@ const FormAddress = ({
       fontColor,
       inputStyle,
       labelAlignment,
+      primaryToggleIconActive,
+      primaryToggleIconDisabled,
     },
   } = useTheme();
 
@@ -43,73 +45,8 @@ const FormAddress = ({
               value={data?.elementTitle}
               onChange={(e) => onElementTitleChange(e, data)}
             />
-            {/* <div
-              contentEditable
-              id="element"
-              // onInput={handleContentEditableChange}
-              // uniqueIdentifier={uniqueIdentifier}
-              dataToggle="tooltip"
-              title="This text is editable"
-            >
-              {data?.elementTitle}
-            </div> */}
           </div>
-          {/* <div className="r_cI_titlebox_right_icon d-flex">
-            <div
-              className="toggle-container mr-1 element-icon"
-              // onClick={handleIconsClick}
-              id={`required-toggle-icon`}
-              dataToggle="tooltip"
-              title="Mark/Un Mark element as required"
-              style={{ backgroundColor: whiteColor }}
-            >
-              <div
-                className="dialog-button"
-                //   className={`dialog-button ${
-                //     element.uniqueIdentifier === uniqueIdentifier &&
-                //     element.required
-                //       ? ""
-                //       : "disabled"
-                //   }`}
-                style={{ backgroundColor: toggleIconColor }}
-              />
-            </div>
-            <span
-              className="cursor-pointer element-icon"
-              // onClick={handleIconsClick}
-              id="visibility-icon"
-              dataToggle="tooltip"
-              title="Toggle visibilty of element"
-            >
-              <i
-                className="text-white feather icon-eye"
-                //   className={`text-white feather ${
-                //     element.uniqueIdentifier === uniqueIdentifier &&
-                //     element.visible
-                //       ? "icon-eye"
-                //       : "icon-eye-off"
-                //   }`}
-              ></i>
-            </span>
-            <span
-              className="mx-1 cursor-pointer element-icon"
-              // onClick={handleIconsClick}
-              id="duplicate-icon"
-              dataToggle="tooltip"
-              title="Duplicate element"
-            >
-              <i className="feather icon-copy"></i>
-            </span>
-            <span
-              className="cursor-pointer element-icon"
-              onClick={(e) => onElementDelete(e, data)}
-              id="remove-icon"
-              dataToggle="tooltip"
-              title="Delete element"
-            >
-              <i className="fa fa-trash-o"></i>
-            </span>
-          </div> */}
+
           <FormIcons
             data={data}
             onElementDelete={onElementDelete}
@@ -118,15 +55,6 @@ const FormAddress = ({
             onElementRequired={onElementRequired}
             onElementVisible={onElementVisible}
           />
-          {/* {!element.isTemplateElement && (
-       <CardIcons
-         handleClickedElement={handleIconsClick}
-         name="Address"
-         uniqueIdentifier={uniqueIdentifier}
-         editMode={editMode}
-         isPrimary={isPrimary}
-       />
-     )} */}
         </div>
       </div>
       <div className="af_h_title_box_text custom-card-body-padding addrees_box_drag email_box_drag">
@@ -143,7 +71,12 @@ const FormAddress = ({
           <div
             className="toggle-container ml-1 element-icon"
             onClick={() => onElementPrimary(data)}
-            style={{ backgroundColor: primaryColor }}
+            // style={{ backgroundColor: primaryColor }}
+            style={{
+              backgroundColor: data?.isPrimary
+                ? primaryToggleIconActive
+                : primaryToggleIconDisabled,
+            }}
           >
             <div
               className={`dialog-button ${!data?.isPrimary ? "disabled" : ""}`}

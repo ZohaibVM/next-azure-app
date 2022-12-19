@@ -8,8 +8,10 @@ import {
   warningToast,
   validateEmail,
 } from "./../../utils/utils";
+import { useRouter } from "next/router";
 
 const ForgotPassword = () => {
+  const { push } = useRouter();
   const [email, setEmail] = useState("");
   const [emailLoading, setEmailLoading] = useState(null);
   const [emailError, setEmailError] = useState(null);
@@ -65,6 +67,7 @@ const ForgotPassword = () => {
       return;
     }
 
+    setOTPError(null);
     setOTPLoading(true);
 
     const userData = {
@@ -78,7 +81,6 @@ const ForgotPassword = () => {
       });
 
       if (res.status === 200) {
-        setOTPError(null);
         setOTPLoading(null);
         successToast(res?.data?.message);
         setStep(3);
@@ -125,6 +127,7 @@ const ForgotPassword = () => {
         setPassword("");
         setConfirmPassword("");
         successToast(res?.data?.message);
+        push("/");
       }
 
       if (res.status === 201) {
@@ -149,7 +152,7 @@ const ForgotPassword = () => {
                 <input
                   className="app-input"
                   type="email"
-                  placeholder="Email"
+                  placeholder="Enter Your Email"
                   value={email}
                   onChange={(e) => handleEmailChange(e)}
                 />
@@ -184,16 +187,16 @@ const ForgotPassword = () => {
           <form onSubmit={handleOTP}>
             <div className="row">
               <div className="col-12 mb-3">
-                <p className="m-0">Please check your email for OTP</p>
-              </div>
-              <div className="col-12 mb-3">
                 <input
                   className="app-input"
                   type="text"
-                  placeholder="OTP"
+                  placeholder="Enter OTP"
                   value={otp}
                   onChange={(e) => setOTP(e.target.value)}
                 />
+                <small className="form-text text-muted">
+                  Check your email for OTP code
+                </small>
               </div>
               <div className="col-12 mb-3">
                 <button
@@ -225,13 +228,10 @@ const ForgotPassword = () => {
           <form onSubmit={handlePassword}>
             <div className="row">
               <div className="col-12 mb-3">
-                <p className="m-0">Please enter your new password</p>
-              </div>
-              <div className="col-12 mb-3">
                 <input
                   className="app-input"
                   type="password"
-                  placeholder="Password"
+                  placeholder="Your New Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -240,7 +240,7 @@ const ForgotPassword = () => {
                 <input
                   className="app-input"
                   type="password"
-                  placeholder="Confirm Password"
+                  placeholder="Confirm New Password"
                   value={confirmpassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                 />

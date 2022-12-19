@@ -162,7 +162,7 @@
 .published-form {
   background-color: #f3f3fe;
   padding: 30px;
-  height: 100%;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
