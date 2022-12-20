@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect, useRef, useMemo } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import {
   initialValues,
@@ -55,8 +55,6 @@ const Form = () => {
       .every((val) => val.value.length && val.error === false);
     validated.current = isValidated;
   }, [values]);
-
-  console.log(values);
 
   const {
     selectedTheme: {

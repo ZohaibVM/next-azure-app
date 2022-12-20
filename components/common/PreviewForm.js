@@ -127,10 +127,9 @@ const PreviewForm = ({ sections, onEditSection }) => {
           </div>
         );
       case "multiple choice":
-        const options = [];
-        for (const property in element.options) {
-          options.push(element.options[property]);
-        }
+        const multiChoiceOptions = element?.fields?.[0]?.options?.map(
+          (option) => option?.title
+        );
         return (
           <div className="af_h_box vm_af_h_box" key={element.id}>
             <div className="vm_af_h_title_box_text">
@@ -157,11 +156,11 @@ const PreviewForm = ({ sections, onEditSection }) => {
                   <FormInput
                     value=""
                     disabled
+                    options={multiChoiceOptions}
                     type="multiple choice"
                     formStyle={inputStyle}
                     labelAlign={labelAlignment}
                     placeholder="Multi Choice *"
-                    options={["a", "b", "c"]}
                   />
                 </div>
                 <div
@@ -559,10 +558,9 @@ const PreviewForm = ({ sections, onEditSection }) => {
           </div>
         );
       case "single choice":
-        const singleChoiceOptions = [];
-        for (const property in element.options) {
-          singleChoiceOptions.push(element.options[property]);
-        }
+        const singleChoiceOptions = element?.fields?.[0]?.options?.map(
+          (option) => option?.title
+        );
         return (
           <div className="af_h_box vm_af_h_box" key={element.id}>
             <div className="vm_af_h_title_box_text">
@@ -592,7 +590,7 @@ const PreviewForm = ({ sections, onEditSection }) => {
                     type="single choice"
                     labelAlign={labelAlignment}
                     placeholder="Single Choice *"
-                    options={["a", "b", "c"]}
+                    options={singleChoiceOptions}
                   />
                 </div>
               </div>

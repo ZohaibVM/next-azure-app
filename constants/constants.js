@@ -367,14 +367,14 @@ const ELEMENTS_DATA = {
         value: "",
         options: [
           {
-            title: "",
-            value: "",
+            title: "Default Option 1",
+            value: "Default Option 1",
             isVisible: true,
             isDefault: true,
           },
           {
-            title: "",
-            value: "",
+            title: "Default Option 2",
+            value: "Default Option 2",
             isVisible: true,
             isDefault: true,
           },
@@ -604,14 +604,14 @@ const ELEMENTS_DATA = {
         value: "",
         options: [
           {
-            title: "",
-            value: "",
+            title: "Default Choice 1",
+            value: "Default Choice 1",
             isVisible: true,
             isDefault: false,
           },
           {
-            title: "",
-            value: "",
+            title: "Default Choice 2",
+            value: "Default Choice 2",
             isVisible: true,
             isDefault: false,
           },
@@ -642,14 +642,14 @@ const ELEMENTS_DATA = {
         value: "",
         options: [
           {
-            title: "",
-            value: "",
+            title: "Default Choice 1",
+            value: "Default Choice 1",
             isVisible: true,
             isDefault: false,
           },
           {
-            title: "",
-            value: "",
+            title: "Default Choice 2",
+            value: "Default Choice 2",
             isVisible: true,
             isDefault: false,
           },

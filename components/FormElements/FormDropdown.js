@@ -15,13 +15,7 @@ const FormDropdown = ({
   onElementVisible,
 }) => {
   const {
-    selectedTheme: {
-      toggleIconColor,
-      whiteColor,
-      primaryColor,
-      secondaryColor,
-      fontColor,
-    },
+    selectedTheme: { whiteColor, primaryColor, secondaryColor, fontColor },
   } = useTheme();
 
   return (
@@ -44,16 +38,6 @@ const FormDropdown = ({
               value={data?.elementTitle}
               onChange={(e) => onElementTitleChange(e, data)}
             />
-            {/* <div
-              contentEditable
-              //   onInput={handleContentEditableChange}
-              id="element"
-              //   uniqueIdentifier={uniqueIdentifier}
-              dataToggle="tooltip"
-              title="This text is editable"
-            >
-              {data?.elementTitle}
-            </div> */}
           </div>
           <FormIcons
             data={data}
@@ -63,14 +47,6 @@ const FormDropdown = ({
             onElementRequired={onElementRequired}
             onElementVisible={onElementVisible}
           />
-          {/* {!element.isTemplateElement && (
-                   <CardIcons
-                   handleClickedElement={handleIconsClick}
-                   name="Multiple Choice"
-                   uniqueIdentifier={uniqueIdentifier}
-                   editMode={editMode}
-                   />
-               )} */}
         </div>
       </div>
       <div className="af_h_title_box_text custom-card-body-padding dropdown_box_drag">

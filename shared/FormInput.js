@@ -13,7 +13,7 @@ const FormInput = ({
   options,
 }) => {
   const {
-    selectedTheme: { inputBgColor, primaryColor, fontColor },
+    selectedTheme: { inputBgColor, primaryColor, fontColor, inputTextColor },
   } = useTheme();
 
   const renderPlaceholder = () => {
@@ -49,7 +49,11 @@ const FormInput = ({
 
   const renderInputStyles = () => {
     if (formStyle === "default") {
-      return { backgroundColor: inputBgColor, borderColor: primaryColor };
+      return {
+        backgroundColor: inputBgColor,
+        color: inputTextColor,
+        borderColor: primaryColor,
+      };
     }
 
     if (formStyle === "secondary") {
@@ -120,9 +124,6 @@ const FormInput = ({
           style={renderInputStyles()}
         >
           <option value="">Select dropdown *</option>
-          {/* <option value="Option 1">Option 1</option>
-          <option value="Option 2">Option 2</option>
-          <option value="Option 3">Option 3</option> */}
           {options?.map((option) => (
             <option key={option.value} value={option.value}>
               {option.title}

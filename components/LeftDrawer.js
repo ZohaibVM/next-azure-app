@@ -14,6 +14,7 @@ const LeftDrawer = ({ isOpen, onClose }) => {
     secondaryColor,
     fontColor,
     inputBgColor,
+    inputTextColor,
     formBgColor,
     pageBgColor,
     formWidth,
@@ -110,6 +111,28 @@ const LeftDrawer = ({ isOpen, onClose }) => {
               onChange={
                 ({ target: { value } }) =>
                   setSelectedTheme({ ...selectedTheme, inputBgColor: value }) // TODO onInput to onChange
+              }
+            />
+          </div>
+        </div>
+        <div className="drawer-input">
+          <label>Input Text Color</label>
+          <div className="color-input">
+            <input
+              name="formColorHex"
+              type="text"
+              value={inputTextColor}
+              onChange={({ target: { value } }) =>
+                setSelectedTheme({ ...selectedTheme, inputTextColor: value })
+              }
+            />
+            <input
+              name="formColor"
+              type="color"
+              value={inputTextColor}
+              onChange={
+                ({ target: { value } }) =>
+                  setSelectedTheme({ ...selectedTheme, inputTextColor: value }) // TODO onInput to onChange
               }
             />
           </div>

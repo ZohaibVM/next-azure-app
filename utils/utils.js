@@ -239,7 +239,6 @@ export const singleForm = {
 };
 
 export const mapFormState = (form) => {
-  console.log({ form });
   if (Object.keys(form).length) {
     const sections = form?.sections.map((sec) => sec);
 
@@ -342,8 +341,6 @@ export const mapFormState = (form) => {
       }
     });
 
-    console.log({ fields });
-
     const formValuesObject = fields?.reduce(
       (previousValue, currentValue) => ({
         ...previousValue,
@@ -357,8 +354,6 @@ export const mapFormState = (form) => {
       required: true,
       error: false,
     };
-
-    console.log({ formValuesObject });
 
     return formValuesObject;
   } else {
