@@ -47,7 +47,7 @@ const Dropdown = ({ path, onDelete }) => {
             </Link>
           </li>
           <li className="all-forms-dropdown-list">
-            <Link href={`/EditForm/${path}`}>
+            <Link href={`/EditForm/?formId=${path}`}>
               <a className="all-forms-dropdown-link">Edit</a>
             </Link>
           </li>

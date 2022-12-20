@@ -50,9 +50,11 @@ const NewForm = () => {
   const {
     push,
     query: { formId },
+    isReady,
     pathname,
   } = useRouter();
 
+  // set focus on element input after change
   useEffect(() => {
     if (nodeRef.current) {
       const element = document.getElementById(nodeRef.current.id);
@@ -70,6 +72,8 @@ const NewForm = () => {
         setIsFetching(false);
         return;
       }
+
+      if (!isReady) return;
 
       if (formId) {
         const newForms = [];
