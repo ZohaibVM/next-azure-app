@@ -21,6 +21,13 @@ export default function AllForms() {
   return (
     <Dashboard>
       <section className="all-forms">
+        <button
+          onClick={() => {
+            push("/Test?product=1");
+          }}
+        >
+          got to test page
+        </button>
         <div className="all-forms-wrapper">
           <div className="all-forms-single" onClick={() => push("/NewForm")}>
             <i className="fa fa-2x fa-fw fa-file-o"></i>
