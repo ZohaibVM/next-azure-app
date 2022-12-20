@@ -6,6 +6,7 @@ import {
   checkboxInitialValues,
   radioInitialValues,
   mapFormState,
+  errorToast,
 } from "../../utils/utils";
 import FormInput from "../../shared/FormInput";
 import useTheme from "../../hooks/useTheme";
@@ -24,6 +25,11 @@ const Form = () => {
     : {};
 
   useEffect(() => {
+    // if singleForm not found
+    if (!singleForm) {
+      errorToast("Something went wrong");
+      return;
+    }
     // init form state after fetch
     if (Object.keys(singleForm).length) {
       setValues(mapFormState(singleForm));

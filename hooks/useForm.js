@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { formsService } from "../services/formsService";
 import axios from "axios";
+import { errorToast } from "../utils/utils";
 
 const getUserFromLocalStorage = () => {
   return JSON.parse(localStorage.getItem("user"));
@@ -8,10 +9,11 @@ const getUserFromLocalStorage = () => {
 
 const useForm = () => {
   const [formsJSON, setFormsJSON] = useState([]);
-  const [formsJSONLoading, setFormsJSONLoading] = useState(false);
+  const [formsJSONLoading, setFormsJSONLoading] = useState(true);
+  const [formJSONError, setFormJSONError] = useState(null);
 
   const getFormsJSON = async () => {
-    setFormsJSONLoading(true);
+    // setFormsJSONLoading(true);
     try {
       const { data } = await axios.post(formsService.getForms, {
         user: getUserFromLocalStorage(),
@@ -21,8 +23,11 @@ const useForm = () => {
         setFormsJSON([...data?.forms]);
       }
     } catch (error) {
-      setFormsJSONLoading(false);
       console.log(error);
+      setFormJSONError(error.message);
+      errorToast("There is a problem in fetching forms!!!");
+    } finally {
+      setFormsJSONLoading(false);
     }
   };
 
@@ -34,7 +39,7 @@ const useForm = () => {
     setFormsJSON(formsJSON.filter((form) => form.formId !== formId));
   };
 
-  return { formsJSON, formsJSONLoading, onDeleteFormJSON };
+  return { formsJSON, formsJSONLoading, formJSONError, onDeleteFormJSON };
 };
 
 export default useForm;

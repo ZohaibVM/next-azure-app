@@ -108,7 +108,7 @@ const NewForm = () => {
     };
 
     initValues();
-  }, [formId, push, pathname]);
+  }, [formId, push, pathname, isReady]);
 
   const scrollToBottom = () => {
     sectionsEndRef.current?.scrollIntoView({ behavior: "smooth" });

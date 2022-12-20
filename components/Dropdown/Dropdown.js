@@ -42,7 +42,7 @@ const Dropdown = ({ path, onDelete }) => {
       {show && (
         <ul className="all-forms-dropdown">
           <li className="all-forms-dropdown-list">
-            <Link href={`/PublishedForm/${path}`}>
+            <Link href={`/PublishedForm/?formId=${path}`}>
               <a className="all-forms-dropdown-link">View</a>
             </Link>
           </li>
@@ -52,7 +52,7 @@ const Dropdown = ({ path, onDelete }) => {
             </Link>
           </li>
           <li className="all-forms-dropdown-list">
-            <Link href={`/PublishedForm/${path}`}>
+            <Link href={`/PublishedForm/?formId=${path}`}>
               <a className="all-forms-dropdown-link">Published Link</a>
             </Link>
           </li>
