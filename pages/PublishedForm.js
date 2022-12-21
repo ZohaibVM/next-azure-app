@@ -1,4 +1,4 @@
-import InteractiveForm from "../../components/InteractiveForm";
+import InteractiveForm from "../components/InteractiveForm";
 
 const PublishedForm = () => {
   return <InteractiveForm />;

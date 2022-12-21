@@ -27,15 +27,17 @@ const Form = () => {
   useEffect(() => {
     // if singleForm not found
     if (!singleForm) {
-      errorToast("Something went wrong");
+      errorToast("404: Form Not Found");
+      push("/Notfound");
       return;
     }
+
     // init form state after fetch
     if (Object.keys(singleForm).length) {
       setValues(mapFormState(singleForm));
       return;
     }
-  }, [singleForm]);
+  }, [singleForm, push]);
 
   const [values, setValues] = useState({});
   const [checkedList, setCheckedList] = useState(checkboxInitialValues);

@@ -1,4 +1,4 @@
-import EditFormPage from "../NewForm";
+import EditFormPage from "./NewForm";
 
 const EditForm = () => {
   return <EditFormPage />;

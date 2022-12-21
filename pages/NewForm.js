@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import {
-  createElement,
   errorToast,
-  getUserFromLocalStorage,
   successToast,
+  createElement,
+  getUserFromLocalStorage,
 } from "./../utils/utils";
 import { useRouter } from "next/router";
 import { v4 as uuidv4 } from "uuid";
@@ -67,6 +67,9 @@ const NewForm = () => {
   }, [sections]);
 
   useEffect(() => {
+    if (!user) return;
+
+    // if user exist then init values
     const initValues = async () => {
       if (pathname.includes("NewForm")) {
         setIsFetching(false);
@@ -74,6 +77,12 @@ const NewForm = () => {
       }
 
       if (!isReady) return;
+
+      if (!formId) {
+        errorToast("404: Form Not Found");
+        push("/Notfound");
+        return;
+      }
 
       if (formId) {
         const newForms = [];
@@ -83,10 +92,11 @@ const NewForm = () => {
           });
           newForms = [...data?.forms];
         } catch (error) {
-          console.log(error);
-          user && errorToast("Something went wrong");
-          user ? push("/AllForms") : push("/");
+          console.log("Catch Called:", error);
+          errorToast(error.message);
+          push("/Notfound");
         }
+
         const singleForm = newForms.find((form) => form.formId === formId);
 
         if (singleForm) {
@@ -101,14 +111,14 @@ const NewForm = () => {
           });
           setIsFetching(false);
         } else {
-          user && errorToast("404: Form Not Found");
-          push("/");
+          errorToast("404: Form Not Found");
+          push("/Notfound");
         }
       }
     };
 
     initValues();
-  }, [formId, push, pathname, isReady]);
+  }, [formId, push, pathname, isReady, user]);
 
   const scrollToBottom = () => {
     sectionsEndRef.current?.scrollIntoView({ behavior: "smooth" });
