@@ -116,7 +116,7 @@ const FormInput = ({
       <div className={renderWrapperClasses()}>
         {label}
         <select
-          name="dropdown"
+          name={name}
           // value={value}
           // disabled={disabled}
           onChange={onChange}
@@ -145,7 +145,7 @@ const FormInput = ({
                 <input
                   type="checkbox"
                   className="form-choice"
-                  name="multichoice"
+                  name={name}
                   value={option}
                   disabled={disabled}
                   // checked={option.checked}
@@ -170,7 +170,7 @@ const FormInput = ({
                 <input
                   type="radio"
                   className="form-choice"
-                  name="singlechoice"
+                  name={name}
                   value={option}
                   style={{ visibility: "visible", position: "static" }}
                   disabled={disabled}

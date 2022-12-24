@@ -248,70 +248,93 @@ export const mapFormState = (form) => {
 
     const fields = elements?.map((elem) => {
       if (elem.elementType === "address") {
-        // [`${elem?.id}-addressline1`]:
         return {
-          addressline1: { value: "", required: true, error: false },
-          addressline2: { value: "", required: false, error: false },
-          city: { value: "", required: true, error: false },
-          state: { value: "", required: true, error: false },
-          country: { value: "", required: true, error: false },
-          zipcode: { value: "", required: true, error: false },
+          [`${elem?.id}-addressline1`]: {
+            value: "",
+            required: true,
+            error: false,
+          },
+          [`${elem?.id}-addressline2`]: {
+            value: "",
+            required: false,
+            error: false,
+          },
+          [`${elem?.id}-city`]: { value: "", required: true, error: false },
+          [`${elem?.id}-state`]: { value: "", required: true, error: false },
+          [`${elem?.id}-country`]: { value: "", required: true, error: false },
+          [`${elem?.id}-zipcode`]: { value: "", required: true, error: false },
         };
       }
       if (elem.elementType === "full name") {
         return {
-          prefix: { value: "", required: true, error: false },
-          firstname: { value: "", required: true, error: false },
-          middlename: { value: "", required: false, error: false },
-          lastname: { value: "", required: true, error: false },
+          [`${elem?.id}-prefix`]: { value: "", required: true, error: false },
+          [`${elem?.id}-firstname`]: {
+            value: "",
+            required: true,
+            error: false,
+          },
+          [`${elem?.id}-middlename`]: {
+            value: "",
+            required: false,
+            error: false,
+          },
+          [`${elem?.id}-lastname`]: { value: "", required: true, error: false },
         };
       }
       if (elem.elementType === "phone number") {
         return {
-          areacode: { value: "", required: true, error: false },
-          phonenumber: { value: "", required: true, error: false },
+          [`${elem?.id}-areacode`]: { value: "", required: true, error: false },
+          [`${elem?.id}-phonenumber`]: {
+            value: "",
+            required: true,
+            error: false,
+          },
         };
       }
       if (elem.elementType === "email address") {
         return {
-          email: { value: "", required: true, error: false },
+          [`${elem?.id}-email`]: { value: "", required: true, error: false },
         };
       }
       if (elem.elementType === "time") {
         return {
-          hours: { value: "", required: true, error: false },
-          minutes: { value: "", required: true, error: false },
-          period: { value: "", required: true, error: false },
+          [`${elem?.id}-hours`]: { value: "", required: true, error: false },
+          [`${elem?.id}-minutes`]: { value: "", required: true, error: false },
+          [`${elem?.id}-period`]: { value: "", required: true, error: false },
         };
       }
       if (elem.elementType === "date") {
         return {
-          date: { value: "", required: true, error: false },
+          [`${elem?.id}-date`]: { value: "", required: true, error: false },
         };
       }
       if (elem.elementType === "integer") {
         return {
-          integar: { value: "", required: true, error: false },
+          [`${elem?.id}-integar`]: { value: "", required: true, error: false },
         };
       }
       if (elem.elementType === "decimal") {
         return {
-          decimel: { value: "", required: true, error: false },
+          [`${elem?.id}-decimel`]: { value: "", required: true, error: false },
         };
       }
       if (elem.elementType === "long text") {
         return {
-          longtext: { value: "", required: true, error: false },
+          [`${elem?.id}-longtext`]: { value: "", required: true, error: false },
         };
       }
       if (elem.elementType === "short text") {
         return {
-          shorttext: { value: "", required: true, error: false },
+          [`${elem?.id}-shorttext`]: {
+            value: "",
+            required: true,
+            error: false,
+          },
         };
       }
       if (elem.elementType === "multiple choice") {
         return {
-          multichoice: {
+          [`${elem?.id}-multichoice`]: {
             value: [],
             required: true,
             error: false,
@@ -320,18 +343,25 @@ export const mapFormState = (form) => {
       }
       if (elem.elementType === "single choice") {
         return {
-          singlechoice: { value: "", required: true, error: false },
+          [`${elem?.id}-singlechoice`]: {
+            value: "",
+            required: true,
+            error: false,
+          },
         };
       }
       if (elem.elementType === "file upload") {
         return {
-          fileupload: { value: "", required: false, error: false },
+          [`${elem?.id}-fileupload`]: {
+            value: "",
+            required: false,
+            error: false,
+          },
         };
       }
       if (elem.elementType === "dropdown") {
-        console.log({ elem });
         return {
-          dropdown: {
+          [`${elem?.id}-dropdown`]: {
             value: "",
             options: [...elem?.fields?.[0]?.options],
             required: true,
@@ -349,11 +379,13 @@ export const mapFormState = (form) => {
       {}
     );
 
-    formValuesObject.emailMandatory = {
-      value: "",
-      required: true,
-      error: false,
-    };
+    if (form?.isEmailMendatory) {
+      formValuesObject.emailMandatory = {
+        value: "",
+        required: true,
+        error: false,
+      };
+    }
 
     return formValuesObject;
   } else {

@@ -1,15 +1,15 @@
 import Link from "next/link";
 import axios from "axios";
 import { useState } from "react";
-import { formsService } from "./../../services/formsService";
+import { useRouter } from "next/router";
+import { v4 as uuidv4 } from "uuid";
+import { formsService } from "../services/formsService";
 import {
   successToast,
   errorToast,
   validateEmail,
   warningToast,
-} from "./../../utils/utils";
-import { v4 as uuidv4 } from "uuid";
-import { useRouter } from "next/router";
+} from "../utils/utils";
 
 function SignUp() {
   const [username, setUsername] = useState("");

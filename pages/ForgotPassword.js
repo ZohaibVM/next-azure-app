@@ -1,14 +1,14 @@
 import Link from "next/link";
 import axios from "axios";
 import { useState } from "react";
-import { formsService } from "../../services/formsService";
+import { useRouter } from "next/router";
+import { formsService } from "../services/formsService";
 import {
   successToast,
   errorToast,
   warningToast,
   validateEmail,
-} from "./../../utils/utils";
-import { useRouter } from "next/router";
+} from "../utils/utils";
 
 const ForgotPassword = () => {
   const { push } = useRouter();

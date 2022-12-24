@@ -58,9 +58,12 @@ const Form = () => {
       }
     }
 
+    console.log(Object.values(values).filter((val) => val.required));
+
     const isValidated = Object.values(values)
       .filter((val) => val.required)
       .every((val) => val.value.length && val.error === false);
+
     validated.current = isValidated;
   }, [values]);
 
@@ -220,69 +223,48 @@ const Form = () => {
       }
     }
 
+    console.log("submit called ", validated.current);
+
     if (validated.current) {
       const formJSON = getJSON();
       console.log({ formJSON });
-      setValues(initialValues);
-      setRadioList(radioInitialValues);
-      setCheckedList(checkboxInitialValues);
+      // setValues(initialValues);
       setSuccess(true);
     }
   };
 
   const handleChange = ({ target }, index) => {
     const { name, value } = target;
-    if (name === "multichoice") {
-      const checkedListClone = [...checkedList];
-      checkedListClone[index] = {
-        ...checkedListClone[index],
-        checked: !checkedListClone[index].checked,
-      };
-
-      const checkedArray = [];
-      for (const item of checkedListClone) {
-        if (item.checked) {
-          checkedArray.push(item.label);
-        }
-      }
-      setCheckedList(checkedListClone);
+    if (name.includes("multichoice")) {
       setValues({
         ...values,
         [name]: {
           ...values[name],
-          value: checkedArray,
+          value: target.checked
+            ? [...values[name].value, value]
+            : [...values[name].value.filter((v) => v !== value)],
         },
       });
       return;
     }
-    if (name === "singlechoice") {
-      const newRadioList = radioList.map((radio, mapIndex) => {
-        if (index === mapIndex) {
-          setValues({
-            ...values,
-            [name]: { ...values[name], value: radio.value },
-          });
-          return {
-            ...radio,
-            checked: true,
-          };
-        }
-        return {
-          ...radio,
-          checked: false,
-        };
+    if (name.includes("singlechoice")) {
+      setValues({
+        ...values,
+        [name]: {
+          ...values[name],
+          value,
+        },
       });
-      setRadioList(newRadioList);
       return;
     }
-    if (name === "integar") {
+    if (name.includes("integar")) {
       setValues({
         ...values,
         [name]: { ...values[name], value: value.replace(/\D/g, "") },
       });
       return;
     }
-    if (name === "decimel") {
+    if (name.includes("decimel")) {
       if (!value || value.match(/^\d{1,}(\.\d{0,4})?$/)) {
         setValues({ ...values, [name]: { ...values[name], value } });
       }
@@ -293,27 +275,29 @@ const Form = () => {
   };
 
   const renderInputClasses = (name) => {
-    if (name === "email") {
+    if (name.includes("email")) {
       return values[name]?.error ? "form-email error" : "form-email";
     }
-    if (name === "date") {
+    if (name.includes("date")) {
       return values[name]?.error ? "form-date error" : "form-date";
     }
-    if (name === "longtext") {
+    if (name.includes("longtext")) {
       return values[name]?.error ? "form-longtext error" : "form-longtext";
     }
-    if (name === "multichoice" || name === "singlechoice") {
+    if (name.includes("multichoice") || name.includes("singlechoice")) {
       return values[name]?.error ? "form-choice error" : "form-choice";
     }
-    if (name === "dropdown") {
+    if (name.includes("dropdown")) {
       return values[name]?.error ? "form-dropdown error" : "form-dropdown";
     }
-    if (name === "fileupload") {
+    if (name.includes("fileupload")) {
       return values[name]?.error ? "form-upload error" : "form-upload";
     }
 
     return values[name]?.error ? "form-textbox error" : "form-textbox";
   };
+
+  console.log({ values });
 
   const renderJSX = ({
     id,
@@ -343,16 +327,16 @@ const Form = () => {
               <div className="row">
                 <div className="col-md-6">
                   <FormInput
-                    value={values?.addressline1?.value}
+                    value={values[`${id}-addressline1`]?.value}
+                    name={`${id}-addressline1`}
                     type="text"
-                    name="addressline1"
                     onChange={handleChange}
                     formStyle={inputStyle}
-                    className={renderInputClasses("addressline1")}
+                    className={renderInputClasses(`${id}-addressline1`)}
                     labelAlign={labelAlignment}
                     placeholder="Address line 1 *"
                   />
-                  {values?.addressline1?.error && (
+                  {values[`${id}-addressline1`]?.error && (
                     <p className="form-error-message">
                       <i className="fa fa-info-circle" aria-hidden="true"></i>
                       This Field Is Required.
@@ -361,19 +345,18 @@ const Form = () => {
                 </div>
                 <div className="col-md-6">
                   <div className="form-input-wrapper">
-                    {/* <label className="form-label">Name</label> */}
                     <FormInput
-                      value={values?.addressline2?.value}
+                      value={values[`${id}-addressline2`]?.value}
+                      name={`${id}-addressline2`}
                       type="text"
-                      name="addressline2"
                       onChange={handleChange}
                       formStyle={inputStyle}
-                      className={renderInputClasses("addressline2")}
+                      className={renderInputClasses(`${id}-addressline2`)}
                       labelAlign={labelAlignment}
                       placeholder="Address line 2"
                     />
                   </div>
-                  {values?.addressline2?.error && (
+                  {values[`${id}-addressline2`]?.error && (
                     <p className="form-error-message">
                       <i className="fa fa-info-circle" aria-hidden="true"></i>
                       This Field Is Required.
@@ -382,19 +365,18 @@ const Form = () => {
                 </div>
                 <div className="col-md-6">
                   <div className="form-input-wrapper">
-                    {/* <label className="form-label">Name</label> */}
                     <FormInput
-                      value={values?.city?.value}
+                      value={values[`${id}-city`]?.value}
+                      name={`${id}-city`}
                       type="text"
-                      name="city"
                       onChange={handleChange}
                       formStyle={inputStyle}
-                      className={renderInputClasses("city")}
+                      className={renderInputClasses(`${id}-city`)}
                       labelAlign={labelAlignment}
                       placeholder="City *"
                     />
                   </div>
-                  {values?.city?.error && (
+                  {values[`${id}-city`]?.error && (
                     <p className="form-error-message">
                       <i className="fa fa-info-circle" aria-hidden="true"></i>
                       This Field Is Required.
@@ -403,19 +385,18 @@ const Form = () => {
                 </div>
                 <div className="col-md-6">
                   <div className="form-input-wrapper">
-                    {/* <label className="form-label">Name</label> */}
                     <FormInput
-                      value={values?.state?.value}
+                      value={values[`${id}-state`]?.value}
+                      name={`${id}-state`}
                       type="text"
-                      name="state"
                       onChange={handleChange}
                       formStyle={inputStyle}
-                      className={renderInputClasses("state")}
+                      className={renderInputClasses(`${id}-state`)}
                       labelAlign={labelAlignment}
                       placeholder="State *"
                     />
                   </div>
-                  {values?.state?.error && (
+                  {values[`${id}-state`]?.error && (
                     <p className="form-error-message">
                       <i className="fa fa-info-circle" aria-hidden="true"></i>
                       This Field Is Required.
@@ -424,19 +405,18 @@ const Form = () => {
                 </div>
                 <div className="col-md-6">
                   <div className="form-input-wrapper">
-                    {/* <label className="form-label">Name</label> */}
                     <FormInput
-                      value={values?.country?.value}
+                      value={values[`${id}-country`]?.value}
+                      name={`${id}-country`}
                       type="text"
-                      name="country"
                       onChange={handleChange}
                       formStyle={inputStyle}
-                      className={renderInputClasses("country")}
+                      className={renderInputClasses(`${id}-country`)}
                       labelAlign={labelAlignment}
                       placeholder="Country *"
                     />
                   </div>
-                  {values?.country?.error && (
+                  {values[`${id}-country`]?.error && (
                     <p className="form-error-message">
                       <i className="fa fa-info-circle" aria-hidden="true"></i>
                       This Field Is Required.
@@ -445,19 +425,18 @@ const Form = () => {
                 </div>
                 <div className="col-md-6">
                   <div className="form-input-wrapper">
-                    {/* <label className="form-label">Name</label> */}
                     <FormInput
-                      value={values?.zipcode?.value}
+                      value={values[`${id}-zipcode`]?.value}
+                      name={`${id}-zipcode`}
                       type="text"
-                      name="zipcode"
                       onChange={handleChange}
                       formStyle={inputStyle}
-                      className={renderInputClasses("zipcode")}
+                      className={renderInputClasses(`${id}-zipcode`)}
                       labelAlign={labelAlignment}
                       placeholder="Zipcode *"
                     />
                   </div>
-                  {values?.zipcode?.error && (
+                  {values[`${id}-zipcode`]?.error && (
                     <p className="form-error-message">
                       <i className="fa fa-info-circle" aria-hidden="true"></i>
                       This Field Is Required.
@@ -481,19 +460,18 @@ const Form = () => {
               <div className="row">
                 <div className="col-md-6">
                   <div className="form-input-wrapper">
-                    {/* <label className="form-label">Name</label> */}
                     <FormInput
-                      value={values?.prefix?.value}
+                      value={values[`${id}-prefix`]?.value}
+                      name={`${id}-prefix`}
                       type="text"
-                      name="prefix"
                       onChange={handleChange}
                       formStyle={inputStyle}
-                      className={renderInputClasses("prefix")}
+                      className={renderInputClasses(`${id}-prefix`)}
                       labelAlign={labelAlignment}
                       placeholder="Prefix *"
                     />
                   </div>
-                  {values?.prefix?.error && (
+                  {values[`${id}-prefix`]?.error && (
                     <p className="form-error-message">
                       <i className="fa fa-info-circle" aria-hidden="true"></i>
                       This Field Is Required.
@@ -502,19 +480,18 @@ const Form = () => {
                 </div>
                 <div className="col-md-6">
                   <div className="form-input-wrapper">
-                    {/* <label className="form-label">Name</label> */}
                     <FormInput
-                      value={values?.firstname?.value}
+                      value={values[`${id}-firstname`]?.value}
+                      name={`${id}-firstname`}
                       type="text"
-                      name="firstname"
                       onChange={handleChange}
                       formStyle={inputStyle}
-                      className={renderInputClasses("firstname")}
+                      className={renderInputClasses(`${id}-firstname`)}
                       labelAlign={labelAlignment}
                       placeholder="First Name *"
                     />
                   </div>
-                  {values?.firstname?.error && (
+                  {values[`${id}-firstname`]?.error && (
                     <p className="form-error-message">
                       <i className="fa fa-info-circle" aria-hidden="true"></i>
                       This Field Is Required.
@@ -523,14 +500,13 @@ const Form = () => {
                 </div>
                 <div className="col-md-6">
                   <div className="form-input-wrapper">
-                    {/* <label className="form-label">Name</label> */}
                     <FormInput
-                      value={values?.middlename?.value}
+                      value={values[`${id}-middlename`]?.value}
+                      name={`${id}-middlename`}
                       type="text"
-                      name="middlename"
                       onChange={handleChange}
                       formStyle={inputStyle}
-                      className={renderInputClasses("middlename")}
+                      className={renderInputClasses(`${id}-middlename`)}
                       labelAlign={labelAlignment}
                       placeholder="Middle Name"
                     />
@@ -538,19 +514,18 @@ const Form = () => {
                 </div>
                 <div className="col-md-6">
                   <div className="form-input-wrapper">
-                    {/* <label className="form-label">Name</label> */}
                     <FormInput
-                      value={values?.lastname?.value}
+                      value={values[`${id}-lastname`]?.value}
+                      name={`${id}-lastname`}
                       type="text"
-                      name="lastname"
                       onChange={handleChange}
                       formStyle={inputStyle}
-                      className={renderInputClasses("lastname")}
+                      className={renderInputClasses(`${id}-lastname`)}
                       labelAlign={labelAlignment}
                       placeholder="Last Name *"
                     />
                   </div>
-                  {values?.lastname?.error && (
+                  {values[`${id}-lastname`]?.error && (
                     <p className="form-error-message">
                       <i className="fa fa-info-circle" aria-hidden="true"></i>
                       This Field Is Required.
@@ -574,19 +549,18 @@ const Form = () => {
               <div className="row">
                 <div className="col-md-6">
                   <div className="form-input-wrapper">
-                    {/* <label className="form-label">Name</label> */}
                     <FormInput
-                      value={values?.areacode?.value}
+                      value={values[`${id}-areacode`]?.value}
+                      name={`${id}-areacode`}
                       type="text"
-                      name="areacode"
                       onChange={handleChange}
                       formStyle={inputStyle}
-                      className={renderInputClasses("areacode")}
+                      className={renderInputClasses(`${id}-areacode`)}
                       labelAlign={labelAlignment}
                       placeholder="Area Code *"
                     />
                   </div>
-                  {values?.areacode?.error && (
+                  {values[`${id}-areacode`]?.error && (
                     <p className="form-error-message">
                       <i className="fa fa-info-circle" aria-hidden="true"></i>
                       This Field Is Required.
@@ -595,19 +569,18 @@ const Form = () => {
                 </div>
                 <div className="col-md-6">
                   <div className="form-input-wrapper">
-                    {/* <label className="form-label">Name</label> */}
                     <FormInput
-                      value={values?.phonenumber?.value}
+                      value={values[`${id}-phonenumber`]?.value}
+                      name={`${id}-phonenumber`}
                       type="text"
-                      name="phonenumber"
                       onChange={handleChange}
                       formStyle={inputStyle}
-                      className={renderInputClasses("phonenumber")}
+                      className={renderInputClasses(`${id}-phonenumber`)}
                       labelAlign={labelAlignment}
                       placeholder="Phone Number *"
                     />
                   </div>
-                  {values?.phonenumber?.error && (
+                  {values[`${id}-phonenumber`]?.error && (
                     <p className="form-error-message">
                       <i className="fa fa-info-circle" aria-hidden="true"></i>
                       This Field Is Required.
@@ -631,19 +604,18 @@ const Form = () => {
               <div className="row">
                 <div className="col-md-6">
                   <div className="form-input-wrapper">
-                    {/* <label className="form-label">Name</label> */}
                     <FormInput
-                      value={values?.email?.value}
+                      value={values[`${id}-email`]?.value}
+                      name={`${id}-email`}
                       type="email"
-                      name="email"
                       onChange={handleChange}
                       formStyle={inputStyle}
-                      className={renderInputClasses("email")}
+                      className={renderInputClasses(`${id}-email`)}
                       labelAlign={labelAlignment}
                       placeholder="Email *"
                     />
                   </div>
-                  {values?.email?.error && (
+                  {values[`${id}-email`]?.error && (
                     <p className="form-error-message">
                       <i className="fa fa-info-circle" aria-hidden="true"></i>
                       This Field Is Required.
@@ -667,19 +639,18 @@ const Form = () => {
               <div className="row">
                 <div className="col-md-6">
                   <div className="form-input-wrapper">
-                    {/* <label className="form-label">Name</label> */}
                     <FormInput
-                      value={values?.hours?.value}
+                      value={values[`${id}-hours`]?.value}
+                      name={`${id}-hours`}
                       type="number"
-                      name="hours"
                       onChange={handleChange}
                       formStyle={inputStyle}
-                      className={renderInputClasses("hours")}
+                      className={renderInputClasses(`${id}-hours`)}
                       labelAlign={labelAlignment}
                       placeholder="Hours *"
                     />
                   </div>
-                  {values?.hours?.error && (
+                  {values[`${id}-hours`]?.error && (
                     <p className="form-error-message">
                       <i className="fa fa-info-circle" aria-hidden="true"></i>
                       This Field Is Required.
@@ -688,19 +659,18 @@ const Form = () => {
                 </div>
                 <div className="col-md-6">
                   <div className="form-input-wrapper">
-                    {/* <label className="form-label">Name</label> */}
                     <FormInput
-                      value={values?.minutes?.value}
+                      value={values[`${id}-minutes`]?.value}
                       type="number"
-                      name="minutes"
+                      name={`${id}-minutes`}
                       onChange={handleChange}
                       formStyle={inputStyle}
-                      className={renderInputClasses("minutes")}
+                      className={renderInputClasses(`${id}-minutes`)}
                       labelAlign={labelAlignment}
                       placeholder="Minutes *"
                     />
                   </div>
-                  {values?.minutes?.error && (
+                  {values[`${id}-minutes`]?.error && (
                     <p className="form-error-message">
                       <i className="fa fa-info-circle" aria-hidden="true"></i>
                       This Field Is Required.
@@ -709,19 +679,18 @@ const Form = () => {
                 </div>
                 <div className="col-md-6">
                   <div className="form-input-wrapper">
-                    {/* <label className="form-label">Name</label> */}
                     <FormInput
-                      value={values?.period?.value}
+                      value={values[`${id}-period`]?.value}
+                      name={`${id}-period`}
                       type="number"
-                      name="period"
                       onChange={handleChange}
                       formStyle={inputStyle}
-                      className={renderInputClasses("period")}
+                      className={renderInputClasses(`${id}-period`)}
                       labelAlign={labelAlignment}
                       placeholder="Period *"
                     />
                   </div>
-                  {values?.period?.error && (
+                  {values[`${id}-period`]?.error && (
                     <p className="form-error-message">
                       <i className="fa fa-info-circle" aria-hidden="true"></i>
                       This Field Is Required.
@@ -745,19 +714,18 @@ const Form = () => {
               <div className="row">
                 <div className="col-md-6">
                   <div className="form-input-wrapper">
-                    {/* <label className="form-label">Name</label> */}
                     <FormInput
-                      value={values?.date?.value}
+                      value={values[`${id}-date`]?.value}
+                      name={`${id}-date`}
                       type="date"
-                      name="date"
                       onChange={handleChange}
                       formStyle={inputStyle}
-                      className={renderInputClasses("date")}
+                      className={renderInputClasses(`${id}-date`)}
                       labelAlign={labelAlignment}
                       placeholder="Date *"
                     />
                   </div>
-                  {values?.date?.error && (
+                  {values[`${id}-date`]?.error && (
                     <p className="form-error-message">
                       <i className="fa fa-info-circle" aria-hidden="true"></i>
                       This Field Is Required.
@@ -781,19 +749,18 @@ const Form = () => {
               <div className="row">
                 <div className="col-md-6">
                   <div className="form-input-wrapper">
-                    {/* <label className="form-label">Name</label> */}
                     <FormInput
-                      value={values?.integar?.value}
+                      value={values[`${id}-integar`]?.value}
+                      name={`${id}-integar`}
                       // type="date"
-                      name="integar"
                       onChange={handleChange}
                       formStyle={inputStyle}
-                      className={renderInputClasses("integar")}
+                      className={renderInputClasses(`${id}-integar`)}
                       labelAlign={labelAlignment}
                       placeholder="Integar *"
                     />
                   </div>
-                  {values?.integar?.error && (
+                  {values[`${id}-integar`]?.error && (
                     <p className="form-error-message">
                       <i className="fa fa-info-circle" aria-hidden="true"></i>
                       This Field Is Required.
@@ -817,19 +784,18 @@ const Form = () => {
               <div className="row">
                 <div className="col-md-6">
                   <div className="form-input-wrapper">
-                    {/* <label className="form-label">Name</label> */}
                     <FormInput
-                      value={values?.decimel?.value}
+                      value={values[`${id}-decimel`]?.value}
+                      name={`${id}-decimel`}
                       type="text"
-                      name="decimel"
                       onChange={handleChange}
                       formStyle={inputStyle}
-                      className={renderInputClasses("decimel")}
+                      className={renderInputClasses(`${id}-decimel`)}
                       labelAlign={labelAlignment}
                       placeholder="Decimel *"
                     />
                   </div>
-                  {values?.decimel?.error && (
+                  {values[`${id}-decimel`]?.error && (
                     <p className="form-error-message">
                       <i className="fa fa-info-circle" aria-hidden="true"></i>
                       This Field Is Required.
@@ -853,27 +819,18 @@ const Form = () => {
               <div className="row">
                 <div className="col-md-6">
                   <div className="form-input-wrapper">
-                    {/* <label className="form-label">Name</label> */}
                     <FormInput
-                      value={values?.longtext?.value}
+                      value={values[`${id}-longtext`]?.value}
                       type="textarea"
-                      name="longtext"
+                      name={`${id}-longtext`}
                       onChange={handleChange}
                       formStyle={inputStyle}
-                      className={renderInputClasses("longtext")}
+                      className={renderInputClasses(`${id}-longtext`)}
                       labelAlign={labelAlignment}
                       placeholder="Long Text *"
                     />
-                    {/* <textarea
-                    className={renderInputClasses("longtext")}
-                    placeholder="Long Text"
-                    rows="4"
-                    name="longtext"
-                    value={values.longtext.value}
-                    onChange={handleChange}
-                  ></textarea> */}
                   </div>
-                  {values?.longtext?.error && (
+                  {values[`${id}-longtext`]?.error && (
                     <p className="form-error-message">
                       <i className="fa fa-info-circle" aria-hidden="true"></i>
                       This Field Is Required.
@@ -897,19 +854,18 @@ const Form = () => {
               <div className="row">
                 <div className="col-md-6">
                   <div className="form-input-wrapper">
-                    {/* <label className="form-label">Name</label> */}
                     <FormInput
-                      value={values?.shorttext?.value}
+                      value={values[`${id}-shorttext`]?.value}
                       type="text"
-                      name="shorttext"
+                      name={`${id}-shorttext`}
                       onChange={handleChange}
                       formStyle={inputStyle}
-                      className={renderInputClasses("shorttext")}
+                      className={renderInputClasses(`${id}-shorttext`)}
                       labelAlign={labelAlignment}
                       placeholder="Short Text *"
                     />
                   </div>
-                  {values?.shorttext?.error && (
+                  {values[`${id}-shorttext`]?.error && (
                     <p className="form-error-message">
                       <i className="fa fa-info-circle" aria-hidden="true"></i>
                       This Field Is Required.
@@ -933,15 +889,13 @@ const Form = () => {
               <div className="row">
                 <div className="col-md-6">
                   <div className="form-input-wrapper">
-                    {/* <label className="form-label">Name</label> */}
                     <div className="form-choice-wrapper">
-                      {/* <label className="form-choice-label">Multichoice</label> */}
                       {rest?.fields?.[0]?.options?.map((option, index) => (
                         <div key={index} className="form-choice-row">
                           <input
                             type="checkbox"
-                            className={renderInputClasses("multichoice")}
-                            name="multichoice"
+                            className={renderInputClasses(`${id}-multichoice`)}
+                            name={`${id}-multichoice`}
                             value={option.value}
                             // checked={option.checked}
                             onChange={(e) => handleChange(e, index)}
@@ -951,7 +905,7 @@ const Form = () => {
                       ))}
                     </div>
                   </div>
-                  {values?.multichoice?.error && (
+                  {values[`${id}-multichoice`]?.error && (
                     <p className="form-error-message">
                       <i className="fa fa-info-circle" aria-hidden="true"></i>
                       This Field Is Required.
@@ -975,14 +929,13 @@ const Form = () => {
               <div className="row">
                 <div className="col-md-6">
                   <div className="form-input-wrapper">
-                    {/* <label className="form-label">Name</label> */}
                     <div className="form-choice-wrapper">
                       {rest?.fields?.[0]?.options?.map((radio, index) => (
                         <div className="form-choice-row" key={index}>
                           <input
-                            className={renderInputClasses("singlechoice")}
+                            className={renderInputClasses(`${id}-singlechoice`)}
                             type="radio"
-                            name="singlechoice"
+                            name={`${id}-singlechoice`}
                             // checked={radio.checked}
                             value={radio.value}
                             onChange={(e) => handleChange(e, index)}
@@ -996,7 +949,7 @@ const Form = () => {
                       ))}
                     </div>
                   </div>
-                  {values?.singlechoice?.error && (
+                  {values[`${id}-singlechoice`]?.error && (
                     <p className="form-error-message">
                       <i className="fa fa-info-circle" aria-hidden="true"></i>
                       This Field Is Required.
@@ -1020,7 +973,6 @@ const Form = () => {
               <div className="row">
                 <div className="col-md-6">
                   <div className="form-input-wrapper">
-                    {/* <label className="form-label">Name</label> */}
                     <div className="form-upload-wrapper">
                       <label
                         htmlFor="form-upload"
@@ -1055,33 +1007,19 @@ const Form = () => {
               <div className="row">
                 <div className="col-md-6">
                   <div className="form-input-wrapper">
-                    {/* <label className="form-label">Name</label> */}
                     <FormInput
                       // value={rest?.fields?.[0]?.options}
                       options={rest?.fields?.[0]?.options}
                       type="dropdown"
-                      name="dropdown"
+                      name={`${id}-dropdown`}
                       onChange={handleChange}
                       formStyle={inputStyle}
-                      className={renderInputClasses("dropdown")}
+                      className={renderInputClasses(`${id}-dropdown`)}
                       labelAlign={labelAlignment}
                       placeholder="Dropdown *"
                     />
-                    {/* <select
-                    name="dropdown"
-                    className={renderInputClasses("dropdown")}
-                    value={values.dropdown.value}
-                    onChange={handleChange}
-                  >
-                    <option value="">Select dropdown *</option>
-                    {dropdownList.map((dropdown) => (
-                      <option value={dropdown.value} key={dropdown.value}>
-                        {dropdown.label}
-                      </option>
-                    ))}
-                  </select> */}
                   </div>
-                  {values?.dropdown?.error && (
+                  {values[`${id}-dropdown`]?.error && (
                     <p className="form-error-message">
                       <i className="fa fa-info-circle" aria-hidden="true"></i>
                       This Field Is Required.

@@ -321,7 +321,7 @@
 .form-longtext.error,
 .form-dropdown.error,
 .form-upload-label.error {
-  border-color: #f23a3c;
+  border-color: #f23a3c !important;
 }
 
 .form-textbox.error:hover,
