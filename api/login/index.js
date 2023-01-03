@@ -7,8 +7,11 @@ module.exports = async function (context, req) {
 
   if (body && userData) {
     try {
-      const { container } = await databaseService.initDB();
-      const userFromDB = await databaseService.isUserExist(container, userData);
+      const { usersContainer } = await databaseService.initDB();
+      const userFromDB = await databaseService.isUserExist(
+        usersContainer,
+        userData
+      );
 
       // if username not exist in DB
       if (!userFromDB) {

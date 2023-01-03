@@ -1,6 +1,8 @@
 import { toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
 import { ELEMENTS_DATA } from "../constants/constants";
+import * as FileSaver from "file-saver";
+import XLSX from "sheetjs-style";
 
 export const initialValues = {
   addressline1: { value: "", required: true, error: false },
@@ -842,4 +844,21 @@ export const validateEmail = (email) => {
 
 export const getUserFromLocalStorage = () => {
   return JSON.parse(localStorage.getItem("user"));
+};
+
+export const getUserIdFromLocalStorage = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  return user.id;
+};
+
+export const exportToExcel = async (excelData, fileName) => {
+  const fileType =
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+  const fileExtension = ".xlsx";
+
+  const ws = XLSX.utils.json_to_sheet(excelData);
+  const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
+  const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+  const data = new Blob([excelBuffer], { type: fileType });
+  FileSaver.saveAs(data, fileName + fileExtension);
 };

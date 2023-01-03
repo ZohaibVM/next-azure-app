@@ -6,9 +6,9 @@ module.exports = async function (context, req) {
 
   if (body && userData) {
     try {
-      const { container } = await databaseService.initDB();
+      const { usersContainer } = await databaseService.initDB();
       let userFromDB = await databaseService.isUserEmailExist(
-        container,
+        usersContainer,
         userData
       ); // find user with the email
 
@@ -16,7 +16,7 @@ module.exports = async function (context, req) {
         // if user exists in DB match their OTP
         userFromDB = { ...userFromDB, password: userData.password };
         const userPassUpdateRes = await databaseService.editResource(
-          container,
+          usersContainer,
           userFromDB
         ); // replace previous otp with new generated OTP
 

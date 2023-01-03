@@ -7,17 +7,23 @@ import {
   radioInitialValues,
   mapFormState,
   errorToast,
+  successToast,
 } from "../../utils/utils";
 import FormInput from "../../shared/FormInput";
 import useTheme from "../../hooks/useTheme";
 import useForm from "./../../hooks/useForm";
 import Spinner from "./../Spinner/Spinner";
+import { formsService } from "../../services/formsService";
+import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 
 const Form = () => {
+  const [formSubmissionLoading, setFormSubmissionLoading] = useState(false);
   const {
     push,
-    query: { formId },
+    query: { formId, id },
   } = useRouter();
+
   const { formsJSON, formsJSONLoading } = useForm();
 
   const singleForm = formsJSON.length
@@ -40,8 +46,6 @@ const Form = () => {
   }, [singleForm, push]);
 
   const [values, setValues] = useState({});
-  const [checkedList, setCheckedList] = useState(checkboxInitialValues);
-  const [radioList, setRadioList] = useState(radioInitialValues);
   const [success, setSuccess] = useState(false);
   const validated = useRef(false);
 
@@ -57,8 +61,6 @@ const Form = () => {
         });
       }
     }
-
-    console.log(Object.values(values).filter((val) => val.required));
 
     const isValidated = Object.values(values)
       .filter((val) => val.required)
@@ -80,58 +82,58 @@ const Form = () => {
     },
   } = useTheme();
 
-  const getValue = (fieldTitle) => {
+  const getValue = (fieldTitle, elementId) => {
     switch (fieldTitle) {
       case "Street Address":
-        return values?.addressline1?.value;
+        return values?.[`${elementId}-addressline1`]?.value;
       case "Street Address Line 2":
-        return values?.addressline2?.value;
+        return values?.[`${elementId}-addressline2`]?.value;
       case "City":
-        return values?.city?.value;
+        return values?.[`${elementId}-city`]?.value;
       case "State/Province":
-        return values?.state?.value;
+        return values?.[`${elementId}-state`]?.value;
       case "Postal/Zipcode":
-        return values?.zipcode?.value;
+        return values?.[`${elementId}-zipcode`]?.value;
       case "Country":
-        return values?.country?.value;
+        return values?.[`${elementId}-country`]?.value;
       case "Prefix":
-        return values?.prefix?.value;
+        return values?.[`${elementId}-prefix`]?.value;
       case "First Name":
-        return values?.firstname?.value;
+        return values?.[`${elementId}-firstname`]?.value;
       case "Middle Name":
-        return values?.middlename?.value;
+        return values?.[`${elementId}-middlename`]?.value;
       case "Last Name":
-        return values?.lastname?.value;
+        return values?.[`${elementId}-lastname`]?.value;
       case "Area Code":
-        return values?.areacode?.value;
+        return values?.[`${elementId}-areacode`]?.value;
       case "Phone Number":
-        return values?.phonenumber?.value;
+        return values?.[`${elementId}-phonenumber`]?.value;
       case "Hours":
-        return values?.hours?.value;
+        return values?.[`${elementId}-hours`]?.value;
       case "Minutes":
-        return values?.minutes?.value;
+        return values?.[`${elementId}-minutes`]?.value;
       case "Period":
-        return values?.period?.value;
+        return values?.[`${elementId}-period`]?.value;
       case "Email Address":
-        return values?.email?.value;
+        return values?.[`${elementId}-email`]?.value;
       case "Date":
-        return values?.date?.value;
+        return values?.[`${elementId}-date`]?.value;
       case "Integer":
-        return values?.integar?.value;
+        return values?.[`${elementId}-integar`]?.value;
       case "Decimel":
-        return values?.decimel?.value;
+        return values?.[`${elementId}-decimel`]?.value;
       case "Long Text":
-        return values?.longtext?.value;
+        return values?.[`${elementId}-longtext`]?.value;
       case "Short Text":
-        return values?.shorttext?.value;
-      case "Multichoice":
-        return values?.multichoice?.value;
-      case "Singlechoice":
-        return values?.singlechoice?.value;
+        return values?.[`${elementId}-shorttext`]?.value;
       case "File Upload":
-        return values?.fileupload?.value;
+        return values?.[`${elementId}-fileupload`]?.value;
+      case "Multichoice":
+        return values?.[`${elementId}-multichoice`]?.value;
+      case "Singlechoice":
+        return values?.[`${elementId}-singlechoice`]?.value;
       case "Dropdown":
-        return values?.dropdown?.value;
+        return values?.[`${elementId}-dropdown`]?.value;
       case "Scale Rating":
         return "";
       case "Signature":
@@ -177,7 +179,7 @@ const Form = () => {
                         }),
                         placeholder: field.placeholder,
                         defaultValue: field.defaultValue,
-                        value: getValue(field.fieldTitle),
+                        value: getValue(field.fieldTitle, element.id),
                       };
                     }),
                   ],
@@ -205,8 +207,9 @@ const Form = () => {
     return formObj;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setFormSubmissionLoading(true);
 
     for (const key in values) {
       // show error if string || array.length is falsy
@@ -223,13 +226,44 @@ const Form = () => {
       }
     }
 
-    console.log("submit called ", validated.current);
-
     if (validated.current) {
-      const formJSON = getJSON();
-      console.log({ formJSON });
-      // setValues(initialValues);
-      setSuccess(true);
+      console.log(values);
+      // const formJSON = getJSON();
+      // console.log({ formJSON });
+
+      const formData = {};
+
+      for (const key in values) {
+        formData[key] = values[key].value;
+      }
+
+      formData.id = uuidv4();
+      formData.userId = id;
+      formData.formId = formId;
+
+      try {
+        const res = await axios.post(formsService.formSubmissions, {
+          formData,
+        });
+        if (res.status === 200) {
+          const valuesClone = { ...values };
+          for (const key in valuesClone) {
+            valuesClone = {
+              ...valuesClone,
+              [key]: { ...valuesClone[key], value: "" },
+            };
+          }
+
+          console.log({ valuesClone });
+          setValues(valuesClone);
+          successToast("Form Submitted SuccessFully");
+          // setSuccess(true);
+        }
+      } catch (error) {
+        errorToast(error.message);
+      } finally {
+        setFormSubmissionLoading(false);
+      }
     }
   };
 
@@ -296,8 +330,6 @@ const Form = () => {
 
     return values[name]?.error ? "form-textbox error" : "form-textbox";
   };
-
-  console.log({ values });
 
   const renderJSX = ({
     id,
@@ -1155,8 +1187,15 @@ const Form = () => {
                   </React.Fragment>
                 ))}
               <div className="form-footer">
-                <button type="submit" className="form-submit-btn">
-                  Submit
+                <button
+                  type="submit"
+                  className="form-submit-btn"
+                  disabled={formSubmissionLoading}
+                >
+                  Submit{" "}
+                  {formSubmissionLoading && (
+                    <i className="fa fa-spinner fa-spin"></i>
+                  )}
                 </button>
               </div>
             </form>

@@ -9,10 +9,13 @@ module.exports = async function (context, req) {
 
   if (body && userData) {
     try {
-      const { container } = await databaseService.initDB();
-      const isUsername = await databaseService.isUserExist(container, userData);
+      const { usersContainer } = await databaseService.initDB();
+      const isUsername = await databaseService.isUserExist(
+        usersContainer,
+        userData
+      );
       const isUserEmail = await databaseService.isUserEmailExist(
-        container,
+        usersContainer,
         userData
       );
 
@@ -31,7 +34,10 @@ module.exports = async function (context, req) {
       if (!isUsername && !isUserEmail) {
         const otp = utils.generateRandomNumber(); // generate random number OTP
         const newUserData = { ...userData, otp }; // add OTP in user body
-        const user = await databaseService.createUser(container, newUserData); // create user with 'otp'
+        const user = await databaseService.createUser(
+          usersContainer,
+          newUserData
+        ); // create user with 'otp'
         const emailResponse = await emailService.sendEmail(otp, userData.email); // send created OTP to user email
 
         context.res = {

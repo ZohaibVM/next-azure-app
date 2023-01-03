@@ -7,9 +7,9 @@ module.exports = async function (context, req) {
 
   if (body && userData) {
     try {
-      const { container } = await databaseService.initDB();
+      const { usersContainer } = await databaseService.initDB();
       const userFromDB = await databaseService.isUserEmailExist(
-        container,
+        usersContainer,
         userData
       ); // find user with the email
 
@@ -18,7 +18,7 @@ module.exports = async function (context, req) {
         if (+userFromDB.otp === +userData.otp) {
           const updatedUser = { ...userFromDB, isActive: true };
           const userResponse = await databaseService.editResource(
-            container,
+            usersContainer,
             updatedUser
           ); // update user status 'isActive' to true in DB
           const containerResponse = await blobService.createContainer(

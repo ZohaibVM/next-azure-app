@@ -8,8 +8,8 @@ module.exports = async function (context, req) {
 
   if (body && email) {
     try {
-      const { container } = await databaseService.initDB();
-      let userFromDB = await databaseService.isUserEmailExist(container, {
+      const { usersContainer } = await databaseService.initDB();
+      let userFromDB = await databaseService.isUserEmailExist(usersContainer, {
         email,
       }); // find user with the email
 
@@ -19,7 +19,7 @@ module.exports = async function (context, req) {
         const userEmailResponse = await emailService.sendEmail(otp, email); // send created OTP to user email
         userFromDB = { ...userFromDB, otp };
         const userOtpUpdateRes = await databaseService.editResource(
-          container,
+          usersContainer,
           userFromDB
         ); // replace previous otp with new generated OTP
 

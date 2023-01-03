@@ -8,4 +8,6 @@ export const formsService = {
   forgotPasswordEmail: "/api/forgotPasswordEmail",
   forgotPasswordOTPVerify: "/api/forgotPasswordOTPVerify",
   forgotPassword: "/api/forgotPassword",
+  formSubmissions: "/api/formSubmissions",
+  getformSubmissions: "/api/getFormSubmissions",
 };

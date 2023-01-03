@@ -6,9 +6,9 @@ module.exports = async function (context, req) {
 
   if (body && userData) {
     try {
-      const { container } = await databaseService.initDB();
+      const { usersContainer } = await databaseService.initDB();
       const userFromDB = await databaseService.isUserEmailExist(
-        container,
+        usersContainer,
         userData
       ); // find user with the email
 

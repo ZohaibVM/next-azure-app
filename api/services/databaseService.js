@@ -1,11 +1,13 @@
 const { CosmosClient } = require("@azure/cosmos");
 const users = require("./users.json");
+const submissions = require("./form-submissions.json");
 require("dotenv").config();
 
 const key = process.env.COSMOS_KEY;
 const endpoint = process.env.COSMOS_ENDPOINT;
 const databaseName = `formbuilder_db_1670571268301`;
-const containerName = `users_1670571268301`;
+const userContainerName = `users_1670571268301`;
+const submittedFormsContainerName = `submittedforms_1670571268301`;
 const partitionKeyPath = ["/id"];
 
 // Uniqueness for database and container
@@ -26,21 +28,34 @@ async function initDB() {
   console.log(`${database.id} database ready`);
 
   // Create container if it doesn't exist
-  const { container } = await database.containers.createIfNotExists({
-    id: containerName,
-    // partitionKey: {
-    //   paths: partitionKeyPath,
-    // },
-  });
-  console.log(`${container.id} container ready`);
+  const { container: usersContainer } =
+    await database.containers.createIfNotExists({
+      id: userContainerName,
+      // partitionKey: {
+      //   paths: partitionKeyPath,
+      // },
+    });
+  console.log(`${usersContainer.id} container ready`);
 
-  return { container };
+  const { container: submittedFormsContainer } =
+    await database.containers.createIfNotExists({
+      id: submittedFormsContainerName,
+    });
+  console.log(`${submittedFormsContainer.id} container ready`);
+
+  return { usersContainer, submittedFormsContainer };
 }
 
 async function createUser(container, user) {
   const { resource } = await container.items.create(user);
   console.log(`'${resource.username}' inserted`);
   return resource;
+}
+
+async function createForm(container, data) {
+  const { resource } = await container.items.create(data);
+  console.log(`'${resource.id}' inserted`);
+  return `${resource.id} inserted`;
 }
 
 async function deleteResource(container) {
@@ -154,6 +169,7 @@ module.exports = {
   initDB,
   readAll,
   createUser,
+  createForm,
   isUserExist,
   editResource,
   findResource,
