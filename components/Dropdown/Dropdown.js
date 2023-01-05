@@ -65,17 +65,35 @@ const Dropdown = ({ path, onDelete }) => {
     try {
       setExportLoading(true);
       const res = await axios.post(formsService.getformSubmissions, {
-        user: getUserFromLocalStorage(),
+        user: { ...getUserFromLocalStorage(), formId: path },
       });
       if (res.status === 200) {
-        console.log(res?.data?.formsData);
-        exportToExcel(res?.data?.formsData, "Forms");
-        // const keys = res?.data?.formsData.map((form) => {
-        //   const formKeys = Object.keys(form);
-        //   return formKeys;
-        // });
+        const newData = res?.data?.formsData?.map((form) => {
+          const {
+            id,
+            formId,
+            userId,
+            _attachments,
+            _etag,
+            _rid,
+            _self,
+            _ts,
+            ...rest
+          } = form;
+          return {
+            ...rest,
+            ...(rest.multichoice && {
+              multichoice: rest.multichoice.reduce(
+                (prev, curr) => (prev = prev + curr + ", "),
+                ""
+              ),
+            }),
+          };
+        });
 
-        // console.log(keys);
+        console.log(newData);
+
+        exportToExcel(newData, "Forms");
       }
     } catch (error) {
       errorToast(error.message);

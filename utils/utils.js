@@ -251,42 +251,42 @@ export const mapFormState = (form) => {
     const fields = elements?.map((elem) => {
       if (elem.elementType === "address") {
         return {
-          [`${elem?.id}-addressline1`]: {
+          [`${elem?.id}_addressline1`]: {
             value: "",
             required: true,
             error: false,
           },
-          [`${elem?.id}-addressline2`]: {
+          [`${elem?.id}_addressline2`]: {
             value: "",
             required: false,
             error: false,
           },
-          [`${elem?.id}-city`]: { value: "", required: true, error: false },
-          [`${elem?.id}-state`]: { value: "", required: true, error: false },
-          [`${elem?.id}-country`]: { value: "", required: true, error: false },
-          [`${elem?.id}-zipcode`]: { value: "", required: true, error: false },
+          [`${elem?.id}_city`]: { value: "", required: true, error: false },
+          [`${elem?.id}_state`]: { value: "", required: true, error: false },
+          [`${elem?.id}_country`]: { value: "", required: true, error: false },
+          [`${elem?.id}_zipcode`]: { value: "", required: true, error: false },
         };
       }
       if (elem.elementType === "full name") {
         return {
-          [`${elem?.id}-prefix`]: { value: "", required: true, error: false },
-          [`${elem?.id}-firstname`]: {
+          [`${elem?.id}_prefix`]: { value: "", required: true, error: false },
+          [`${elem?.id}_firstname`]: {
             value: "",
             required: true,
             error: false,
           },
-          [`${elem?.id}-middlename`]: {
+          [`${elem?.id}_middlename`]: {
             value: "",
             required: false,
             error: false,
           },
-          [`${elem?.id}-lastname`]: { value: "", required: true, error: false },
+          [`${elem?.id}_lastname`]: { value: "", required: true, error: false },
         };
       }
       if (elem.elementType === "phone number") {
         return {
-          [`${elem?.id}-areacode`]: { value: "", required: true, error: false },
-          [`${elem?.id}-phonenumber`]: {
+          [`${elem?.id}_areacode`]: { value: "", required: true, error: false },
+          [`${elem?.id}_phonenumber`]: {
             value: "",
             required: true,
             error: false,
@@ -295,39 +295,39 @@ export const mapFormState = (form) => {
       }
       if (elem.elementType === "email address") {
         return {
-          [`${elem?.id}-email`]: { value: "", required: true, error: false },
+          [`${elem?.id}_email`]: { value: "", required: true, error: false },
         };
       }
       if (elem.elementType === "time") {
         return {
-          [`${elem?.id}-hours`]: { value: "", required: true, error: false },
-          [`${elem?.id}-minutes`]: { value: "", required: true, error: false },
-          [`${elem?.id}-period`]: { value: "", required: true, error: false },
+          [`${elem?.id}_hours`]: { value: "", required: true, error: false },
+          [`${elem?.id}_minutes`]: { value: "", required: true, error: false },
+          [`${elem?.id}_period`]: { value: "", required: true, error: false },
         };
       }
       if (elem.elementType === "date") {
         return {
-          [`${elem?.id}-date`]: { value: "", required: true, error: false },
+          [`${elem?.id}_date`]: { value: "", required: true, error: false },
         };
       }
       if (elem.elementType === "integer") {
         return {
-          [`${elem?.id}-integar`]: { value: "", required: true, error: false },
+          [`${elem?.id}_integar`]: { value: "", required: true, error: false },
         };
       }
       if (elem.elementType === "decimal") {
         return {
-          [`${elem?.id}-decimel`]: { value: "", required: true, error: false },
+          [`${elem?.id}_decimel`]: { value: "", required: true, error: false },
         };
       }
       if (elem.elementType === "long text") {
         return {
-          [`${elem?.id}-longtext`]: { value: "", required: true, error: false },
+          [`${elem?.id}_longtext`]: { value: "", required: true, error: false },
         };
       }
       if (elem.elementType === "short text") {
         return {
-          [`${elem?.id}-shorttext`]: {
+          [`${elem?.id}_shorttext`]: {
             value: "",
             required: true,
             error: false,
@@ -336,7 +336,7 @@ export const mapFormState = (form) => {
       }
       if (elem.elementType === "multiple choice") {
         return {
-          [`${elem?.id}-multichoice`]: {
+          [`${elem?.id}_multichoice`]: {
             value: [],
             required: true,
             error: false,
@@ -345,7 +345,7 @@ export const mapFormState = (form) => {
       }
       if (elem.elementType === "single choice") {
         return {
-          [`${elem?.id}-singlechoice`]: {
+          [`${elem?.id}_singlechoice`]: {
             value: "",
             required: true,
             error: false,
@@ -354,7 +354,7 @@ export const mapFormState = (form) => {
       }
       if (elem.elementType === "file upload") {
         return {
-          [`${elem?.id}-fileupload`]: {
+          [`${elem?.id}_fileupload`]: {
             value: "",
             required: false,
             error: false,
@@ -363,7 +363,7 @@ export const mapFormState = (form) => {
       }
       if (elem.elementType === "dropdown") {
         return {
-          [`${elem?.id}-dropdown`]: {
+          [`${elem?.id}_dropdown`]: {
             value: "",
             options: [...elem?.fields?.[0]?.options],
             required: true,
@@ -382,7 +382,7 @@ export const mapFormState = (form) => {
     );
 
     if (form?.isEmailMendatory) {
-      formValuesObject.emailMandatory = {
+      formValuesObject.is_mandatoryemail = {
         value: "",
         required: true,
         error: false,

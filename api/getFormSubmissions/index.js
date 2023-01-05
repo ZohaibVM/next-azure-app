@@ -8,7 +8,10 @@ module.exports = async function (context, req, _) {
   try {
     if (body && user) {
       const { submittedFormsContainer } = await databaseService.initDB();
-      const formsData = await databaseService.readAll(submittedFormsContainer); // get all form records;
+      const formsData = await databaseService.findFormSubmissionsWithIds(
+        submittedFormsContainer,
+        user
+      ); // get forms of loggedin user with particular formId;
 
       context.res = {
         status: 200,

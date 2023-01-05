@@ -92,6 +92,60 @@ async function readAll(container) {
   return resources;
 }
 
+async function findFormSubmissionsWithIds(container, data) {
+  // Query by SQL - more expensive `find`
+  // find all items with same categoryName (partitionKey)
+  const querySpec = {
+    query: "select * from items i where i.userId=@userId and i.formId=@formId",
+    parameters: [
+      {
+        name: "@userId",
+        value: data.id,
+      },
+      {
+        name: "@formId",
+        value: data.formId,
+      },
+    ],
+  };
+
+  // Get items
+  const { resources } = await container.items.query(querySpec).fetchAll();
+  return resources;
+  // for (const item of resources) {
+  //   console.log(
+  //     `${item.id}: ${item.username}, ${item.email}, ${item.password}`
+  //   );
+  // }
+}
+
+async function deleteFormSubmissions(container, data) {
+  const submissions = await findFormSubmissionsWithIds(container, data); // find respective forms
+  const responses = [];
+  for (const form of submissions) {
+    const { statusCode } = await container.item(form.id, undefined).delete(); // delete them one by one
+    if (statusCode == 204) {
+      console.log(`Form deleted`);
+      responses.push("Form deleted");
+    } else {
+      console.log(`Form not deleted`);
+      responses.push("Form not deleted");
+    }
+  }
+
+  if (responses.length) {
+    const res = responses.every((res) => res === "Form deleted");
+
+    if (res) {
+      return "All Form Submissions Deleted";
+    }
+
+    return "All Form Submissions Not Deleted";
+  }
+
+  return "No submission found";
+}
+
 async function findAllResources(container, user) {
   // Query by SQL - more expensive `find`
   // find all items with same categoryName (partitionKey)
@@ -174,7 +228,9 @@ module.exports = {
   editResource,
   findResource,
   findAllResources,
+  findFormSubmissionsWithIds,
   deleteResource,
+  deleteFormSubmissions,
   isUserEmailExist,
 };
 
