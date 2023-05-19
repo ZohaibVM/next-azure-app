@@ -96,7 +96,7 @@ async function findFormSubmissionsWithIds(container, data) {
   // Query by SQL - more expensive `find`
   // find all items with same categoryName (partitionKey)
   const querySpec = {
-    query: "select * from items i where i.userId=@userId and i.formId=@formId",
+    query: "select * from items i where i.formId=@formId",
     parameters: [
       {
         name: "@userId",
